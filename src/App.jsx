@@ -1,9 +1,10 @@
 import React from 'react'
+import LoginPage from './pages/LoginPage'
 
 const App = () => {
   return (
     <div>
-      <h1 className='mt-20'>Hello</h1>
+      <LoginPage/>
     </div>
   )
 }
