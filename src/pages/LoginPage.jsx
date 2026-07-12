@@ -1,5 +1,6 @@
 import {  useState } from "react"
 import { useAuth } from "../context/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -9,8 +10,8 @@ function LoginPage  () {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [loginErrorMessage, setLoginErrorMessage] = useState("")
-  const {login} = useAuth
-
+  const {login} = useAuth()
+  const navigate = useNavigate()  //programmatic navigation. It is used when your JavaScript needs to move the user to another page after something happens.  JavaScript changes the page after an action
 
   function handleLoginSubmit(event){
     event.preventDefault()
@@ -31,7 +32,18 @@ function LoginPage  () {
       return
     }
     
+    const loginIsSuccessful = login(  /*called the login function here and passing the three values */
+      enteredDisplayName,
+      username,
+      password
+    )
 
+    if(!loginIsSuccessful){
+      setLoginErrorMessage("Invalid username or password.")
+      return
+    }
+    
+    navigate("/dashboard")
   }
 
   return (
@@ -65,7 +77,9 @@ function LoginPage  () {
           </p>
         </div>
 
-        <form className="mt-6 space-y-4">
+        <form 
+          onSubmit={handleLoginSubmit}
+          className="mt-6 space-y-4">
           <div>
             <label
               htmlFor="displayName"
@@ -126,7 +140,6 @@ function LoginPage  () {
 
           <button
             type="submit"
-            onClick={handleLoginSubmit}
             className="w-full rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition hover:bg-blue-700"
           >
             Login
