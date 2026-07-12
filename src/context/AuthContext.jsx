@@ -3,9 +3,8 @@ import React, { createContext, useContext, useState } from 'react'
 const AuthContext = createContext()
 
 const demoUsername = "user"                                                           //AuthProvider  is a function that owns and shares the data.
-                                                                                      //AuthContext carries the data.
+const demoPassword = "1234"                                                           //AuthContext carries the data.
                                                                                       //useAuth is used to reads the data from other components.
-const demoPassword = "1234"
 
 function AuthProvider  ({children})  {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -13,12 +12,24 @@ function AuthProvider  ({children})  {
 
   function login(enteredDisplayName, username, password){
     
-
     if( 
         username.trim() === demoUsername &&
-        password.trim()===demoPassword){
+        password.trim()===demoPassword
+      
+        ){
+          const cleanedDisplayName = enteredDisplayName.trim()
+
+        //updating the react state here thst will dispaly on refresh
         setIsAuthenticated(true)
         setDisplayName(enteredDisplayName.trim())
+
+        //preparing the authentication data to save on the local storage. 
+        const authData={
+          isAuthenticated: true,
+          displayName: cleanedDisplayName,
+        }
+
+        localStorage.setItem("coinlume_auth", JSON.stringify(authData))
 
       return true
     }
