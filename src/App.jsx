@@ -1,11 +1,17 @@
 import React from 'react'
 import LoginPage from './pages/LoginPage'
+import AuthProvider from './context/AuthContext'
+
 
 const App = () => {
   return (
-    <div>
-      <LoginPage/>
-    </div>
+    
+    <AuthProvider>
+      <div>
+        <LoginPage/>
+      </div>
+    </AuthProvider>
+    
   )
 }
 

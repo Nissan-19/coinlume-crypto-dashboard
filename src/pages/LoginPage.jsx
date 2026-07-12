@@ -1,23 +1,28 @@
-import { useState } from "react"
+import {  useState } from "react"
+import { useAuth } from "../context/AuthContext"
+
+
 
 function LoginPage  () {
 
-  const [displayName, setDisplayName] = useState("")
+  const [enteredDisplayName, setEnteredDisplayName] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [LoginErrorMessage, setLoginErrorMessage] = useState("")
+  const [loginErrorMessage, setLoginErrorMessage] = useState("")
+  const {login} = useAuth
+
 
   function handleLoginSubmit(event){
     event.preventDefault()
 
     setLoginErrorMessage("")
 
-    if(displayName.trim() === "" && username.trim() ==="" && password.trim() === "" ){
+    if(enteredDisplayName.trim() === "" && username.trim() ==="" && password.trim() === "" ){
       setLoginErrorMessage("Details must be entered to proceed")
       return
     }
 
-    if(displayName.trim() === "" ){
+    if(enteredDisplayName.trim() === "" ){
       setLoginErrorMessage("Please enter your display name")
       return
     }
@@ -73,8 +78,8 @@ function LoginPage  () {
               id="displayName"
               type="text"
               placeholder="Enter your display name"
-              value={displayName}
-              onChange={(event)=>setDisplayName(event.target.value)}
+              value={enteredDisplayName}
+              onChange={(event)=>setEnteredDisplayName(event.target.value)}
               className="w-full rounded-lg border border-slate-300 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             />
           </div>
@@ -116,11 +121,11 @@ function LoginPage  () {
           </div>
 
           <p className="min-h-5 text-sm text-red-600">
-            {LoginErrorMessage}
+            {loginErrorMessage}
           </p>
 
           <button
-            type="button"
+            type="submit"
             onClick={handleLoginSubmit}
             className="w-full rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition hover:bg-blue-700"
           >
