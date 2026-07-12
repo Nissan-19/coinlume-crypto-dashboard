@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
 const AuthContext = createContext()
 
@@ -9,6 +9,21 @@ const demoPassword = "1234"                                                     
 function AuthProvider  ({children})  {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [displayName, setDisplayName]  = useState("")
+    const [authIsLoading, setAuthIsLoading] = useState(true)
+
+    useEffect(()=>{
+      const savedAuthData=localStorage.getItem("coinlume_auth")
+      
+      if(!savedAuthData){
+        setAuthIsLoading(false)
+        return
+      }
+
+      const parsedAuthdata= JSON.parse(savedAuthData)
+      setIsAuthenticated(parsedAuthdata.isAuthenticated)
+      setDisplayName(parsedAuthdata.displayName)
+      setAuthIsLoading(false)
+    },[])
 
   function login(enteredDisplayName, username, password){
     
@@ -19,11 +34,11 @@ function AuthProvider  ({children})  {
         ){
           const cleanedDisplayName = enteredDisplayName.trim()
 
-        //updating the react state here thst will dispaly on refresh
+        //updating the react state here but the state alone will disapper on refresh
         setIsAuthenticated(true)
         setDisplayName(enteredDisplayName.trim())
 
-        //preparing the authentication data to save on the local storage. 
+        //so we creaate this small object that will save in localStorage 
         const authData={
           isAuthenticated: true,
           displayName: cleanedDisplayName,
@@ -39,7 +54,7 @@ function AuthProvider  ({children})  {
     /*data that are avaliable to the children or wrapped components*/
     return (
       <AuthContext.Provider
-          value={{isAuthenticated, displayName, login}}>   
+          value={{isAuthenticated, displayName, authIsLoading, login}}>   
               {children}
       </AuthContext.Provider>
   )
