@@ -8,6 +8,7 @@ import CoinsPage from './pages/CoinsPage'
 import WatchlistPage from './pages/WatchlistPage'
 import NewsPage from './pages/NewsPage'
 import CoinDetailsPage from './pages/CoinDetailsPage'
+import AppLayout from './layout/AppLayout'
 
 
 
@@ -17,13 +18,16 @@ const App = () => {
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
-       <Route path='/login' element={<LoginPage/>} />
-       <Route path='/dashboard' element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
-       <Route path='/coins' element={<ProtectedRoute><CoinsPage/></ProtectedRoute>}/>
-       <Route path='/watchlist' element={<ProtectedRoute><WatchlistPage/></ProtectedRoute>}/>
-       <Route path='/news' element={<ProtectedRoute><NewsPage/></ProtectedRoute>}/>
-       <Route path='/coin/:id' element={<ProtectedRoute><CoinDetailsPage/></ProtectedRoute>}/> 
-
+        <Route path='/login' element={<LoginPage/>} />
+        <Route
+            element={<ProtectedRoute><AppLayout/></ProtectedRoute>}>
+            
+            <Route path='/dashboard' element={<DashboardPage/>}/>
+            <Route path='/coins' element={<CoinsPage/>}/>
+            <Route path='/watchlist' element={<WatchlistPage/>}/>
+            <Route path='/news' element={<NewsPage/>}/>
+            <Route path='/coins/:id' element={<CoinDetailsPage/>}/>        
+        </Route>
       </Routes>
     </AuthProvider>
     
