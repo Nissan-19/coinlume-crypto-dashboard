@@ -5,7 +5,6 @@ const AuthContext = createContext()
 const demoUsername = "user"                                                           //AuthProvider  is a function that owns and shares the data.
 const demoPassword = "1234"                                                           //AuthContext carries the data.
                                                                                       //useAuth is used to reads the data from other components.
-
 function AuthProvider  ({children})  {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [displayName, setDisplayName]  = useState("")
