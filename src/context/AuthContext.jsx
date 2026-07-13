@@ -50,10 +50,17 @@ function AuthProvider  ({children})  {
     return false
   }
 
+    function logout(){
+      setIsAuthenticated(false)
+      setDisplayName("")
+      localStorage.removeItem("coinlume_auth")
+      
+    }
+
     /*data that are avaliable to the children or wrapped components*/
     return (
       <AuthContext.Provider
-          value={{isAuthenticated, displayName, authIsLoading, login}}>   
+          value={{isAuthenticated, displayName, authIsLoading, login, logout}}>   
               {children}
       </AuthContext.Provider>
   )
