@@ -9,6 +9,7 @@ import WatchlistPage from './pages/WatchlistPage'
 import NewsPage from './pages/NewsPage'
 import CoinDetailsPage from './pages/CoinDetailsPage'
 import AppLayout from './layout/AppLayout'
+import ThemeProvider from './context/ThemeContext'
 
 
 
@@ -16,6 +17,7 @@ const App = () => {
   return (
     
     <AuthProvider>
+      <ThemeProvider>
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path='/login' element={<LoginPage/>} />
@@ -29,6 +31,7 @@ const App = () => {
             <Route path='/coins/:id' element={<CoinDetailsPage/>}/>        
         </Route>
       </Routes>
+      </ThemeProvider>
     </AuthProvider>
     
   )
