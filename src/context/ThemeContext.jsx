@@ -1,23 +1,44 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Provider } from 'react-redux'
+
 
 const ThemeContext = createContext()
 
 function ThemeProvider({children}){
-    const[theme, setTheme] = useState("light")
+
+    const[theme, setTheme] = useState(()=>{
+        try{
+
+            const storedTheme = localStorage.getItem("theme")
+
+            if(!storedTheme){
+                return "light" 
+            }
+
+            return storedTheme
+            //Inside the starting function, return the value. Do not call the setter as the react is currently creating the state.
+        }
+        
+         catch(error){
+            console.log("Could not load saved theme.", error)
+            localStorage.removeItem("theme")
+            return "light"
+        }
+    })
 
     useEffect(() => {
-        const rootElement = document.documentElement
+        const rootElement = document.documentElement  //documentElement means the page’s main element ie html
 
         if (theme === "dark") {
-            rootElement.classList.add("dark")
+            rootElement.classList.add("dark") //reate/add a CSS class named dark to the <html> element’s class list.
         } else {
             rootElement.classList.remove("dark")
         }
 
         localStorage.setItem("theme", theme)
         }, [theme])
-    function toggleTheme(){
+
+
+function toggleTheme(){
         if(theme === "light"){
             setTheme("dark")
             return
@@ -25,10 +46,14 @@ function ThemeProvider({children}){
 
         setTheme("light")
     }
-    
+
+function resetTheme() {
+        setTheme("light")
+    }
+
   return (
     <ThemeContext.Provider
-        value={{theme, toggleTheme}}>
+        value={{theme, toggleTheme, resetTheme}}>
             {children}
     </ThemeContext.Provider>
   )

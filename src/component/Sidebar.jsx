@@ -1,9 +1,27 @@
 import React from 'react'
+import ThemeToggle from './ThemeToggle'
+import { useTheme } from '../context/ThemeContext'
+import { useAuth } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
-const Sidebar = () => {
+function Sidebar  () {
+  const {resetTheme} = useTheme()
+  const {logout} = useAuth()
+  const navigate = useNavigate()
+
+  function handleLogout(){
+    logout()
+    resetTheme()
+    navigate("/login")
+    
+  }
   return (
-    <div>
+    <div >
       <h1>Coinlume sidebar</h1>
+      <ThemeToggle/>
+      <button onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   )
 }
