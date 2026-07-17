@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../component/Sidebar'
+import Header from '../component/Header'
 
 function AppLayout  ()  {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -15,9 +16,13 @@ function AppLayout  ()  {
           toggleSidebarOpen={toggleSidebarOpen}
         />
 
-        <main className="flex-1 p-6 transition-all duration-300">
-          <Outlet />
-        </main>
+          <div className='flex min-w-0 flex-1 flex-col'>
+            <Header/>
+        
+            <main className="flex-1 p-6 transition-all duration-300">
+             <Outlet />
+            </main>
+          </div>
         </div>
   )
 }

@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom"
+
 function SidebarItem({ to, icon, label, isSidebarOpen }) {
   return (
     <li>
@@ -26,3 +28,5 @@ function SidebarItem({ to, icon, label, isSidebarOpen }) {
     </li>
   )
 }
+
+export default SidebarItem

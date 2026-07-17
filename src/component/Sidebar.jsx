@@ -2,8 +2,8 @@ import React from 'react'
 import ThemeToggle from './ThemeToggle'
 import { useTheme } from '../context/ThemeContext'
 import { useAuth } from '../context/AuthContext'
-import { NavLink, useNavigate } from 'react-router-dom'
-import {SidebarItem} from './SidebarItem'
+import { useNavigate } from 'react-router-dom'
+import SidebarItem from './SidebarItem'
 import { LucideBitcoin, LucideChevronFirst, LucideChevronLast, LucideEye, LucideLayoutDashboard, LucideLogOut, LucideNewspaper} from 'lucide-react'
 
 
@@ -48,7 +48,7 @@ function Sidebar  ({isSidebarOpen, toggleSidebarOpen}) {
 
 
         <ul className='flex-1 space-y-2 px-3 py-4' >
-            <li>
+          
               
               <SidebarItem
                 to="/dashboard"
@@ -56,34 +56,34 @@ function Sidebar  ({isSidebarOpen, toggleSidebarOpen}) {
                 label="Dashboard"
                 isSidebarOpen={isSidebarOpen}
               />
-            </li>
+            
 
-            <li>
+          
               <SidebarItem
                 to="/coins"
                 icon={<LucideBitcoin size={20} />}
                 label="Coins"
                 isSidebarOpen={isSidebarOpen}
               />
-            </li>
+            
 
-            <li>
+          
                 <SidebarItem
                   to="/watchlist"
                   icon={<LucideEye size={20} />}
                   label="Watchlist"
                   isSidebarOpen={isSidebarOpen}
                 />
-            </li>
+            
 
-            <li>
+          
                 <SidebarItem
                   to="/news"
                   icon={<LucideNewspaper size={20} />}
                   label="News"
                   isSidebarOpen={isSidebarOpen}
                 />
-            </li>         
+                  
         </ul>
           
 
