@@ -10,7 +10,7 @@
 </defs>
 
 <rect width="2400" height="1700" fill="#f8f9fa"/>
-<text x="60" y="32" font-family="Arial, Helvetica, sans-serif" font-size="30" text-anchor="start" fill="#212529" font-weight="bold"><tspan x="60" dy="0">CoinLume — Current Architecture Map (Top Cryptocurrencies complete)</tspan></text>
+<text x="60" y="32" font-family="Arial, Helvetica, sans-serif" font-size="30" text-anchor="start" fill="#212529" font-weight="bold"><tspan x="60" dy="0">CoinLume — Current Architecture Map (Top 5 Market Cap Share complete)</tspan></text>
 <rect x="40" y="45" width="2320" height="430" rx="18" fill="#ffffff" stroke="#ced4da" stroke-width="2"/>
 <text x="68" y="81" font-family="Arial, Helvetica, sans-serif" font-size="26" text-anchor="start" fill="#212529" font-weight="bold"><tspan x="68" dy="0">1. App start, providers, and routing</tspan></text>
 <text x="68" y="117" font-family="Arial, Helvetica, sans-serif" font-size="17" text-anchor="start" fill="#495057" font-weight="normal"><tspan x="68" dy="0">How the application starts and how URLs choose pages</tspan></text>
@@ -19,7 +19,7 @@
 <text x="68" y="582" font-family="Arial, Helvetica, sans-serif" font-size="17" text-anchor="start" fill="#495057" font-weight="normal"><tspan x="68" dy="0">What AppLayout renders and how dashboard navigation works</tspan></text>
 <rect x="40" y="1140" width="2320" height="500" rx="18" fill="#ffffff" stroke="#ced4da" stroke-width="2"/>
 <text x="68" y="1176" font-family="Arial, Helvetica, sans-serif" font-size="26" text-anchor="start" fill="#212529" font-weight="bold"><tspan x="68" dy="0">3. Shared state, API flow, and browser storage</tspan></text>
-<text x="68" y="1212" font-family="Arial, Helvetica, sans-serif" font-size="17" text-anchor="start" fill="#495057" font-weight="normal"><tspan x="68" dy="0">Where shared data lives, who reads it, and how coin data moves</tspan></text>
+<text x="68" y="1212" font-family="Arial, Helvetica, sans-serif" font-size="17" text-anchor="start" fill="#495057" font-weight="normal"><tspan x="68" dy="0">Where shared data lives, how dashboard data flows, and what is prepared next</tspan></text>
 <line x1="280.0" y1="174.2" x2="365.0" y2="165.4" stroke="#495057" stroke-width="2" marker-end="url(#arrow)"/>
 <rect x="282.5" y="153.8" width="80" height="30" rx="8" fill="#ffffff"/>
 <text x="322.5" y="174.77586206896552" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" fill="#495057" font-weight="normal"><tspan x="322.5" dy="0">wraps</tspan></text>
@@ -187,7 +187,7 @@
 <text x="1050.0" y="1015" font-family="Arial, Helvetica, sans-serif" font-size="15" text-anchor="middle" fill="#495057" font-weight="normal"><tspan x="1050.0" dy="0">NewsPage</tspan></text>
 <rect x="120" y="1290" width="260" height="110" rx="16" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="2" filter="url(#shadow)"/>
 <text x="250.0" y="1320" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="middle" fill="#212529" font-weight="bold"><tspan x="250.0" dy="0">Redux store</tspan></text>
-<text x="250.0" y="1350" font-family="Arial, Helvetica, sans-serif" font-size="15" text-anchor="middle" fill="#495057" font-weight="normal"><tspan x="250.0" dy="0">currency + coins reducers</tspan></text>
+<text x="250.0" y="1350" font-family="Arial, Helvetica, sans-serif" font-size="15" text-anchor="middle" fill="#495057" font-weight="normal"><tspan x="250.0" dy="0">currency + coins + marketData reducers</tspan></text>
 <rect x="520" y="1180" width="280" height="110" rx="16" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="2" filter="url(#shadow)"/>
 <text x="660.0" y="1210" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="middle" fill="#212529" font-weight="bold"><tspan x="660.0" dy="0">currencySlice</tspan></text>
 <text x="660.0" y="1240" font-family="Arial, Helvetica, sans-serif" font-size="15" text-anchor="middle" fill="#495057" font-weight="normal"><tspan x="660.0" dy="0">selectedCurrency</tspan></text>
@@ -217,6 +217,59 @@
 <rect x="1905" y="1435" width="360" height="105" rx="16" fill="#e9ecef" stroke="#495057" stroke-width="2" filter="url(#shadow)"/>
 <text x="2085.0" y="1465" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="middle" fill="#212529" font-weight="bold"><tspan x="2085.0" dy="0">&lt;html class='dark'&gt;</tspan></text>
 <text x="2085.0" y="1495" font-family="Arial, Helvetica, sans-serif" font-size="15" text-anchor="middle" fill="#495057" font-weight="normal"><tspan x="2085.0" dy="0">Tailwind dark mode</tspan></text>
+
+<!-- Top 5 Market Cap Share component -->
+<polyline points="1200,715 1290,715 1290,1005 1390,1005" fill="none" stroke="#495057" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1210" y="694" width="110" height="30" rx="8" fill="#ffffff"/>
+<text x="1265" y="715" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" fill="#495057">coins prop</text>
+<rect x="1390" y="930" width="360" height="150" rx="16" fill="#e5dbff" stroke="#7048e8" stroke-width="2" filter="url(#shadow)"/>
+<text x="1570" y="968" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="middle" fill="#212529" font-weight="bold">Top 5 Market Cap Share</text>
+<text x="1570" y="1004" font-family="Arial, Helvetica, sans-serif" font-size="15" text-anchor="middle" fill="#495057">
+  <tspan x="1570" dy="0">coins prop from DashboardPage</tspan>
+  <tspan x="1570" dy="22">combined top-five share</tspan>
+  <tspan x="1570" dy="22">plain React + Tailwind</tspan>
+</text>
+
+<!-- marketData state flow kept for upcoming summary cards -->
+<line x1="368" y1="1325" x2="900" y2="1325" stroke="#495057" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="545" y="1305" width="160" height="30" rx="8" fill="#ffffff"/>
+<text x="625" y="1326" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" fill="#495057">registers reducer</text>
+
+<rect x="900" y="1250" width="260" height="110" rx="16" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="2" filter="url(#shadow)"/>
+<text x="1030" y="1280" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="middle" fill="#212529" font-weight="bold">marketDataSlice</text>
+<text x="1030" y="1310" font-family="Arial, Helvetica, sans-serif" font-size="15" text-anchor="middle" fill="#495057">
+  <tspan x="1030" dy="0">marketData / status / error</tspan>
+  <tspan x="1030" dy="22">prepared for 4 summary cards</tspan>
+</text>
+
+<line x1="1160" y1="1305" x2="1200" y2="1305" stroke="#495057" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1162" y="1285" width="36" height="30" rx="8" fill="#ffffff"/>
+<text x="1180" y="1306" font-family="Arial, Helvetica, sans-serif" font-size="12" text-anchor="middle" fill="#495057">uses</text>
+<rect x="1200" y="1250" width="260" height="110" rx="16" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="2" filter="url(#shadow)"/>
+<text x="1330" y="1280" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="middle" fill="#212529" font-weight="bold">fetchMarketData thunk</text>
+<text x="1330" y="1310" font-family="Arial, Helvetica, sans-serif" font-size="15" text-anchor="middle" fill="#495057">
+  <tspan x="1330" dy="0">createAsyncThunk</tspan>
+  <tspan x="1330" dy="22">returns result[0]</tspan>
+</text>
+
+<line x1="1460" y1="1305" x2="1500" y2="1305" stroke="#495057" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1462" y="1285" width="36" height="30" rx="8" fill="#ffffff"/>
+<text x="1480" y="1306" font-family="Arial, Helvetica, sans-serif" font-size="12" text-anchor="middle" fill="#495057">fetch</text>
+<rect x="1500" y="1250" width="260" height="110" rx="16" fill="#ffe3e3" stroke="#c92a2a" stroke-width="2" filter="url(#shadow)"/>
+<text x="1630" y="1280" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="middle" fill="#212529" font-weight="bold">CoinLore Global API</text>
+<text x="1630" y="1310" font-family="Arial, Helvetica, sans-serif" font-size="15" text-anchor="middle" fill="#495057">
+  <tspan x="1630" dy="0">/api/global/</tspan>
+  <tspan x="1630" dy="22">current global statistics</tspan>
+</text>
+
+<line x1="1760" y1="1305" x2="1785" y2="1305" stroke="#495057" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1785" y="1250" width="300" height="110" rx="16" fill="#e5dbff" stroke="#7048e8" stroke-width="2" filter="url(#shadow)"/>
+<text x="1935" y="1280" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="middle" fill="#212529" font-weight="bold">Summary Cards (next)</text>
+<text x="1935" y="1310" font-family="Arial, Helvetica, sans-serif" font-size="15" text-anchor="middle" fill="#495057">
+  <tspan x="1935" dy="0">market cap / volume</tspan>
+  <tspan x="1935" dy="22">BTC dominance / coin count</tspan>
+</text>
+
 <rect x="85" y="1600" width="24" height="18" rx="5" fill="#d0ebff" stroke="#1864ab" stroke-width="2"/>
 <text x="119" y="1616" font-family="Arial, Helvetica, sans-serif" font-size="16" text-anchor="start" fill="#343a40" font-weight="normal"><tspan x="119" dy="0">Pages</tspan></text>
 <rect x="250" y="1600" width="24" height="18" rx="5" fill="#e5dbff" stroke="#7048e8" stroke-width="2"/>
