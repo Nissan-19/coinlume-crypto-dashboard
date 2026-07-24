@@ -12,7 +12,7 @@ export const fetchCoins = createAsyncThunk(
     // name of feature/name of operation (we keep the name same for better understanding)
 
     async ()=>{
-        const response = await fetch ("https://api.coinlore.net/api/tickers/?start=0&limit=10")
+        const response = await fetch ("https://api.coinlore.net/api/tickers/?start=0&limit=50")
 
         if(!response.ok){
             throw new Error("Failed to load coins.")
