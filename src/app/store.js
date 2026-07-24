@@ -8,12 +8,13 @@ export const store = configureStore({
   reducer: {
     currency: currencyReducer,
     coins: coinsReducer,
-    marketData: marketDataReducer,
     /*  state = {         when the reducer is registered redux create this structure
            coins: {
            coins: [],
            status: "idle",
            error: null
        */
+    marketData: marketDataReducer,
+    
   },
 })

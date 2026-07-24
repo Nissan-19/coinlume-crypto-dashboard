@@ -86,7 +86,6 @@ function TopCryptocurrencies({ apiStatus, topCoins, onRetry }) {
                 return (
                   <tr
                     key={apiCoin.id}
-                    role="link"
                     onClick={() => navigate(`/coins/${apiCoin.id}`)}
                     className="cursor-pointer border-t border-slate-200 text-sm text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800/50"
                   >

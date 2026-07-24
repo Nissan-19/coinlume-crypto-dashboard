@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 const initialState = {
     coins : [],
     status : "idle",
-    error : "null",
+    error : null,
 }
 
 export const fetchCoins = createAsyncThunk(
@@ -34,12 +34,13 @@ const coinsSlice = createSlice({
         builder
             .addCase(fetchCoins.pending,(state)=>{
                 state.status = "loading"
-                state.error = "none"
+                state.error = null
             })
 
             .addCase(fetchCoins.fulfilled,(state, action)=>{
                 state.status = "succeeded"
                 state.coins = action.payload
+                state.error = null
             })
 
             .addCase(fetchCoins.rejected,(state, action) =>{

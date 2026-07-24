@@ -15,21 +15,30 @@ function formatMarketCap(value) {
   }).format(value)
 }
 
-function topMarketCapShare({ coins = [] }) {
-  const topCoins = coins.slice(0, 5)
+function TopMarketCapShare({topCoins, apiStatus}) {
+  //we are saying use the received coins array. if no coin prop was provided, use an empty array
+  // other wise the slice will not work and crash
 
   const totalTopFiveMarketCap = topCoins.reduce((total, coin) => {
-    return total + Number(coin.market_cap_usd || 0)
+    return total + Number(coin.market_cap_usd || 0)//It protects against a missing or empty value i.e. it did not return anything or empty use 0
+   //without ||0 if the api returns anything else than a no, our Number becomes undefined NaN. this is a defence mechanism
   }, 0)
+   //reduce turns several value in to a final value which is the combined market cap
+  // total is the amount calculated so far and coin is current coin being processed
+  //0 is the starting value
+  //coinlore often give market-cap values as string so we need to convert into number for prper calculayion
+
 
   const marketShareData = topCoins.map((coin, index) => {
+    // the api returns too much unnecassary data. we use map to tranform
+    //each api coin into simple object for ui with only the values we need for the graph
     const marketCap = Number(coin.market_cap_usd || 0)
-
+    //This converts the current coin’s market cap into a number.
     const percentage =
       totalTopFiveMarketCap > 0
         ? (marketCap / totalTopFiveMarketCap) * 100
-        : 0
-
+        : 0 //this 0 is prtection against divinging by 0 ie when data is not not loaded it becomes 0/0
+            // because when data is not loaded marketcap is 0
     return {
       id: coin.id,
       name: coin.name,
@@ -62,17 +71,22 @@ function topMarketCapShare({ coins = [] }) {
         </div>
       </div>
 
-      {marketShareData.length === 0 ? (
+      {apiStatus === "idle" || apiStatus === "loading" ? (
         <p className="px-6 py-10 text-center text-slate-500 dark:text-slate-400">
           Loading market data...
         </p>
+      ): apiStatus === "failed"?(
+        <p className="px-6 py-10 text-center text-red-600 dark:text-red-400">
+          Failed to load market data
+        </p>
+
       ) : (
         <div className="px-6 py-6">
           <div className="flex h-6 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
             {marketShareData.map((coin) => (
               <div
                 key={coin.id}
-                title={`${coin.name}: ${coin.percentage.toFixed(1)}%`}
+                title={`${coin.name}: ${coin.percentage.toFixed(1)}%`}  //format the no to 1 Digit after decimal 
                 className="h-full transition-all duration-500"
                 style={{
                   width: `${coin.percentage}%`,
@@ -117,4 +131,4 @@ function topMarketCapShare({ coins = [] }) {
   )
 }
 
-export default topMarketCapShare
+export default TopMarketCapShare
