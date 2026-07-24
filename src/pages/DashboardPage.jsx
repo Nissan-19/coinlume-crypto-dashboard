@@ -35,9 +35,9 @@ function DashboardPage() {
 
 
   const totalMcap = formatCompactCurrency(globalApiMarketData?.total_mcap) //?. optional chaining becasue in the beginning the global api returns null
-  const mcapChange = formatPercentage(globalApiMarketData?.mcap_change) //because react runs the code before the api data exists
+  const mcapChange = formatPercentageChange(globalApiMarketData?.mcap_change) //because react runs the code before the api data exists
   const volume = formatCompactCurrency(globalApiMarketData?.total_volume) // so when it returns nullor undefined return undefined instead of crashing.
-  const volumeChange =  formatPercentage(globalApiMarketData?.volume_change) //programme was crashing before
+  const volumeChange =  formatPercentageChange(globalApiMarketData?.volume_change) //programme was crashing before
   const btcDominance = formatPercentage(globalApiMarketData?.btc_d)
   const ethDominance = formatPercentage(globalApiMarketData?.eth_d)
   const coinsCount = formatLargeNumber(globalApiMarketData?.coins_count)
@@ -58,11 +58,18 @@ function DashboardPage() {
   return new Intl.NumberFormat("en-US").format(value)
   }
 
-  function formatPercentage(value){
+  function formatPercentageChange(value){
     const number = Number(value)
     return `${number > 0 ? "+" : ""}${number.toFixed(2)}%`
   }
 
+  function formatPercentage(value) {
+    const number = Number(value)
+    return `${number.toFixed(2)}%`
+  }
+
+  const isMcapChangePositive = Number(globalApiMarketData?.mcap_change)>0 // for green and red sign on volume change
+  const isVolumeChangePositive = Number(globalApiMarketData?.volume_change)>0
   
 
   return (
@@ -77,17 +84,20 @@ function DashboardPage() {
               onClick={()=>dispatch(fetchMarketData())}></button>
           </div>
         ):(
-            <div>
+            <div className=" grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+
               <MarketStatCard
                 title = "Total Market Cap"
                 value={totalMcap}
                 smallText={`${mcapChange} in 24h`}
+                isPositive={isMcapChangePositive}
                 />
 
                 <MarketStatCard
                   title ="24h Trading Volume"
                   value = {volume}
-                  smallText={`${volumeChange} in 24h`}/>
+                  smallText={`${volumeChange} in 24h`}
+                  isPositive={isVolumeChangePositive}/>
 
                 <MarketStatCard
                   title ="Bitcoin Dominance"

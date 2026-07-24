@@ -1,23 +1,34 @@
 import React from 'react'
 
-const MarketStatCard = ({title, value, smallText }) => {
+const MarketStatCard = ({title, value, smallText, isPositive }) => {
+    const hasTrend = typeof isPositive ==="boolean"
+
+    const smallTextColor = hasTrend
+        ? isPositive
+            ? "text-green-600 dark:text-green-400"
+            : "text-red-600 dark:text-red-400"
+            : "text-slate-600 dark:text-slate-300"
     
   return (
-    <section className=' overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg dark:border-slate-800 dark:bg-slate-900'>
-        <div className=' min-w-150 grid-cols-5 gap-3'>
-            <article className='rounded-lg  border border-slate-200 p-4 dark:border-slate-800'>
-                <p className='mt-4 text-xl font-semibold text-slate-900 dark:text-white'>
+    <article className='h-full rounded-xl border border-slate-200 bg-white p-5 shadow-lg dark:border-slate-800 dark:bg-slate-900'>
+        
+            
+                <p className='text-sm font-medium text-slate-500 dark:text-slate-400'>
                     {title}
                 </p>
-                <p className='mt-4 text-xl font-semibold text-slate-900 dark:text-white'>
-                    {value} {smallText}
+                <p className='mt-3 text-2xl font-bold text-slate-900 dark:text-white'>
+                    {value} 
                 </p>
                 
-            </article>
+                <p className={`mt-2 text-sm font-medium ${smallTextColor}`}>
+                    {smallText}
+                </p>
+                
+            
 
-        </div>
+        
 
-    </section>
+    </article>
   )
 }
 
