@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { fetchCoins } from '../features/coins/coinsSlice'
 import CoinOverview from '../component/CoinOverview'
+import CoinInformation from "../component/CoinInformation"
 
 
 function CoinDetailsPage  ()  {
@@ -58,53 +59,91 @@ function CoinDetailsPage  ()  {
   },[status, dispatch])
 
   const selectedCoin = coins.find((coin)=> coin.id === id)
+
+  // Retry both API requests:
+// 1. Fetch the page-specific coin profile again.
+// 2. Fetch the shared list of coins again through Redux.
+function handleRetry() {
+    fetchCoinProfile()
+    dispatch(fetchCoins())
+  }
  
   return (
-    <div>
-      
-          {isLoading || status === "idle" ? (
-            <h1 className='px-6 py-8 text-center text-slate-500'>
-                Loading coin data.
-            </h1>
-          ): error!== null || status === "failed" ?(
-            <div>
-            <h1 className='px-6 py-8 text-center text-slate-500'>
-              {error}
-            </h1>
-            <button
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-            type='button'
-            onClick={fetchCoinProfile}
-            onClick={fetchCoins}
-            >
-              Retry
-            </button>
-            </div>
-          ):(
-            coinProfile && selectedCoin && ( // to render only if they have data in them because before
-              //this is called conditional rendering  //they were showing null beacuse api had not loaded and they were calling it creating error
-          <div className='w-full'>
-            
-            <CoinOverview
-              logo = {coinProfile.logo} //passing value directly into prop
-              name = {coinProfile.name}
-              symbol = {selectedCoin.symbol}
-              rank = {selectedCoin.rank}
-              hrChange = {selectedCoin.percent_change_1h}
-              dayChange = {selectedCoin.percent_change_24h}
-              weekChange = {selectedCoin.percent_change_7d}
-              price= {selectedCoin.price_usd}
-            />
+  <div>
+    {/* Show the loading message while either API request is still loading. */}
+    {isLoading || status === "idle" || status === "loading" ? (
+      <h1 className="px-6 py-8 text-center text-slate-500">
+        Loading coin data.
+      </h1>
 
-            </div>
-            )
+    ) : error !== null || status === "failed" ? (
+      /* Show the error state when either API request fails. */
+      <div className="px-6 py-8 text-center">
+        <h1 className="text-slate-500">
+          {error || "Failed to fetch coin data"}
+        </h1>
 
-          
+        {/* Retry both the profile request and the Redux coins request. */}
+        <button
+          type="button"
+          onClick={handleRetry}
+          className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+        >
+          Retry
+        </button>
+      </div>
 
-          )
-         }
-    </div>
-  )
+    ) : coinProfile && selectedCoin ? (
+      /*
+        Render the page only after both objects contain data.
+
+        coinProfile contains the extra profile information
+        fetched specifically for this page.
+
+        selectedCoin contains the market information
+        found inside the shared Redux coins array.
+      */
+      <div className="w-full space-y-4">
+        <CoinOverview
+          // These values are passed directly into CoinOverview as props.
+          logo={coinProfile.logo}
+          name={coinProfile.name}
+          symbol={selectedCoin.symbol}
+          rank={selectedCoin.rank}
+          price={selectedCoin.price_usd}
+          hrChange={selectedCoin.percent_change_1h}
+          dayChange={selectedCoin.percent_change_24h}
+          weekChange={selectedCoin.percent_change_7d}
+        />
+
+        <CoinInformation
+          // Market values come from the selected coin in Redux.
+          marketCap={selectedCoin.market_cap_usd}
+          volume24={selectedCoin.volume24}
+          priceBtc={selectedCoin.price_btc}
+          circulatingSupply={selectedCoin.csupply}
+          totalSupply={selectedCoin.tsupply}
+          maximumSupply={selectedCoin.msupply}
+
+          // Profile values come from the page-specific profile API request.
+          ath={coinProfile.ath}
+          athDate={coinProfile.ath_date}
+          launchDate={coinProfile.startdate}
+          firstPrice={coinProfile.first_price}
+          firstPriceDate={coinProfile.first_price_date}
+          platform={coinProfile.platform}
+          website={coinProfile.website}
+          explorer={coinProfile.explorer}
+        />
+      </div>
+    ) : (
+      /* This runs when loading is finished but the requested coin does not exist. */
+      <p className="px-6 py-8 text-center text-slate-500">
+        Coin not found.
+      </p>
+    )}
+  </div>
+)
 }
 
 export default CoinDetailsPage
