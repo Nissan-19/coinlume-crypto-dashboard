@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { fetchCoins } from '../features/coins/coinsSlice'
+import CoinOverview from '../component/CoinOverview'
 
 
 function CoinDetailsPage  ()  {
   const {id} = useParams()
+  const dispatch = useDispatch()
+
+  const coins = useSelector((state)=>state.coins.coins)
+  const status = useSelector((state)=>state.coins.status)
 
   const [coinProfile, setCoinProfile] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -43,17 +50,23 @@ function CoinDetailsPage  ()  {
 // when the page first opens or when the id changes.
 // The Retry button when the page first opens or when the id changes.
 // can call the same function manually.
+
+  useEffect(()=>{
+    if(status === "idle"){
+      dispatch(fetchCoins())
+    }
+  },[status, dispatch])
+
+  const selectedCoin = coins.find((coin)=> coin.id === id)
+ 
   return (
     <div>
-        <div>
-          {isLoading && (
+      
+          {isLoading || status === "idle" ? (
             <h1 className='px-6 py-8 text-center text-slate-500'>
                 Loading coin data.
             </h1>
-          )  }
-        </div>
-        <div>
-          {error!== null &&(
+          ): error!== null || status === "failed" ?(
             <div>
             <h1 className='px-6 py-8 text-center text-slate-500'>
               {error}
@@ -62,14 +75,34 @@ function CoinDetailsPage  ()  {
             className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             type='button'
             onClick={fetchCoinProfile}
+            onClick={fetchCoins}
             >
               Retry
             </button>
             </div>
-          )}
-        </div>
-      
+          ):(
+            coinProfile && selectedCoin && ( // to render only if they have data in them because before
+              //this is called conditional rendering  //they were showing null beacuse api had not loaded and they were calling it creating error
+          <div className='w-full'>
+            
+            <CoinOverview
+              logo = {coinProfile.logo} //passing value directly into prop
+              name = {coinProfile.name}
+              symbol = {selectedCoin.symbol}
+              rank = {selectedCoin.rank}
+              hrChange = {selectedCoin.percent_change_1h}
+              dayChange = {selectedCoin.percent_change_24h}
+              weekChange = {selectedCoin.percent_change_7d}
+              price= {selectedCoin.price_usd}
+            />
 
+            </div>
+            )
+
+          
+
+          )
+         }
     </div>
   )
 }

@@ -73,7 +73,7 @@ function DashboardPage() {
   
 
   return (
-    <div className="space-y-6">
+    <div classNam e="space-y-6">
 
       {globalApiStatus === "idle" || globalApiStatus=== "loading" ?(
         <h1>Loading the Market Data</h1>
