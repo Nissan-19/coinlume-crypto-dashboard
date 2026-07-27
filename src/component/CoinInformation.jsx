@@ -45,6 +45,7 @@ function CoinInformation ({marketCap, volume24, priceBtc, circulatingSupply, tot
     }).format(date)
   }
 
+  
   return (
   <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
     <article className="rounded-xl bg-white p-5 shadow-sm dark:bg-slate-900">
@@ -155,6 +156,14 @@ function InformationRow({ label, value }) { //a React component can be written i
 }
 
 function ExternalLinkRow({ label, url }) {
+  function getLinkName(url) {
+    try {
+      return new URL(url).hostname.replace("www.", "")
+    } catch {
+      return "Open link"
+    }
+  }
+
   return (
     <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-3 last:border-b-0 last:pb-0 dark:border-slate-700">
       <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -168,7 +177,7 @@ function ExternalLinkRow({ label, url }) {
           rel="noopener noreferrer"
           className="text-right text-sm font-medium text-blue-600 hover:underline dark:text-blue-400"
         >
-          Visit link
+          {getLinkName(url)}
         </a>
       ) : (
         <p className="text-right text-sm font-medium text-slate-900 dark:text-slate-100">

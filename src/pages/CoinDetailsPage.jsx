@@ -5,6 +5,7 @@ import { fetchCoins } from '../features/coins/coinsSlice'
 import CoinOverview from '../component/CoinOverview'
 import CoinInformation from "../component/CoinInformation"
 import CoinPriceChart from "../component/CoinPriceChart"
+import CoinMarkets from '../component/CoinMarkets'
 
 
 function CoinDetailsPage  ()  {
@@ -26,6 +27,10 @@ function CoinDetailsPage  ()  {
   const [historyError, setHistoryError] = useState(null)
   // Stores the currently selected chart range.
   const [selectedRange, setSelectedRange] = useState("7D")
+
+  const [coinMarkets, setCoinMarkets] = useState([])
+  const [marketsLoading, setMarketsLoading] = useState(true)
+  const [marketsError, setMarketsError] = useState(null)
 
   async function fetchCoinProfile() {
       setIsLoading(true)
@@ -51,86 +56,113 @@ function CoinDetailsPage  ()  {
     }
 
     async function fetchPriceHistory() {
-  setHistoryLoading(true)
-  setHistoryError(null)
-  setPriceHistory([])
+      setHistoryLoading(true)
+      setHistoryError(null)
+      setPriceHistory([])
 
-  try {
-    const response = await fetch(
-      `https://api.coinlore.net/api/coin/ohlcv/?coin=${id}`
-    )
-    console.log("History request coin ID:", id)
-    if (!response.ok) {
-      throw new Error("Failed to fetch price history")
+      try {
+        const response = await fetch(
+          `https://api.coinlore.net/api/coin/ohlcv/?coin=${id}`
+        )
+        
+        if (!response.ok) {
+          throw new Error("Failed to fetch price history")
+        }
+
+        const data = await response.json()
+
+        if (!Array.isArray(data)) {
+      throw new Error("Invalid price history data")
+        }
+
+      /*
+        CoinLore returns an array of daily records.
+
+        Each record contains:
+
+        [
+          timestamp,
+          open,
+          high,
+          low,
+          close,
+          volume
+        ]
+
+        We use:
+        - index 0 for the date
+        - index 4 for the closing price
+      */
+      const formattedHistory = data
+        .map((candle) => {
+          const timestamp = candle[0]
+          const closePrice = candle[4]
+
+          return {
+            date: new Date(timestamp * 1000)
+              .toISOString()
+              .split("T")[0],
+            price: Number(closePrice),
+            timestamp,
+          }
+        })
+        .filter((item) => Number.isFinite(item.price))
+        .sort((firstItem, secondItem) => {
+          return firstItem.timestamp - secondItem.timestamp
+        })
+
+      setPriceHistory(formattedHistory)
+      } catch (requestError) {
+        console.error(requestError)
+        setHistoryError("Could not load price history.")
+      } finally {
+        setHistoryLoading(false)
+      }
     }
 
-    const data = await response.json()
+    async function fetchMarkets() {
+      setMarketsLoading(true)
+      setMarketsError(null)
 
-    if (!Array.isArray(data)) {
-  throw new Error("Invalid price history data")
-}
+      try{
+        const response = await fetch(`https://api.coinlore.net/api/coin/markets/?id=${id}`)
 
-/*
-  CoinLore returns an array of daily records.
+        if(!response.ok){
+          throw new Error("Failed to fetch markets data")
+        }
+        
+        const data = await response.json()
+        if (!Array.isArray(data)) {
+          throw new Error("Invalid markets data")
+        }
 
-  Each record contains:
+        setCoinMarkets(data.slice(0, 5))
 
-  [
-    timestamp,
-    open,
-    high,
-    low,
-    close,
-    volume
-  ]
-
-  We use:
-  - index 0 for the date
-  - index 4 for the closing price
-*/
-const formattedHistory = data
-  .map((candle) => {
-    const timestamp = candle[0]
-    const closePrice = candle[4]
-
-    return {
-      date: new Date(timestamp * 1000)
-        .toISOString()
-        .split("T")[0],
-      price: Number(closePrice),
-      timestamp,
+      } catch (requestError){
+        console.error(requestError)
+        setMarketsError("something went wrong")
+      } finally{
+        setMarketsLoading (false)
+      }
+      
     }
-  })
-  .filter((item) => Number.isFinite(item.price))
-  .sort((firstItem, secondItem) => {
-    return firstItem.timestamp - secondItem.timestamp
-  })
-
-setPriceHistory(formattedHistory)
-} catch (requestError) {
-  console.error(requestError)
-  setHistoryError("Could not load price history.")
-} finally {
-  setHistoryLoading(false)
-}
-}
 
   // Fetch new historical data whenever the coin ID changes.
     useEffect(() => {
       fetchPriceHistory()
     }, [id])
 
-  useEffect(()=>{
-    fetchCoinProfile()
-  }, [id])
-  // The component can render many times,
-// but useEffect prevents this API request from running on every render.
-// We wrote the async function outside useEffect
-// so both useEffect and the Retry button can access it.
-// useEffect calls the function automatically
-// when the page first opens or when the id changes.
-// The Retry button when the page first opens or when the id changes.
-// can call the same function manually.
+      useEffect(()=>{
+        fetchCoinProfile()
+      }, [id])
+          // The component can render many times,
+        // but useEffect prevents this API request from running on every render.
+        // We wrote the async function outside useEffect
+        // so both useEffect and the Retry button can access it.
+        // useEffect calls the function automatically
+        // when the page first opens or when the id changes.
+        // The Retry button when the page first opens or when the id changes.
+        // can call the same function manually.
 
   useEffect(()=>{
     if(status === "idle"){
@@ -138,15 +170,19 @@ setPriceHistory(formattedHistory)
     }
   },[status, dispatch])
 
+    useEffect(() => {
+    fetchMarkets()
+  }, [id])
+
   const selectedCoin = coins.find((coin)=> coin.id === id)
 
   // Retry both API requests:
 // 1. Fetch the page-specific coin profile again.
 // 2. Fetch the shared list of coins again through Redux.
-function handleRetry() {
-    fetchCoinProfile()
-    dispatch(fetchCoins())
-  }
+  function handleRetry() {
+      fetchCoinProfile()
+      dispatch(fetchCoins())
+   }
  
   return (
   <div>
@@ -225,6 +261,10 @@ function handleRetry() {
           selectedRange={selectedRange}
           onRangeChange={setSelectedRange}
           onRetry={fetchPriceHistory}
+        />
+
+        <CoinMarkets
+          CoinMarkets markets={coinMarkets} 
         />
 
       </div>

@@ -42,6 +42,7 @@ function CoinsPage  ()  {
     return `${number > 0 ? "+" : ""}${number.toFixed(2)}%`
   }
 
+
   return (
     <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
       <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-slate-800">
