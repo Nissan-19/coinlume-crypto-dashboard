@@ -1,7 +1,6 @@
 import React from "react"
 
-function CoinInformation ({marketCap, volume24,
-  priceBtc, circulatingSupply, totalSupply, maximumSupply, ath, athDate, launchDate, firstPrice, firstPriceDate, platform, website, explorer,}) {
+function CoinInformation ({marketCap, volume24, priceBtc, circulatingSupply, totalSupply, maximumSupply, ath, athDate, launchDate, firstPrice, firstPriceDate, platform, website, explorer,}) {
   function hasValue(value) {
     return value !== null && value !== undefined && value !== ""
   }
@@ -14,8 +13,8 @@ function CoinInformation ({marketCap, volume24,
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
-      maximumFractionDigits: Number(value) < 1 ? 6 : 2,
-    }).format(Number(value))
+      maximumFractionDigits: Number(value) < 1 ? 6 : 2, //api can return number as string so if the no is
+    }).format(Number(value))              //smaller then 1 then show upto 6 decimal places otherwise ulpto 2
   }
 
   function formatNumber(value) {
@@ -24,7 +23,7 @@ function CoinInformation ({marketCap, volume24,
     }
 
     return new Intl.NumberFormat("en-US", {
-      maximumFractionDigits: 2,
+      maximumFractionDigits: Number(value) < 1 ? 6 : 2,
     }).format(Number(value))
   }
 
@@ -35,9 +34,9 @@ function CoinInformation ({marketCap, volume24,
 
     const date = new Date(value)
 
-    if (Number.isNaN(date.getTime())) {
-      return value
-    }
+    if (Number.isNaN(date.getTime())) { //JavaScript could not convert this into a valid date, so do not format it. Return the original value instead.
+      return value  //if the date is valid format then format is nicely and if not a valid format then instead of returning
+    } //invalid date. return the original format date.
 
     return new Intl.DateTimeFormat("en-US", {
       year: "numeric",
@@ -54,7 +53,7 @@ function CoinInformation ({marketCap, volume24,
       </h2>
 
       <div className="mt-5 space-y-4">
-        <InformationRow
+        <InformationRow   //this is we are calling our own small resusable component.
           label="Market Cap"
           value={formatCurrency(marketCap)}
         />
@@ -141,7 +140,7 @@ function CoinInformation ({marketCap, volume24,
 )
 }
 
-function InformationRow({ label, value }) {
+function InformationRow({ label, value }) { //a React component can be written in the same file.
   return (
     <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-3 last:border-b-0 last:pb-0 dark:border-slate-700">
       <p className="text-sm text-slate-500 dark:text-slate-400">

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { fetchCoins } from '../features/coins/coinsSlice'
 import CoinOverview from '../component/CoinOverview'
 import CoinInformation from "../component/CoinInformation"
+import CoinPriceChart from "../component/CoinPriceChart"
 
 
 function CoinDetailsPage  ()  {
@@ -16,6 +17,15 @@ function CoinDetailsPage  ()  {
   const [coinProfile, setCoinProfile] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  // Stores the complete historical price array returned by CoinLore.
+  const [priceHistory, setPriceHistory] = useState([])
+  // Tracks whether the historical-price request is running.
+  const [historyLoading, setHistoryLoading] = useState(true)
+  // Stores an error message if the historical-price request fails.
+  const [historyError, setHistoryError] = useState(null)
+  // Stores the currently selected chart range.
+  const [selectedRange, setSelectedRange] = useState("7D")
 
   async function fetchCoinProfile() {
       setIsLoading(true)
@@ -39,6 +49,76 @@ function CoinDetailsPage  ()  {
       }
       
     }
+
+    async function fetchPriceHistory() {
+  setHistoryLoading(true)
+  setHistoryError(null)
+  setPriceHistory([])
+
+  try {
+    const response = await fetch(
+      `https://api.coinlore.net/api/coin/ohlcv/?coin=${id}`
+    )
+    console.log("History request coin ID:", id)
+    if (!response.ok) {
+      throw new Error("Failed to fetch price history")
+    }
+
+    const data = await response.json()
+
+    if (!Array.isArray(data)) {
+  throw new Error("Invalid price history data")
+}
+
+/*
+  CoinLore returns an array of daily records.
+
+  Each record contains:
+
+  [
+    timestamp,
+    open,
+    high,
+    low,
+    close,
+    volume
+  ]
+
+  We use:
+  - index 0 for the date
+  - index 4 for the closing price
+*/
+const formattedHistory = data
+  .map((candle) => {
+    const timestamp = candle[0]
+    const closePrice = candle[4]
+
+    return {
+      date: new Date(timestamp * 1000)
+        .toISOString()
+        .split("T")[0],
+      price: Number(closePrice),
+      timestamp,
+    }
+  })
+  .filter((item) => Number.isFinite(item.price))
+  .sort((firstItem, secondItem) => {
+    return firstItem.timestamp - secondItem.timestamp
+  })
+
+setPriceHistory(formattedHistory)
+} catch (requestError) {
+  console.error(requestError)
+  setHistoryError("Could not load price history.")
+} finally {
+  setHistoryLoading(false)
+}
+}
+
+  // Fetch new historical data whenever the coin ID changes.
+    useEffect(() => {
+      fetchPriceHistory()
+    }, [id])
 
   useEffect(()=>{
     fetchCoinProfile()
@@ -135,6 +215,18 @@ function handleRetry() {
           website={coinProfile.website}
           explorer={coinProfile.explorer}
         />
+
+        {/* Pass the historical data and chart controls into CoinPriceChart. */}
+        <CoinPriceChart
+          coinName={coinProfile.name}
+          priceHistory={priceHistory}
+          historyLoading={historyLoading}
+          historyError={historyError}
+          selectedRange={selectedRange}
+          onRangeChange={setSelectedRange}
+          onRetry={fetchPriceHistory}
+        />
+
       </div>
     ) : (
       /* This runs when loading is finished but the requested coin does not exist. */

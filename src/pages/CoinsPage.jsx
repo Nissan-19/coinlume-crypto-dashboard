@@ -47,7 +47,10 @@ function CoinsPage  ()  {
       <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-slate-800">
         <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
           Top 50 Cryptocurrencies
-        </h2>   
+        </h2>
+        <p className='text-sm text-slate-900 dark:text-white'>
+          ⓘ Showing the top 50 cryptocurrencies from CoinLore’s free market-data API.
+        </p>   
       </div>
 
       {apiStatus === "loading" && (
