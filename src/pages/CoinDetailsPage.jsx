@@ -6,31 +6,34 @@ import CoinOverview from '../component/CoinOverview'
 import CoinInformation from "../component/CoinInformation"
 import CoinPriceChart from "../component/CoinPriceChart"
 import CoinMarkets from '../component/CoinMarkets'
+import { saveCoin, removeCoin } from '../features/watchlist/watchlistSlice'
 
 
 function CoinDetailsPage  ()  {
   const {id} = useParams()
   const dispatch = useDispatch()
 
-  const coins = useSelector((state)=>state.coins.coins)
-  const status = useSelector((state)=>state.coins.status)
+  const coins = useSelector((state) => state.coins.coins)
+  const status = useSelector((state) => state.coins.status)
+
+  const coinIds = useSelector((state)=>state.savedCoins.coinIds)
+  const currentCoinId = String(id) //It converts id into a string. We do this because your saved IDs in Redux may be strings, and includes() compares values strictly.
+  const isSaved = coinIds.includes(currentCoinId)
 
   const [coinProfile, setCoinProfile] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  // Stores the complete historical price array returned by CoinLore.
   const [priceHistory, setPriceHistory] = useState([])
-  // Tracks whether the historical-price request is running.
   const [historyLoading, setHistoryLoading] = useState(true)
-  // Stores an error message if the historical-price request fails.
   const [historyError, setHistoryError] = useState(null)
-  // Stores the currently selected chart range.
   const [selectedRange, setSelectedRange] = useState("7D")
 
   const [coinMarkets, setCoinMarkets] = useState([])
   const [marketsLoading, setMarketsLoading] = useState(true)
   const [marketsError, setMarketsError] = useState(null)
+
+
 
   async function fetchCoinProfile() {
       setIsLoading(true)
@@ -94,21 +97,27 @@ function CoinDetailsPage  ()  {
         - index 4 for the closing price
       */
       const formattedHistory = data
-        .map((candle) => {
-          const timestamp = candle[0]
-          const closePrice = candle[4]
+        .map((candle) => {            //API gives data as an arrys of too many records but recharts works conviently on objects having date and price
+          const timestamp = candle[0] //goes through every candle and creates a new object. So this code changes the API data into the shape our graph needs.
+          const closePrice = candle[4] //map() goes through every candle and creates a new object. with time stap and closeprice
 
           return {
-            date: new Date(timestamp * 1000)
-              .toISOString()
-              .split("T")[0],
+            date: new Date(timestamp * 1000) //CoinLore gives timestamps in seconds. JavaScript expects timestamps in milliseconds.
+              .toISOString()    //This creates something like: 2026-07-20T00:00:00.000Z
+              .split("T")[0], 
+                /* This splits the string into:
+                [
+                  "2026-07-20",                 Then [0] selects only:2026-07-20
+                  "00:00:00.000Z"
+                ]
+                */
             price: Number(closePrice),
             timestamp,
           }
         })
-        .filter((item) => Number.isFinite(item.price))
-        .sort((firstItem, secondItem) => {
-          return firstItem.timestamp - secondItem.timestamp
+        .filter((item) => Number.isFinite(item.price)) //This removes any item whose price is not a valid number. this check Is this price a real JavaScript number that the graph can safely use?
+        .sort((firstItem, secondItem) => { //This sorts the dates from oldest to newest.
+          return firstItem.timestamp - secondItem.timestamp//sort the negative value first and the increasing
         })
 
       setPriceHistory(formattedHistory)
@@ -183,10 +192,18 @@ function CoinDetailsPage  ()  {
       fetchCoinProfile()
       dispatch(fetchCoins())
    }
+
+   function handleWatchlistToggle(){
+    if(isSaved){
+      dispatch(removeCoin(currentCoinId))
+    } else {
+      dispatch(saveCoin(currentCoinId))
+    }
+
+   }
  
   return (
   <div>
-    {/* Show the loading message while either API request is still loading. */}
     {isLoading || status === "idle" || status === "loading" ? (
       <h1 className="px-6 py-8 text-center text-slate-500">
         Loading coin data.
@@ -230,6 +247,8 @@ function CoinDetailsPage  ()  {
           hrChange={selectedCoin.percent_change_1h}
           dayChange={selectedCoin.percent_change_24h}
           weekChange={selectedCoin.percent_change_7d}
+          handleWatchlistToggle = {handleWatchlistToggle}
+          isSaved={isSaved}
         />
 
         <CoinInformation
@@ -265,6 +284,16 @@ function CoinDetailsPage  ()  {
 
         <CoinMarkets
           CoinMarkets markets={coinMarkets} 
+        /*
+          Why pass only markets={coinMarkets}. Because coinMarkets is already an array containing all five market objects.
+          {
+            name: "Binance",
+            base: "BTC",
+            quote: "USDT",
+            price_usd: 118000
+          },
+          So, Instead of passing each field separately. we pass the complete array once. Then CoinMarkets loops over it:
+          */
         />
 
       </div>

@@ -15,6 +15,7 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
 
   // slice() with a negative number selects items from the end of the array.
   // For example, slice(-7) returns the latest seven days.
+  //We want the end of the array because the history is sorted from oldest to newest:
   const visibleHistory = priceHistory.slice(-numberOfDays)
 
   function formatPrice(value) {
@@ -47,10 +48,10 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
     }
 
     return number.toFixed(2)
-  }
+  } //This function does not change the real chart data. It only changes how the numbers are displayed on y axis.
 
   function formatAxisDate(value) {
-    const date = new Date(`${value}T00:00:00`)
+    const date = new Date(value)
 
     if (selectedRange === "1Y") {
       return date.toLocaleDateString("en-US", {
@@ -66,7 +67,7 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
   }
 
   function formatTooltipDate(value) {
-    const date = new Date(`${value}T00:00:00`)
+    const date = new Date(value)
 
     return date.toLocaleDateString("en-US", {
       year: "numeric",
@@ -83,17 +84,17 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
             {coinName} Price History
           </h2>
 
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-            Daily closing price in USD
+          <div className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            Historical daily closing prices provided by CoinLore
             <p className="py-3">
                ⓘ Educational chart only. CoinLore’s historical price data may not match current or verified market prices.
             </p>
-          </p>
+          </div>
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {Object.keys(RANGE_DAYS).map((range) => (
-            <button
+          {Object.keys(RANGE_DAYS).map((range) => ( //Object.keys(RANGE_DAYS) returns: ["7D", "30D", "3M", "6M", "1Y"]
+            <button //Object.keys We are using it because RANGE_DAYS is an object:
               key={range}
               type="button"
               onClick={() => onRangeChange(range)}
@@ -101,7 +102,7 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
                 selectedRange === range
                   ? "bg-blue-600 text-white"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
-              }`}
+              }`}   //This means: If this button is selected, make it blue. Otherwise, give it the normal gray design.
             >
               {range}
             </button>
@@ -134,8 +135,17 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
       ) : (
         <div className="mt-6 h-80 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              data={visibleHistory}
+            <LineChart //LineChart is the main graph container.
+              data={visibleHistory} 
+              /*
+                Recharts now has access to every object inside the array.
+                For example:
+                {
+                  date: "2018-09-05",
+                  price: 7350,
+                }
+                Later, XAxis reads date, and Line reads price.             
+              */
               margin={{
                 top: 10,
                 right: 20,
@@ -143,9 +153,9 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
                 left: 10,
               }}
             >
-              <CartesianGrid
+              <CartesianGrid //This draws the background grid lines.
                 strokeDasharray="3 3"
-                vertical={false}
+                vertical={false}  //This removes vertical grid lines.
               />
 
               <XAxis
@@ -160,7 +170,7 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
                 width={70}
               />
 
-              <Tooltip
+              <Tooltip //
                 labelFormatter={formatTooltipDate}
                 formatter={(value) => [
                   formatPrice(value),

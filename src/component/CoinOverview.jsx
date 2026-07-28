@@ -1,7 +1,7 @@
 import React from 'react'
-import { Bookmark } from "lucide-react"
+import { Bookmark, BookmarkCheck } from "lucide-react"
 
-function CoinOverview ({logo, name, symbol, rank, price, hrChange, dayChange, weekChange}) {
+function CoinOverview ({logo, name, symbol, rank, price, hrChange, dayChange, weekChange, handleWatchlistToggle, isSaved}) {
   
     function formatPrice(value){
         if(value === null || value === undefined || value === ""){
@@ -68,9 +68,10 @@ function CoinOverview ({logo, name, symbol, rank, price, hrChange, dayChange, we
             <button
                 type="button"
                 className="inline-flex items-center gap-2 rounded-lg border border-blue-500 px-4 py-2 text-sm font-medium text-blue-600 transition hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-slate-800"
+                onClick = {handleWatchlistToggle}
             >
-                <Bookmark size={18} />
-                Add to Watchlist
+              {isSaved? <BookmarkCheck size={18} /> : <Bookmark size={18} />}
+               
             </button>
 
             <div className="sm:text-right">

@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCoins } from '../features/coins/coinsSlice'
 import { useNavigate } from 'react-router-dom'
-import { LucideBookmark } from 'lucide-react'
+import { Bookmark, BookmarkCheck, LucideBookmark } from 'lucide-react'
+import { saveCoin, removeCoin } from '../features/watchlist/watchlistSlice'
 
 
 function CoinsPage  ()  {
@@ -12,6 +13,8 @@ function CoinsPage  ()  {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const coinIds = useSelector((state)=>state.savedCoins.coinIds)
 
   useEffect(()=>{
     if(apiStatus === "idle"){
@@ -41,6 +44,19 @@ function CoinsPage  ()  {
 
     return `${number > 0 ? "+" : ""}${number.toFixed(2)}%`
   }
+
+  function handleWatchlistToggle(coinId){
+
+    const currentCoinId = String(coinId)
+    const isSaved = coinIds.includes(currentCoinId)
+
+      if(isSaved){
+        dispatch(removeCoin(currentCoinId))
+      } else {
+        dispatch(saveCoin(currentCoinId))
+      }
+  
+     }
 
 
   return (
@@ -100,6 +116,7 @@ function CoinsPage  ()  {
               const change1h = Number(apiCoin.percent_change_1h)
               const change24h = Number(apiCoin.percent_change_24h)
               const change7d = Number(apiCoin.percent_change_7d)
+              const isSaved = coinIds.includes(String(apiCoin.id))
 
               return(
                 <tr
@@ -174,13 +191,12 @@ function CoinsPage  ()  {
                     <td className='px-12 py-4'
                       onClick={(event)=>{
                           event.stopPropagation()
-                          console.log("bookmark clicked", apiCoin.id)
                         }}>
                       <button 
                         type='button'
-                        
+                        onClick = {()=>handleWatchlistToggle(apiCoin.id)} 
                         >
-                        <LucideBookmark size={20}/>
+                        {isSaved? <BookmarkCheck size={18} /> : <Bookmark size={18} />}
                       </button>
                     </td>
                 </tr>
