@@ -106,7 +106,7 @@ function WatchlistPage () {
 
             <tbody>
               {filteredWatchlist.map((coin)=>{
-                 const change1h = Number(coin.percent_change_1h)
+                const change1h = Number(coin.percent_change_1h)
                 const change24h = Number(coin.percent_change_24h)
                 const change7d = Number(coin.percent_change_7d)
 

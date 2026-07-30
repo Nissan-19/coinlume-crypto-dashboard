@@ -5,6 +5,7 @@ import { fetchMarketData } from "../features/market/marketSlice"
 import TopCryptocurrencies from "../component/TopCryptocurrencies"
 import TopMarketCapShare from "../component/TopMarketCapShare"
 import MarketStatCard from "../component/MarketStatCard"
+import WatchlistPreview from "../component/WatchlistPreview"
 
 
 function DashboardPage() {
@@ -84,6 +85,7 @@ function DashboardPage() {
               onClick={()=>dispatch(fetchMarketData())}></button>
           </div>
         ):(
+            <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
             <div className=" grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
 
               <MarketStatCard
@@ -109,12 +111,15 @@ function DashboardPage() {
                   value = {coinsCount}
                   smallText={`${activeMarkets} active markets`}/>
             </div>
+
+            <WatchlistPreview />
+
+          </div>
         ) 
         }
 
-      
-
-
+        
+        
       <TopMarketCapShare
         topCoins={topCoins}
         apiStatus={apiStatus}
