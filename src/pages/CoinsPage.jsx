@@ -21,7 +21,7 @@ function CoinsPage  ()  {
       dispatch(fetchCoins())
     }
   },[apiStatus, dispatch])
-
+  
   const formatPrice = (value) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -57,7 +57,6 @@ function CoinsPage  ()  {
       }
   
      }
-
 
   return (
     <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">

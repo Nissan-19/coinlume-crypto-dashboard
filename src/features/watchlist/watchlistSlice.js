@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 function loadSavedCoinsIds(){
     try{
-        const savedIds = JSON.parse(localStorage.getItem("StoredIds"))
+        const savedIds = JSON.parse(localStorage.getItem("storedIds"))
         return savedIds ? (savedIds):[]
     } catch{
         return[]
