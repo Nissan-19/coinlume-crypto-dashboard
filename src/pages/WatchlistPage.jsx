@@ -1,15 +1,20 @@
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchCoins } from '../features/coins/coinsSlice'
 import { useNavigate } from 'react-router-dom'
 import { BookmarkCheck } from 'lucide-react'
 import {removeCoin} from '../features/watchlist/watchlistSlice'
+import SearchSortControls from "../component/SearchSortControls"
 
 function WatchlistPage () {
   const coinIds = useSelector((state)=>state.savedCoins.coinIds)
   const coins = useSelector((state)=>state.coins.coins)
   const coinsStatus = useSelector((state)=>state.coins.status)
+
+  const [searchTerm, setSearchTerm] = useState("")
+  const [sortKey, setSortKey] = useState("rank")
+  const [sortDirection, setSortDirection] = useState("asc")
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -59,6 +64,17 @@ function WatchlistPage () {
           dispatch(removeCoin(currentCoinId))            
   }
 
+  const filteredCoins = filteredWatchlist.filter((coin) => {
+      const searchValue = searchTerm.toLowerCase().trim()
+
+      const coinName = coin.name.toLowerCase()
+
+      return (
+        coinName.includes(searchValue) 
+      )
+  })
+
+
   return (
     <div>
       {coinsStatus ==="loading" &&(
@@ -89,6 +105,16 @@ function WatchlistPage () {
         <h1>The Watchlist is empty</h1>
       ):(
         <div className='overflow-x-auto'>
+          <SearchSortControls
+            searchTerm={searchTerm}
+            sortKey={sortKey}
+            sortDirection={sortDirection}
+            onSearchChange={setSearchTerm}
+            onSortChange={setSortKey}
+            onDirectionChange={() =>setSortDirection((currentDirection) =>
+                currentDirection === "asc" ? "desc" : "asc")
+          }/>
+
           <table className="w-full min-w-225 text-left">
             <thead className="bg-slate-50 text-xs uppercase text-slate-500 dark:bg-slate-800/50 dark:text-slate-400">
               <tr>
@@ -105,97 +131,108 @@ function WatchlistPage () {
             </thead>
 
             <tbody>
-              {filteredWatchlist.map((coin)=>{
-                const change1h = Number(coin.percent_change_1h)
-                const change24h = Number(coin.percent_change_24h)
-                const change7d = Number(coin.percent_change_7d)
+              {filteredCoins.length > 0 ? (
+                filteredCoins.map((coin) => {
+                  const change1h = Number(coin.percent_change_1h)
+                  const change24h = Number(coin.percent_change_24h)
+                  const change7d = Number(coin.percent_change_7d)
 
-              return(
-          
-                <tr
-                  key={coin.id}
-                  onClick={()=>navigate(`/coins/${coin.id}`)}
-                  className="cursor-pointer border-t border-slate-200 text-sm text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800/50">
-                  
-                  <td className="px-6 py-4 font-medium">
-                      #{coin.rank}
-                  </td>
+                  return (
+                    <tr
+                      key={coin.id}
+                      onClick={() => navigate(`/coins/${coin.id}`)}
+                      className="cursor-pointer border-t border-slate-200 text-sm text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800/50"
+                    >
+                      <td className="px-6 py-4 font-medium">
+                        #{coin.rank}
+                      </td>
 
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold dark:bg-slate-800">
-                          {coin.symbol.slice(0, 2)}
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold dark:bg-slate-800">
+                            {coin.symbol.slice(0, 2)}
+                          </div>
+
+                          <div>
+                            <p className="font-medium text-slate-900 dark:text-white">
+                              {coin.name}
+                            </p>
+
+                            <p className="text-xs uppercase text-slate-500">
+                              {coin.symbol}
+                            </p>
+                          </div>
                         </div>
+                      </td>
 
-                        <div>
-                          <p  
-                          className="font-medium text-slate-900 dark:text-white">
-                            {coin.name}
-                          </p>
+                      <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
+                        {formatPrice(coin.price_usd)}
+                      </td>
 
-                          <p className="text-xs uppercase text-slate-500">
-                            {coin.symbol}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
-                      {formatPrice(coin.price_usd)}
-                    </td>
+                      <td
+                        className={`px-6 py-4 font-medium ${
+                          change1h >= 0
+                            ? "text-green-600 dark:text-green-400"
+                            : "text-red-600 dark:text-red-400"
+                        }`}
+                      >
+                        {formatPercentage(coin.percent_change_1h)}
+                      </td>
 
-                    <td
-                      className={`px-6 py-4 font-medium ${
-                        change1h >= 0
-                          ? "text-green-600 dark:text-green-400"
-                          : "text-red-600 dark:text-red-400"
-                      }`}
-                    >
-                      {formatPercentage(coin.percent_change_1h)}
-                    </td>
+                      <td
+                        className={`px-6 py-4 font-medium ${
+                          change24h >= 0
+                            ? "text-green-600 dark:text-green-400"
+                            : "text-red-600 dark:text-red-400"
+                        }`}
+                      >
+                        {formatPercentage(coin.percent_change_24h)}
+                      </td>
 
-                     <td
-                      className={`px-6 py-4 font-medium ${
-                        change24h >= 0
-                          ? "text-green-600 dark:text-green-400"
-                          : "text-red-600 dark:text-red-400"
-                      }`}
-                    >
-                      {formatPercentage(coin.percent_change_24h)}
-                    </td>
+                      <td
+                        className={`px-6 py-4 font-medium ${
+                          change7d >= 0
+                            ? "text-green-600 dark:text-green-400"
+                            : "text-red-600 dark:text-red-400"
+                        }`}
+                      >
+                        {formatPercentage(coin.percent_change_7d)}
+                      </td>
 
-                    <td
-                      className={`px-6 py-4 font-medium ${
-                        change7d >= 0
-                          ? "text-green-600 dark:text-green-400"
-                          : "text-red-600 dark:text-red-400"
-                      }`}
-                    >
-                      {formatPercentage(coin.percent_change_7d)}
-                    </td>
+                      <td className="px-6 py-4">
+                        {formatLargeNumber(coin.market_cap_usd)}
+                      </td>
 
-                    <td className="px-6 py-4">
-                      {formatLargeNumber(coin.market_cap_usd)}
-                    </td>
+                      <td className="px-6 py-4">
+                        {formatLargeNumber(coin.volume24)}
+                      </td>
 
-                    <td className="px-6 py-4">
-                      {formatLargeNumber(coin.volume24)}
-                    </td>
-
-                    <td className='px-12 py-4'
-                      onClick={(event)=>{
+                      <td
+                        className="px-12 py-4"
+                        onClick={(event) => {
                           event.stopPropagation()
-                        }}>
-                      <button 
-                        type='button'
-                        onClick = {()=>handleRemoveFromWatchlist(coin.id)} 
+                        }}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveFromWatchlist(coin.id)}
                         >
-                         <BookmarkCheck size={18} />
-                      </button>
-                    </td>
-
+                          <BookmarkCheck size={18} />
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                })
+              ) : (
+                <tr>
+                  <td
+                    colSpan={9}
+                    className="py-10 text-center text-slate-500 dark:text-slate-400"
+                  >
+                    No watchlist coins found for “{searchTerm}”
+                  </td>
                 </tr>
-              )
-            })}
+              )}
             </tbody>
 
             </table>

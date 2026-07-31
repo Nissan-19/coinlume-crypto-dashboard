@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCoins } from '../features/coins/coinsSlice'
 import { useNavigate } from 'react-router-dom'
 import { Bookmark, BookmarkCheck, LucideBookmark } from 'lucide-react'
 import { saveCoin, removeCoin } from '../features/watchlist/watchlistSlice'
+import SearchSortControls from "../component/SearchSortControls"
 
 
 function CoinsPage  ()  {
@@ -15,6 +16,10 @@ function CoinsPage  ()  {
   const navigate = useNavigate()
 
   const coinIds = useSelector((state)=>state.savedCoins.coinIds)
+
+  const [searchTerm, setSearchTerm] = useState("")
+  const [sortKey, setSortKey] = useState("rank")
+  const [sortDirection, setSortDirection] = useState("asc")
 
   useEffect(()=>{
     if(apiStatus === "idle"){
@@ -58,8 +63,21 @@ function CoinsPage  ()  {
   
      }
 
+     const filteredCoins = apiCoins.filter((coin) => {
+      const searchValue = searchTerm.toLowerCase().trim()
+
+      const coinName = coin.name.toLowerCase()
+
+      return (
+        coinName.includes(searchValue) 
+      )
+    })
+
   return (
     <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      
+      
+
       <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-slate-800">
         <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
           Top 50 Cryptocurrencies
@@ -94,6 +112,15 @@ function CoinsPage  ()  {
 
       {apiStatus === "succeeded" &&(
         <div className='overflow-x-auto'>
+          <SearchSortControls
+            searchTerm={searchTerm}
+            sortKey={sortKey}
+            sortDirection={sortDirection}
+            onSearchChange={setSearchTerm}
+            onSortChange={setSortKey}
+            onDirectionChange={() =>setSortDirection((currentDirection) =>
+                currentDirection === "asc" ? "desc" : "asc")
+            }/>
           <table className="w-full min-w-225 text-left">
             <thead className="bg-slate-50 text-xs uppercase text-slate-500 dark:bg-slate-800/50 dark:text-slate-400">
               <tr>
@@ -110,98 +137,111 @@ function CoinsPage  ()  {
             </thead>
 
             <tbody>
+              {filteredCoins.length > 0 ? (
+                filteredCoins.map((apiCoin) => {
+                  const change1h = Number(apiCoin.percent_change_1h)
+                  const change24h = Number(apiCoin.percent_change_24h)
+                  const change7d = Number(apiCoin.percent_change_7d)
+                  const isSaved = coinIds.includes(String(apiCoin.id))
 
-            {apiCoins.map((apiCoin)=>{
-              const change1h = Number(apiCoin.percent_change_1h)
-              const change24h = Number(apiCoin.percent_change_24h)
-              const change7d = Number(apiCoin.percent_change_7d)
-              const isSaved = coinIds.includes(String(apiCoin.id))
+                  return (
+                    <tr
+                      key={apiCoin.id}
+                      onClick={() => navigate(`/coins/${apiCoin.id}`)}
+                      className="cursor-pointer border-t border-slate-200 text-sm text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800/50"
+                    >
+                      <td className="px-6 py-4 font-medium">
+                        #{apiCoin.rank}
+                      </td>
 
-              return(
-                <tr
-                  key={apiCoin.id}
-                  onClick={()=>navigate(`/coins/${apiCoin.id}`)}
-                  className="cursor-pointer border-t border-slate-200 text-sm text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800/50">
-                  
-                  <td className="px-6 py-4 font-medium">
-                      #{apiCoin.rank}
-                  </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold dark:bg-slate-800">
+                            {apiCoin.symbol.slice(0, 2)}
+                          </div>
 
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold dark:bg-slate-800">
-                          {apiCoin.symbol.slice(0, 2)}
+                          <div>
+                            <p className="font-medium text-slate-900 dark:text-white">
+                              {apiCoin.name}
+                            </p>
+
+                            <p className="text-xs uppercase text-slate-500">
+                              {apiCoin.symbol}
+                            </p>
+                          </div>
                         </div>
+                      </td>
 
-                        <div>
-                          <p  
-                          className="font-medium text-slate-900 dark:text-white">
-                            {apiCoin.name}
-                          </p>
+                      <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
+                        {formatPrice(apiCoin.price_usd)}
+                      </td>
 
-                          <p className="text-xs uppercase text-slate-500">
-                            {apiCoin.symbol}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
+                      <td
+                        className={`px-6 py-4 font-medium ${
+                          change1h >= 0
+                            ? "text-green-600 dark:text-green-400"
+                            : "text-red-600 dark:text-red-400"
+                        }`}
+                      >
+                        {formatPercentage(apiCoin.percent_change_1h)}
+                      </td>
 
-                    <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
-                      {formatPrice(apiCoin.price_usd)}
-                    </td>
+                      <td
+                        className={`px-6 py-4 font-medium ${
+                          change24h >= 0
+                            ? "text-green-600 dark:text-green-400"
+                            : "text-red-600 dark:text-red-400"
+                        }`}
+                      >
+                        {formatPercentage(apiCoin.percent_change_24h)}
+                      </td>
 
-                    <td
-                      className={`px-6 py-4 font-medium ${
-                        change1h >= 0
-                          ? "text-green-600 dark:text-green-400"
-                          : "text-red-600 dark:text-red-400"
-                      }`}
-                    >
-                      {formatPercentage(apiCoin.percent_change_1h)}
-                    </td>
+                      <td
+                        className={`px-6 py-4 font-medium ${
+                          change7d >= 0
+                            ? "text-green-600 dark:text-green-400"
+                            : "text-red-600 dark:text-red-400"
+                        }`}
+                      >
+                        {formatPercentage(apiCoin.percent_change_7d)}
+                      </td>
 
-                     <td
-                      className={`px-6 py-4 font-medium ${
-                        change24h >= 0
-                          ? "text-green-600 dark:text-green-400"
-                          : "text-red-600 dark:text-red-400"
-                      }`}
-                    >
-                      {formatPercentage(apiCoin.percent_change_24h)}
-                    </td>
+                      <td className="px-6 py-4">
+                        {formatLargeNumber(apiCoin.market_cap_usd)}
+                      </td>
 
-                    <td
-                      className={`px-6 py-4 font-medium ${
-                        change7d >= 0
-                          ? "text-green-600 dark:text-green-400"
-                          : "text-red-600 dark:text-red-400"
-                      }`}
-                    >
-                      {formatPercentage(apiCoin.percent_change_7d)}
-                    </td>
+                      <td className="px-6 py-4">
+                        {formatLargeNumber(apiCoin.volume24)}
+                      </td>
 
-                    <td className="px-6 py-4">
-                      {formatLargeNumber(apiCoin.market_cap_usd)}
-                    </td>
-
-                    <td className="px-6 py-4">
-                      {formatLargeNumber(apiCoin.volume24)}
-                    </td>
-                    <td className='px-12 py-4'
-                      onClick={(event)=>{
-                          event.stopPropagation()
-                        }}>
-                      <button 
-                        type='button'
-                        onClick = {()=>handleWatchlistToggle(apiCoin.id)} 
+                      <td
+                        className="px-12 py-4"
+                        onClick={(event) => event.stopPropagation()}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => handleWatchlistToggle(apiCoin.id)}
                         >
-                        {isSaved? <BookmarkCheck size={18} /> : <Bookmark size={18} />}
-                      </button>
-                    </td>
+                          {isSaved ? (
+                            <BookmarkCheck size={18} />
+                          ) : (
+                            <Bookmark size={18} />
+                          )}
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                })
+              ) : (
+                <tr>
+                  <td
+                    colSpan={9}
+                    className="py-10 text-center text-slate-500 dark:text-slate-400"
+                  >
+                    No coins found for “{searchTerm}”
+                  </td>
                 </tr>
-              )
-            })}
-
+              )}
             </tbody>
 
           </table>
