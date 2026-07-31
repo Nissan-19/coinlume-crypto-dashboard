@@ -48,7 +48,7 @@ function TopMarketCapShare({topCoins, apiStatus}) {
   })
 
   return (
-    <section className="overflow-hidden rounded-xl mt-2 mb-2 border border-slate-200 bg-white shadow-lg dark:border-slate-800 dark:bg-slate-900">
+    <section className="overflow-hidden rounded-xl mt-4 mb-4 border border-slate-200 bg-white shadow-lg dark:border-slate-800 dark:bg-slate-900">
       <div className="flex flex-col gap-3 border-b border-slate-200 px-6 py-5 sm:flex-row sm:items-center sm:justify-between dark:border-slate-800">
         <div>
           <h2 className="text-xl font-semibold text-slate-900 dark:text-white">

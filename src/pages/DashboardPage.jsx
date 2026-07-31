@@ -6,6 +6,7 @@ import TopCryptocurrencies from "../component/TopCryptocurrencies"
 import TopMarketCapShare from "../component/TopMarketCapShare"
 import MarketStatCard from "../component/MarketStatCard"
 import WatchlistPreview from "../component/WatchlistPreview"
+import NewsPreview from "../component/NewsPreview"
 
 
 function DashboardPage() {
@@ -131,6 +132,7 @@ function DashboardPage() {
         onRetry={() => dispatch(fetchCoins())}
       />
 
+      <NewsPreview/>
       
       
 
