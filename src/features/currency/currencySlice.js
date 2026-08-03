@@ -56,10 +56,17 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
                 .addCase(fetchCurrencyRates.fulfilled, (state, action) => {
                 state.status = "succeeded"
 
-                    action.payload.forEach((currency)=>{
-                        state.rates[currency.quote] = currency.rate
-                    })
+                    action.payload.forEach((currency)=>{ //Go through each object in that array, one at a time.
+                        state.rates[currency.quote] = currency.rate //state.rates["EUR"] = 0.86834
+                    })  //We use square brackets because currency.quote is a variable.
                 })
+                /*
+                rates: {
+                        USD: 1,
+                        EUR: 0.86834,
+                        GBP: 0.74385,
+                        INR: 95.39
+                        } */
 
                 .addCase(fetchCurrencyRates.rejected, (state, action) => {
                 state.status = "failed"

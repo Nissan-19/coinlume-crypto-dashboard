@@ -6,6 +6,7 @@ import { Bookmark, BookmarkCheck, LucideBookmark } from 'lucide-react'
 import { saveCoin, removeCoin } from '../features/watchlist/watchlistSlice'
 import SearchSortControls from "../component/SearchSortControls"
 import { formatCurrency } from "../utils/formatCurrency"
+import PaginationControls from "../component/PaginationControls"
 
 
 function CoinsPage  ()  {
@@ -24,6 +25,9 @@ function CoinsPage  ()  {
 
   const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
   const currencyRates = useSelector((state) => state.currency.rates)
+
+  const [currentPage, setCurrentPage] = useState(1)
+  
 
   useEffect(()=>{
     if(apiStatus === "idle"){
@@ -115,6 +119,13 @@ function CoinsPage  ()  {
 
       return 0
     })
+    
+    const itemsPerPage = 10
+    const totalPages = Math.ceil(sortedCoins.length / itemsPerPage)
+    //math.ciel rount the number to the next integer
+    const startIndex = (currentPage - 1) * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+    const currentPageCoins = sortedCoins.slice(startIndex,endIndex)
 
   return (
     <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
@@ -181,7 +192,7 @@ function CoinsPage  ()  {
 
             <tbody>
               {filteredCoins.length > 0 ? (
-                sortedCoins.map((apiCoin) => {
+                currentPageCoins.map((apiCoin) => {
                   const change1h = Number(apiCoin.percent_change_1h)
                   const change24h = Number(apiCoin.percent_change_24h)
                   const change7d = Number(apiCoin.percent_change_7d)
@@ -219,7 +230,8 @@ function CoinsPage  ()  {
                         {formatCurrency(
                           apiCoin.price_usd,
                           selectedCurrency,
-                          currencyRates
+                          currencyRates,
+                          true
                         )}
                       </td>
 
@@ -300,13 +312,16 @@ function CoinsPage  ()  {
                 </tr>
               )}
             </tbody>
-
-          </table>
-
+          </table>       
         </div>
       )}
-      
+        <PaginationControls
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />      
       </section>
+      
   )
 }
 

@@ -7,6 +7,7 @@ import { BookmarkCheck } from 'lucide-react'
 import {removeCoin} from '../features/watchlist/watchlistSlice'
 import SearchSortControls from "../component/SearchSortControls"
 import { formatCurrency } from "../utils/formatCurrency"
+import PaginationControls from "../component/PaginationControls"
 
 function WatchlistPage () {
   const coinIds = useSelector((state)=>state.savedCoins.coinIds)
@@ -22,6 +23,8 @@ function WatchlistPage () {
 
   const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
   const currencyRates = useSelector((state) => state.currency.rates)
+
+  const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(()=>{
       if(coinsStatus === "idle"){
@@ -134,6 +137,13 @@ function WatchlistPage () {
       return 0
     })
 
+    const itemsPerPage = 10
+    const totalPages = Math.ceil(sortedCoins.length / itemsPerPage)
+    //math.ciel rount the number to the next integer
+    const startIndex = (currentPage - 1) * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+    const currentPageCoins = sortedCoins.slice(startIndex,endIndex)
+
   return (
     <div>
       {coinsStatus ==="loading" &&(
@@ -191,7 +201,7 @@ function WatchlistPage () {
 
             <tbody>
               {filteredCoins.length > 0 ? (
-                sortedCoins.map((coin) => {
+                currentPageCoins.map((coin) => {
                   const change1h = Number(coin.percent_change_1h)
                   const change24h = Number(coin.percent_change_24h)
                   const change7d = Number(coin.percent_change_7d)
@@ -307,12 +317,14 @@ function WatchlistPage () {
                 </tr>
               )}
             </tbody>
-
-            </table>
+            </table>                   
             </div>
-        
       ))}
-      
+              <PaginationControls
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
     </div>
   )
 }
