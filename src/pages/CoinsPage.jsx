@@ -73,6 +73,62 @@ function CoinsPage  ()  {
       )
     })
 
+    const sortedCoins = [...filteredCoins].sort((a,b)=>{ //.sort compares two coins at once
+      //we make a copy of filteredCoins array first because JavaScript .sort() 
+      // changes the array it works on, and we don’t want to directly modify data coming from Redux.
+      //.sort() itself keeps calling your comparison function again and again with different pairs until the whole array is in order.
+      if(sortKey === "rank"){
+        if(sortDirection === "asc"){
+          return Number(a.rank) - Number(b.rank) //rank is stored as a string we convert to number
+        } else {
+          return Number(b.rank) - Number(a.rank)
+        }
+      }
+
+      if(sortKey === "price"){
+        if(sortDirection === "asc"){
+          return Number(a.price_usd) - Number(b.price_usd)
+        } else {
+          return Number(b.price_usd) - Number(a.price_usd)
+        }
+      }
+
+      if(sortKey === "change24h"){
+        if(sortDirection === "asc"){
+          return Number(a.percent_change_24h) - Number(b.percent_change_24h)
+        } else {
+          return Number(b.percent_change_24h) - Number(a.percent_change_24h)
+        }
+      }
+
+      if(sortKey === "marketCap"){
+        if(sortDirection === "asc"){
+          return Number(a.market_cap_usd) - Number(b.market_cap_usd)
+        } else {
+          return Number(b.market_cap_usd) - Number(a.market_cap_usd)
+        }
+      }
+
+      if(sortKey === "volume"){
+        if(sortDirection === "asc"){
+          return Number(a.volume24) - Number(b.volume24)
+        } else {
+          return Number(b.volume24) - Number(a.volume24)
+        }
+      }
+
+      if (sortKey === "name") {
+        if (sortDirection === "asc") {
+          return a.name.localeCompare(b.name) //localeCompare() is a built-in JavaScript string method used to compare text alphabetically.
+        } else {
+          return b.name.localeCompare(a.name)
+        }
+      }
+
+
+      return 0
+    })
+
   return (
     <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
       
@@ -138,7 +194,7 @@ function CoinsPage  ()  {
 
             <tbody>
               {filteredCoins.length > 0 ? (
-                filteredCoins.map((apiCoin) => {
+                sortedCoins.map((apiCoin) => {
                   const change1h = Number(apiCoin.percent_change_1h)
                   const change24h = Number(apiCoin.percent_change_24h)
                   const change7d = Number(apiCoin.percent_change_7d)
