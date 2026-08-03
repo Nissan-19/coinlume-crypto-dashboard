@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Bookmark, BookmarkCheck, LucideBookmark } from 'lucide-react'
 import { saveCoin, removeCoin } from '../features/watchlist/watchlistSlice'
 import SearchSortControls from "../component/SearchSortControls"
+import { formatCurrency } from "../utils/formatCurrency"
 
 
 function CoinsPage  ()  {
@@ -21,28 +22,14 @@ function CoinsPage  ()  {
   const [sortKey, setSortKey] = useState("rank")
   const [sortDirection, setSortDirection] = useState("asc")
 
+  const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
+  const currencyRates = useSelector((state) => state.currency.rates)
+
   useEffect(()=>{
     if(apiStatus === "idle"){
       dispatch(fetchCoins())
     }
   },[apiStatus, dispatch])
-  
-  const formatPrice = (value) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      maximumFractionDigits: 2,
-    }).format(value)
-  }
-
-  const formatLargeNumber = (value) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      notation: "compact",
-      maximumFractionDigits: 2,
-    }).format(value)
-  }
 
   const formatPercentage = (value) => {
     const number = Number(value)
@@ -229,7 +216,11 @@ function CoinsPage  ()  {
                       </td>
 
                       <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
-                        {formatPrice(apiCoin.price_usd)}
+                        {formatCurrency(
+                          apiCoin.price_usd,
+                          selectedCurrency,
+                          currencyRates
+                        )}
                       </td>
 
                       <td
@@ -263,11 +254,21 @@ function CoinsPage  ()  {
                       </td>
 
                       <td className="px-6 py-4">
-                        {formatLargeNumber(apiCoin.market_cap_usd)}
+                        {formatCurrency(
+                          apiCoin.market_cap_usd,
+                          selectedCurrency,
+                          currencyRates,
+                          true
+                        )}
                       </td>
 
                       <td className="px-6 py-4">
-                        {formatLargeNumber(apiCoin.volume24)}
+                        {formatCurrency(
+                          apiCoin.volume24,
+                          selectedCurrency,
+                          currencyRates,
+                          true
+                        )}
                       </td>
 
                       <td

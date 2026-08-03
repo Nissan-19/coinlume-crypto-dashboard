@@ -7,10 +7,14 @@ import TopMarketCapShare from "../component/TopMarketCapShare"
 import MarketStatCard from "../component/MarketStatCard"
 import WatchlistPreview from "../component/WatchlistPreview"
 import NewsPreview from "../component/NewsPreview"
+import { formatCurrency } from "../utils/formatCurrency"
 
 
 function DashboardPage() {
   const dispatch = useDispatch()
+
+  const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
+  const currencyRates = useSelector((state) => state.currency.rates)
 
   // coins data
   const apiStatus = useSelector((state) => state.coins.status)
@@ -36,23 +40,15 @@ function DashboardPage() {
   },[globalApiStatus, dispatch])
 
 
-  const totalMcap = formatCompactCurrency(globalApiMarketData?.total_mcap) //?. optional chaining becasue in the beginning the global api returns null
+  const totalMcap = formatCurrency(globalApiMarketData?.total_mcap,selectedCurrency,currencyRates,true) //?. optional chaining becasue in the beginning the global api returns null
   const mcapChange = formatPercentageChange(globalApiMarketData?.mcap_change) //because react runs the code before the api data exists
-  const volume = formatCompactCurrency(globalApiMarketData?.total_volume) // so when it returns nullor undefined return undefined instead of crashing.
+  const volume = formatCurrency(globalApiMarketData?.total_volume, selectedCurrency, currencyRates,true) // so when it returns nullor undefined return undefined instead of crashing.
   const volumeChange =  formatPercentageChange(globalApiMarketData?.volume_change) //programme was crashing before
   const btcDominance = formatPercentage(globalApiMarketData?.btc_d)
   const ethDominance = formatPercentage(globalApiMarketData?.eth_d)
   const coinsCount = formatLargeNumber(globalApiMarketData?.coins_count)
   const activeMarkets = formatLargeNumber(globalApiMarketData?.active_markets)
 
-  function formatCompactCurrency(value){
-    return new Intl.NumberFormat("en-US",{
-      style: "currency",
-      currency: "USD",
-      notation:"compact",
-      maximumFractionDigits: 2,
-    }).format(value)
-  }
 
   function formatLargeNumber(value) {
   if (value == null) return "--"
@@ -75,7 +71,7 @@ function DashboardPage() {
   
 
   return (
-    <div classNam e="space-y-6">
+    <div className="space-y-6">
 
       {globalApiStatus === "idle" || globalApiStatus=== "loading" ?(
         <h1>Loading the Market Data</h1>

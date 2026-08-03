@@ -2,9 +2,23 @@ import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../component/Sidebar'
 import Header from '../component/Header'
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchCurrencyRates } from "../features/currency/currencySlice"
 
 function AppLayout  ()  {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
+  const dispatch = useDispatch()
+
+  const currencyStatus = useSelector((state) => state.currency.status)
+  const currencyRates = useSelector((state) => state.currency.rates)
+
+  useEffect(() => {
+    if (currencyStatus === "idle") {
+      dispatch(fetchCurrencyRates())
+    }
+  }, [currencyStatus, dispatch])
 
   function toggleSidebarOpen(){
     setIsSidebarOpen(!isSidebarOpen)

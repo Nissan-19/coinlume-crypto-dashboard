@@ -1,24 +1,12 @@
 import { Link, useNavigate } from "react-router-dom"
+import { formatCurrency } from "../utils/formatCurrency"
+import { useSelector } from "react-redux"
 
 function TopCryptocurrencies({ apiStatus, topCoins, onRetry }) {
   const navigate = useNavigate()
 
-  const formatPrice = (value) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      maximumFractionDigits: 2,
-    }).format(Number(value))
-  }
-
-  const formatLargeNumber = (value) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      notation: "compact",
-      maximumFractionDigits: 2,
-    }).format(Number(value))
-  }
+  const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
+  const currencyRates = useSelector((state) => state.currency.rates)
 
   const formatPercentage = (value) => {
     const number = Number(value)
@@ -112,7 +100,11 @@ function TopCryptocurrencies({ apiStatus, topCoins, onRetry }) {
                     </td>
 
                     <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
-                      {formatPrice(apiCoin.price_usd)}
+                        {formatCurrency(
+                          apiCoin.price_usd,
+                          selectedCurrency,
+                          currencyRates
+                        )}
                     </td>
 
                     <td
@@ -136,11 +128,21 @@ function TopCryptocurrencies({ apiStatus, topCoins, onRetry }) {
                     </td>
 
                     <td className="px-6 py-4">
-                      {formatLargeNumber(apiCoin.market_cap_usd)}
+                        {formatCurrency(
+                          apiCoin.market_cap_usd,
+                          selectedCurrency,
+                          currencyRates,
+                          true
+                        )}
                     </td>
 
                     <td className="px-6 py-4">
-                      {formatLargeNumber(apiCoin.volume24)}
+                        {formatCurrency(
+                          apiCoin.volume24,
+                          selectedCurrency,
+                          currencyRates,
+                          true
+                        )}                      
                     </td>
                   </tr>
                 )

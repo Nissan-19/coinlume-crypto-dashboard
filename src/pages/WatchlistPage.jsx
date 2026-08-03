@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { BookmarkCheck } from 'lucide-react'
 import {removeCoin} from '../features/watchlist/watchlistSlice'
 import SearchSortControls from "../component/SearchSortControls"
+import { formatCurrency } from "../utils/formatCurrency"
 
 function WatchlistPage () {
   const coinIds = useSelector((state)=>state.savedCoins.coinIds)
@@ -18,6 +19,9 @@ function WatchlistPage () {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
+  const currencyRates = useSelector((state) => state.currency.rates)
 
   useEffect(()=>{
       if(coinsStatus === "idle"){
@@ -221,7 +225,11 @@ function WatchlistPage () {
                       </td>
 
                       <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
-                        {formatPrice(coin.price_usd)}
+                        {formatCurrency(
+                          coin.price_usd,
+                          selectedCurrency,
+                          currencyRates
+                        )}                        
                       </td>
 
                       <td
@@ -255,11 +263,21 @@ function WatchlistPage () {
                       </td>
 
                       <td className="px-6 py-4">
-                        {formatLargeNumber(coin.market_cap_usd)}
+                        {formatCurrency(
+                          coin.market_cap_usd,
+                          selectedCurrency,
+                          currencyRates,
+                          true
+                        )}
                       </td>
 
                       <td className="px-6 py-4">
-                        {formatLargeNumber(coin.volume24)}
+                        {formatCurrency(
+                          coin.volume24,
+                          selectedCurrency,
+                          currencyRates,
+                          true
+                        )}
                       </td>
 
                       <td

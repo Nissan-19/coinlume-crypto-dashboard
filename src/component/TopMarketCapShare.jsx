@@ -1,3 +1,6 @@
+import { formatCurrency } from "../utils/formatCurrency"
+import { useSelector } from "react-redux"
+
 const MARKET_COLORS = [
   "#3b82f6",
   "#8b5cf6",
@@ -6,18 +9,12 @@ const MARKET_COLORS = [
   "#22c55e",
 ]
 
-function formatMarketCap(value) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    notation: "compact",
-    maximumFractionDigits: 2,
-  }).format(value)
-}
-
 function TopMarketCapShare({topCoins, apiStatus}) {
   //we are saying use the received coins array. if no coin prop was provided, use an empty array
   // other wise the slice will not work and crash
+
+  const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
+  const currencyRates = useSelector((state) => state.currency.rates)
 
   const totalTopFiveMarketCap = topCoins.reduce((total, coin) => {
     return total + Number(coin.market_cap_usd || 0)//It protects against a missing or empty value i.e. it did not return anything or empty use 0
@@ -66,7 +63,13 @@ function TopMarketCapShare({topCoins, apiStatus}) {
           </p>
 
           <p className="mt-1 text-xl font-semibold text-slate-900 dark:text-white">
-            {formatMarketCap(totalTopFiveMarketCap)}
+
+            {formatCurrency(
+                          totalTopFiveMarketCap,
+                          selectedCurrency,
+                          currencyRates,
+                          true,
+                        )}
           </p>
         </div>
       </div>

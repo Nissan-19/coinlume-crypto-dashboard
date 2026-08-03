@@ -1,10 +1,14 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom"
+import { formatCurrency } from "../utils/formatCurrency"
 
 function WatchlistPreview  () {
     const coinsIds = useSelector((state)=>state.savedCoins.coinIds)
     const coins = useSelector((state)=>state.coins.coins)
+
+    const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
+    const currencyRates = useSelector((state) => state.currency.rates)
 
     const navigate = useNavigate()
     
@@ -16,15 +20,6 @@ function WatchlistPreview  () {
     // Convert each saved ID into its matching full coin object.
     .filter(Boolean)
     // Remove undefined values when a matching coin cannot be found.
-
-     const formatPrice = (value) => {
-        return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 2,
-        }).format(value)
-    }
-    
     
   return (
     <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
@@ -90,7 +85,11 @@ function WatchlistPreview  () {
                 </div>
 
                 <span className="text-sm font-medium text-slate-900 dark:text-white">
-                  {formatPrice(coin.price_usd)}
+                        {formatCurrency(
+                          coin.price_usd,
+                          selectedCurrency,
+                          currencyRates
+                        )}   
                 </span>
 
                 <span
