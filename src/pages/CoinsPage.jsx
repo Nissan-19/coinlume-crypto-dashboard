@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCoins } from '../features/coins/coinsSlice'
 import { useNavigate } from 'react-router-dom'
-import { Bookmark, BookmarkCheck, LucideBookmark } from 'lucide-react'
+import { Bookmark, BookmarkCheck, } from 'lucide-react'
 import { saveCoin, removeCoin } from '../features/watchlist/watchlistSlice'
 import SearchSortControls from "../component/SearchSortControls"
 import { formatCurrency } from "../utils/formatCurrency"

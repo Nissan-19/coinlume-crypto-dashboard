@@ -1,8 +1,13 @@
 import React from 'react'
 import { Bookmark, BookmarkCheck } from "lucide-react"
+import { formatCurrency } from "../utils/formatCurrency"
+import { useSelector } from "react-redux"
 
 function CoinOverview ({logo, name, symbol, rank, price, hrChange, dayChange, weekChange, handleWatchlistToggle, isSaved}) {
   
+    const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
+    const currencyRates = useSelector((state) => state.currency.rates)
+
     function formatPrice(value){
         if(value === null || value === undefined || value === ""){
             return "Not avaliable"
@@ -80,7 +85,7 @@ function CoinOverview ({logo, name, symbol, rank, price, hrChange, dayChange, we
                 </p>
 
                 <p className="mt-1 text-3xl font-bold text-slate-900 dark:text-white">
-                {formatPrice(price)}
+                {formatCurrency(price, selectedCurrency, currencyRates, true)}
                 </p>
             </div>
         </div>

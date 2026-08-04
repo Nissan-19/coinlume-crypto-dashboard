@@ -1,19 +1,12 @@
 import React from "react"
+import { formatCurrency } from "../utils/formatCurrency"
+import { useSelector } from "react-redux"
 
-function CoinMarkets({ markets }) {
-  function formatCurrency(value) {
-    const number = Number(value)
 
-    if (!Number.isFinite(number)) {
-      return "Not available"
-    }
+function CoinMarkets({ markets, marketsLoading, marketsError, onRetry}) {
 
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      maximumFractionDigits: number < 1 ? 6 : 2,
-    }).format(number)
-  }
+  const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
+  const currencyRates = useSelector((state) => state.currency.rates)
 
   function formatDate(timestamp) {
     const number = Number(timestamp)
@@ -47,7 +40,19 @@ function CoinMarkets({ markets }) {
           Top five markets where this coin is traded
         </p>
 
-        {markets.length === 0 ? (
+        { marketsLoading ? (
+            <p>Loading markets...</p>
+        ) :  marketsError ? (
+          <div className="py-10 text-center">
+            <p>Could not load market data</p>
+             <button
+                className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700" 
+                onClick={onRetry}>
+                  Retry
+              </button>
+          </div>
+        ): 
+            markets.length === 0 ? (
           <p className="py-10 text-center text-slate-500 dark:text-slate-400">
             Market data is not available.
           </p>
@@ -86,11 +91,11 @@ function CoinMarkets({ markets }) {
                     </td>
 
                     <td className="px-6 py-4">
-                      {formatCurrency(market.price_usd)}
+                      {formatCurrency(market.price_usd, selectedCurrency, currencyRates, true)}
                     </td>
 
                     <td className="px-6 py-4">
-                      {formatCurrency(market.volume_usd)}
+                      {formatCurrency(market.volume_usd, selectedCurrency, currencyRates, true)}
                     </td>
 
                     <td className="px-6 py-4">

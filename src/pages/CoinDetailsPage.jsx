@@ -284,6 +284,10 @@ function CoinDetailsPage  ()  {
 
         <CoinMarkets
           CoinMarkets markets={coinMarkets} 
+          marketsLoading={marketsLoading}
+          marketsError={marketsError}
+          onRetry = {fetchMarkets}
+          
         /*
           Why pass only markets={coinMarkets}. Because coinMarkets is already an array containing all five market objects.
           {

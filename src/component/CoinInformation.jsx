@@ -1,20 +1,15 @@
 import React from "react"
+import { formatCurrency } from "../utils/formatCurrency"
+import { useSelector } from "react-redux"
+
 
 function CoinInformation ({marketCap, volume24, priceBtc, circulatingSupply, totalSupply, maximumSupply, ath, athDate, launchDate, firstPrice, firstPriceDate, platform, website, explorer,}) {
+ 
+  const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
+  const currencyRates = useSelector((state) => state.currency.rates)
+
   function hasValue(value) {
     return value !== null && value !== undefined && value !== ""
-  }
-
-  function formatCurrency(value) {
-    if (!hasValue(value)) {
-      return "Not available"
-    }
-
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      maximumFractionDigits: Number(value) < 1 ? 6 : 2, //api can return number as string so if the no is
-    }).format(Number(value))              //smaller then 1 then show upto 6 decimal places otherwise ulpto 2
   }
 
   function formatNumber(value) {
@@ -56,12 +51,12 @@ function CoinInformation ({marketCap, volume24, priceBtc, circulatingSupply, tot
       <div className="mt-5 space-y-4">
         <InformationRow   //this is we are calling our own small resusable component.
           label="Market Cap"
-          value={formatCurrency(marketCap)}
+          value={formatCurrency( marketCap, selectedCurrency, currencyRates, true)}
         />
 
         <InformationRow
           label="24h Trading Volume"
-          value={formatCurrency(volume24)}
+          value={formatCurrency(volume24,selectedCurrency, currencyRates, true)}
         />
 
         <InformationRow
@@ -98,7 +93,7 @@ function CoinInformation ({marketCap, volume24, priceBtc, circulatingSupply, tot
       <div className="mt-5 space-y-4">
         <InformationRow
           label="All-Time High"
-          value={formatCurrency(ath)}
+          value={formatCurrency(ath,selectedCurrency, currencyRates, true)}
         />
 
         <InformationRow
@@ -113,7 +108,7 @@ function CoinInformation ({marketCap, volume24, priceBtc, circulatingSupply, tot
 
         <InformationRow
           label="First Recorded Price"
-          value={formatCurrency(firstPrice)}
+          value={formatCurrency(firstPrice, selectedCurrency, currencyRates, true)}
         />
 
         <InformationRow
