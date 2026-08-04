@@ -1,4 +1,3 @@
-import React from 'react'
 import { ArrowDown, ArrowUp, Search } from "lucide-react"
 
 function SearchSortControls  ({searchTerm, sortKey, sortDirection, onSearchChange, onSortChange, onDirectionChange})  {
@@ -6,7 +5,6 @@ function SearchSortControls  ({searchTerm, sortKey, sortDirection, onSearchChang
     
     <div className="flex flex-col gap-3 border-b border-slate-200 p-4 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
       
-      {/* Search input */}
       <div className="relative w-full sm:max-w-sm">
         <Search
           size={18}
@@ -22,7 +20,6 @@ function SearchSortControls  ({searchTerm, sortKey, sortDirection, onSearchChang
         />
       </div>
 
-      {/* Sorting controls */}
       <div className="flex items-center gap-2">
         <label
           htmlFor="sort-coins"

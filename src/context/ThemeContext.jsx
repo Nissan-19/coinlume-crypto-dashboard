@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 
 const ThemeContext = createContext()
@@ -15,7 +15,6 @@ function ThemeProvider({children}){
             }
 
             return storedTheme
-            //Inside the starting function, return the value. Do not call the setter as the react is currently creating the state.
         }
         
          catch(error){
@@ -26,10 +25,10 @@ function ThemeProvider({children}){
     })
 
     useEffect(() => {
-        const rootElement = document.documentElement  //documentElement means the page’s main element ie html
+        const rootElement = document.documentElement  
 
         if (theme === "dark") {
-            rootElement.classList.add("dark") //reate/add a CSS class named dark to the <html> element’s class list.
+            rootElement.classList.add("dark") 
         } else {
             rootElement.classList.remove("dark")
         }

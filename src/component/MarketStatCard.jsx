@@ -1,4 +1,3 @@
-import React from 'react'
 
 const MarketStatCard = ({title, value, smallText, isPositive }) => {
     const hasTrend = typeof isPositive ==="boolean"

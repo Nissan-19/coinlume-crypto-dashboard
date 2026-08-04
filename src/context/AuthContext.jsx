@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 const AuthContext = createContext()
 
-const demoUsername = "user"                                                           //AuthProvider  is a function that owns and shares the data.
-const demoPassword = "1234"                                                           //AuthContext carries the data.
-                                                                                      //useAuth is used to reads the data from other components.
+const demoUsername = "user"
+const demoPassword = "1234"
+                    
 function AuthProvider  ({children})  {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [displayName, setDisplayName]  = useState("")
@@ -33,15 +33,13 @@ function AuthProvider  ({children})  {
         ){
           const cleanedDisplayName = enteredDisplayName.trim()
 
-        //updating the react state here but the state alone will disapper on refresh
-        setIsAuthenticated(true)
-        setDisplayName(enteredDisplayName.trim())
+          setIsAuthenticated(true)
+          setDisplayName(enteredDisplayName.trim())
 
-        //so we creaate this small object that will save in localStorage 
-        const authData={
-          isAuthenticated: true,
-          displayName: cleanedDisplayName,
-        }
+          const authData={
+            isAuthenticated: true,
+            displayName: cleanedDisplayName,
+          }
 
         localStorage.setItem("coinlume_auth", JSON.stringify(authData))
 
@@ -57,7 +55,6 @@ function AuthProvider  ({children})  {
       
     }
 
-    /*data that are avaliable to the children or wrapped components*/
     return (
       <AuthContext.Provider
           value={{isAuthenticated, displayName, authIsLoading, login, logout}}>   
@@ -66,10 +63,9 @@ function AuthProvider  ({children})  {
   )
 }
 
-export function useAuth(){                    //exporting a custom hook useauth so that other component can import it
-  const context = useContext(AuthContext)     //context reads the data travelling through authcontext and savesit
-
-    if(!context){                             //If no authentication data was received from AuthProvider, something is wrong.
+export function useAuth(){                    
+  const context = useContext(AuthContext)    
+    if(!context){                            
       throw new Error ("UseAuth Must be used inside AuthProvider")
     }
     return context

@@ -7,9 +7,7 @@ const initialState = {
 }
 
 export const fetchCoins = createAsyncThunk(
-    "coins/fetchCoins", //this is for redux the name of feature and operation. it can be anything. we are not going to call it
-    //It is simply an internal label Redux uses to identify this particular job. this is the syntax
-    // name of feature/name of operation (we keep the name same for better understanding)
+    "coins/fetchCoins", 
 
     async ()=>{
         const response = await fetch ("https://api.coinlore.net/api/tickers/?start=0&limit=50")
@@ -28,9 +26,9 @@ const coinsSlice = createSlice({
     name:"coins",
     initialState,
 
-    reducers :{}, //this is for the actions created inside this slice
+    reducers :{}, 
 
-    extraReducers:(builder)=>{ //extraReducers is for actions created somewhere else, such as fetchCoins
+    extraReducers:(builder)=>{ 
         builder
             .addCase(fetchCoins.pending,(state)=>{
                 state.status = "loading"

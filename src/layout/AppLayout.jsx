@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../component/Sidebar'
 import Header from '../component/Header'
@@ -12,7 +12,6 @@ function AppLayout  ()  {
   const dispatch = useDispatch()
 
   const currencyStatus = useSelector((state) => state.currency.status)
-  const currencyRates = useSelector((state) => state.currency.rates)
 
   useEffect(() => {
     if (currencyStatus === "idle") {

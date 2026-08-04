@@ -1,4 +1,3 @@
-import React from "react"
 import { formatCurrency } from "../utils/formatCurrency"
 import { useSelector } from "react-redux"
 
@@ -29,10 +28,9 @@ function CoinInformation ({marketCap, volume24, priceBtc, circulatingSupply, tot
 
     const date = new Date(value)
 
-    if (Number.isNaN(date.getTime())) { //JavaScript could not convert this into a valid date, so do not format it. Return the original value instead.
-      return value  //if the date is valid format then format is nicely and if not a valid format then instead of returning
-    } //invalid date. return the original format date.
-
+    if (Number.isNaN(date.getTime())) { 
+      return value  
+    } 
     return new Intl.DateTimeFormat("en-US", {
       year: "numeric",
       month: "short",
@@ -49,7 +47,7 @@ function CoinInformation ({marketCap, volume24, priceBtc, circulatingSupply, tot
       </h2>
 
       <div className="mt-5 space-y-4">
-        <InformationRow   //this is we are calling our own small resusable component.
+        <InformationRow 
           label="Market Cap"
           value={formatCurrency( marketCap, selectedCurrency, currencyRates, true)}
         />
@@ -136,7 +134,7 @@ function CoinInformation ({marketCap, volume24, priceBtc, circulatingSupply, tot
 )
 }
 
-function InformationRow({ label, value }) { //a React component can be written in the same file.
+function InformationRow({ label, value }) {
   return (
     <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-3 last:border-b-0 last:pb-0 dark:border-slate-700">
       <p className="text-sm text-slate-500 dark:text-slate-400">

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Bookmark, BookmarkCheck } from "lucide-react"
 import { formatCurrency } from "../utils/formatCurrency"
 import { useSelector } from "react-redux"
@@ -7,20 +6,6 @@ function CoinOverview ({logo, name, symbol, rank, price, hrChange, dayChange, we
   
     const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
     const currencyRates = useSelector((state) => state.currency.rates)
-
-    function formatPrice(value){
-        if(value === null || value === undefined || value === ""){
-            return "Not avaliable"
-        }
-        const number = Number(value)
-
-        return new Intl.NumberFormat("en-US",{
-            style:"currency",
-            currency:"USD",
-            minimumFractionDigits: 2,
-            maximumFractionDigits: number < 1 ? 6 : 2,
-        }).format(number)
-    }
 
      function formatChange(value) {
         if (value === null || value === undefined || value === "") {

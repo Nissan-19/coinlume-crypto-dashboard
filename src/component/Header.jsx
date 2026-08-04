@@ -1,11 +1,10 @@
-import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeCurrency } from '../features/currency/currencySlice'
 
 function Header  ()  {
-    const currentLocation = useLocation() //React Router hook. It gives us information about the current URL.
+    const currentLocation = useLocation()
     const {displayName} = useAuth()
 
     let pageTitle = "Dashboard"

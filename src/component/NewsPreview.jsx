@@ -1,4 +1,3 @@
-import React from 'react'
 import newsData from '../data/newsData'
 import { useNavigate } from 'react-router-dom'
 

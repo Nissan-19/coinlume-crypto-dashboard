@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { fetchCoins } from '../features/coins/coinsSlice'
@@ -17,7 +17,7 @@ function CoinDetailsPage  ()  {
   const status = useSelector((state) => state.coins.status)
 
   const coinIds = useSelector((state)=>state.savedCoins.coinIds)
-  const currentCoinId = String(id) //It converts id into a string. We do this because your saved IDs in Redux may be strings, and includes() compares values strictly.
+  const currentCoinId = String(id) 
   const isSaved = coinIds.includes(currentCoinId)
 
   const [coinProfile, setCoinProfile] = useState(null)
@@ -47,7 +47,6 @@ function CoinDetailsPage  ()  {
         
         const data = await response.json()
         setCoinProfile(data[0])
-        //the api provides data on the object 0th index
 
       } catch (requestError){
         console.error(requestError)
@@ -78,46 +77,22 @@ function CoinDetailsPage  ()  {
       throw new Error("Invalid price history data")
         }
 
-      /*
-        CoinLore returns an array of daily records.
-
-        Each record contains:
-
-        [
-          timestamp,
-          open,
-          high,
-          low,
-          close,
-          volume
-        ]
-
-        We use:
-        - index 0 for the date
-        - index 4 for the closing price
-      */
       const formattedHistory = data
-        .map((candle) => {            //API gives data as an arrys of too many records but recharts works conviently on objects having date and price
-          const timestamp = candle[0] //goes through every candle and creates a new object. So this code changes the API data into the shape our graph needs.
-          const closePrice = candle[4] //map() goes through every candle and creates a new object. with time stap and closeprice
+        .map((candle) => {            
+          const timestamp = candle[0] 
+          const closePrice = candle[4]
 
           return {
-            date: new Date(timestamp * 1000) //CoinLore gives timestamps in seconds. JavaScript expects timestamps in milliseconds.
-              .toISOString()    //This creates something like: 2026-07-20T00:00:00.000Z
+            date: new Date(timestamp * 1000) 
+              .toISOString()   
               .split("T")[0], 
-                /* This splits the string into:
-                [
-                  "2026-07-20",                 Then [0] selects only:2026-07-20
-                  "00:00:00.000Z"
-                ]
-                */
             price: Number(closePrice),
             timestamp,
           }
         })
-        .filter((item) => Number.isFinite(item.price)) //This removes any item whose price is not a valid number. this check Is this price a real JavaScript number that the graph can safely use?
-        .sort((firstItem, secondItem) => { //This sorts the dates from oldest to newest.
-          return firstItem.timestamp - secondItem.timestamp//sort the negative value first and the increasing
+        .filter((item) => Number.isFinite(item.price)) 
+        .sort((firstItem, secondItem) => { 
+          return firstItem.timestamp - secondItem.timestamp
         })
 
       setPriceHistory(formattedHistory)
@@ -156,7 +131,6 @@ function CoinDetailsPage  ()  {
       
     }
 
-  // Fetch new historical data whenever the coin ID changes.
     useEffect(() => {
       fetchPriceHistory()
     }, [id])
@@ -164,14 +138,7 @@ function CoinDetailsPage  ()  {
       useEffect(()=>{
         fetchCoinProfile()
       }, [id])
-          // The component can render many times,
-        // but useEffect prevents this API request from running on every render.
-        // We wrote the async function outside useEffect
-        // so both useEffect and the Retry button can access it.
-        // useEffect calls the function automatically
-        // when the page first opens or when the id changes.
-        // The Retry button when the page first opens or when the id changes.
-        // can call the same function manually.
+        
 
   useEffect(()=>{
     if(status === "idle"){
@@ -185,9 +152,6 @@ function CoinDetailsPage  ()  {
 
   const selectedCoin = coins.find((coin)=> coin.id === id)
 
-  // Retry both API requests:
-// 1. Fetch the page-specific coin profile again.
-// 2. Fetch the shared list of coins again through Redux.
   function handleRetry() {
       fetchCoinProfile()
       dispatch(fetchCoins())
@@ -210,13 +174,11 @@ function CoinDetailsPage  ()  {
       </h1>
 
     ) : error !== null || status === "failed" ? (
-      /* Show the error state when either API request fails. */
       <div className="px-6 py-8 text-center">
         <h1 className="text-slate-500">
           {error || "Failed to fetch coin data"}
         </h1>
 
-        {/* Retry both the profile request and the Redux coins request. */}
         <button
           type="button"
           onClick={handleRetry}
@@ -227,18 +189,9 @@ function CoinDetailsPage  ()  {
       </div>
 
     ) : coinProfile && selectedCoin ? (
-      /*
-        Render the page only after both objects contain data.
-
-        coinProfile contains the extra profile information
-        fetched specifically for this page.
-
-        selectedCoin contains the market information
-        found inside the shared Redux coins array.
-      */
+      
       <div className="w-full space-y-4">
         <CoinOverview
-          // These values are passed directly into CoinOverview as props.
           logo={coinProfile.logo}
           name={coinProfile.name}
           symbol={selectedCoin.symbol}
@@ -252,7 +205,6 @@ function CoinDetailsPage  ()  {
         />
 
         <CoinInformation
-          // Market values come from the selected coin in Redux.
           marketCap={selectedCoin.market_cap_usd}
           volume24={selectedCoin.volume24}
           priceBtc={selectedCoin.price_btc}
@@ -260,7 +212,6 @@ function CoinDetailsPage  ()  {
           totalSupply={selectedCoin.tsupply}
           maximumSupply={selectedCoin.msupply}
 
-          // Profile values come from the page-specific profile API request.
           ath={coinProfile.ath}
           athDate={coinProfile.ath_date}
           launchDate={coinProfile.startdate}
@@ -271,7 +222,6 @@ function CoinDetailsPage  ()  {
           explorer={coinProfile.explorer}
         />
 
-        {/* Pass the historical data and chart controls into CoinPriceChart. */}
         <CoinPriceChart
           coinName={coinProfile.name}
           priceHistory={priceHistory}
@@ -288,21 +238,10 @@ function CoinDetailsPage  ()  {
           marketsError={marketsError}
           onRetry = {fetchMarkets}
           
-        /*
-          Why pass only markets={coinMarkets}. Because coinMarkets is already an array containing all five market objects.
-          {
-            name: "Binance",
-            base: "BTC",
-            quote: "USDT",
-            price_usd: 118000
-          },
-          So, Instead of passing each field separately. we pass the complete array once. Then CoinMarkets loops over it:
-          */
         />
 
       </div>
     ) : (
-      /* This runs when loading is finished but the requested coin does not exist. */
       <p className="px-6 py-8 text-center text-slate-500">
         Coin not found.
       </p>

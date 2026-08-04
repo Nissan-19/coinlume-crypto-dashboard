@@ -1,4 +1,3 @@
-import React from "react"
 import { formatCurrency } from "../utils/formatCurrency"
 import { useSelector } from "react-redux"
 
@@ -14,11 +13,7 @@ function CoinMarkets({ markets, marketsLoading, marketsError, onRetry}) {
     if (!Number.isFinite(number)) {
       return "Not available"
     }
-
-    /*
-      CoinLore provides time in seconds.
-      JavaScript requires milliseconds, so we multiply by 1000.
-    */
+    
     const date = new Date(number * 1000)
 
     return new Intl.DateTimeFormat("en-US", {

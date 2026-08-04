@@ -11,7 +11,7 @@ function LoginPage  () {
   const [password, setPassword] = useState("")
   const [loginErrorMessage, setLoginErrorMessage] = useState("")
   const {login} = useAuth()
-  const navigate = useNavigate()  //programmatic navigation. It is used when your JavaScript needs to move the user to another page after something happens.  JavaScript changes the page after an action
+  const navigate = useNavigate() 
 
   function handleLoginSubmit(event){
     event.preventDefault()
@@ -32,7 +32,7 @@ function LoginPage  () {
       return
     }
     
-    const loginIsSuccessful = login(  /*called the login function here and passing the three values */
+    const loginIsSuccessful = login(  
       enteredDisplayName,
       username,
       password

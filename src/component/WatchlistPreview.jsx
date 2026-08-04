@@ -1,4 +1,3 @@
-import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import { formatCurrency } from "../utils/formatCurrency"
@@ -13,13 +12,10 @@ function WatchlistPreview  () {
     const navigate = useNavigate()
     
 
-    const visibleCoinIds = coinsIds.slice(-5) // Take only the last five saved coin IDs for the dashboard preview.
+    const visibleCoinIds = coinsIds.slice(-5)
     const watchlistPreview = visibleCoinIds.map((savedId)=>
-        // Convert each saved ID into its matching full coin object.
         coins.find((coin)=>String(coin.id) === String(savedId)))
-    // Convert each saved ID into its matching full coin object.
     .filter(Boolean)
-    // Remove undefined values when a matching coin cannot be found.
     
   return (
     <section className="overflow-hidden rounded-xl border shadow-xl border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">

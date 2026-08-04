@@ -1,756 +1,404 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="9300" viewBox="0 0 2400 9300">
-  <defs>
-    <style>
-  .title { font-family: Arial, sans-serif; font-weight: 800; fill: #212529; }
-  .subtitle { font-family: Arial, sans-serif; font-weight: 400; fill: #495057; }
-  .panel-title { font-family: Arial, sans-serif; font-weight: 800; fill: #212529; }
-  .node-title { font-family: Arial, sans-serif; font-weight: 750; fill: #212529; }
-  .node-line { font-family: Arial, sans-serif; font-weight: 500; fill: #343a40; }
-  .edge-label { font-family: Arial, sans-serif; font-size: 15px; font-weight: 700; }
-  .legend { font-family: Arial, sans-serif; font-size: 17px; font-weight: 600; fill: #343a40; }
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="2920" viewBox="0 0 1800 2920">
+<defs><style>
+.title{font-family:Arial,sans-serif;font-weight:800;fill:#212529}.subtitle{font-family:Arial,sans-serif;font-weight:400;fill:#495057}.panel-title{font-family:Arial,sans-serif;font-weight:800;fill:#212529}.node-title{font-family:Arial,sans-serif;font-weight:750;fill:#212529}.node-line{font-family:Arial,sans-serif;font-weight:500;fill:#343a40}.edge-label{font-family:Arial,sans-serif;font-size:14px;font-weight:700}.legend{font-family:Arial,sans-serif;font-size:15px;font-weight:600;fill:#343a40}
 </style>
-    <marker id="arrow-structure" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L10,5 L0,10 z" fill="#343a40" />
-    </marker>
-    <marker id="arrow-props" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1971c2" />
-    </marker>
-    <marker id="arrow-context" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d9480f" />
-    </marker>
-    <marker id="arrow-redux" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2b8a3e" />
-    </marker>
-    <marker id="arrow-storage" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L10,5 L0,10 z" fill="#868e96" />
-    </marker>
-    <marker id="arrow-router" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L10,5 L0,10 z" fill="#e67700" />
-    </marker>
-    <marker id="arrow-state" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L10,5 L0,10 z" fill="#0b7285" />
-    </marker>
-    <marker id="arrow-api" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L10,5 L0,10 z" fill="#c92a2a" />
-    </marker>
-  </defs>
-  <rect width="100%" height="100%" fill="#f8f9fa" />
-  <text x="70" y="38" class="title" font-size="30">CoinLume — Current Architecture Map</text>
-  <rect x="40" y="40" width="2320" height="610" rx="26" fill="#ffffff" stroke="#ced4da" stroke-width="3" />
-  <text x="68" y="82" class="panel-title" font-size="26">1. App start, providers, and routing</text>
-  <text x="68" y="110" class="subtitle" font-size="17">How the application starts and how URLs choose pages</text>
-  <rect x="40" y="690" width="2320" height="500" rx="26" fill="#ffffff" stroke="#ced4da" stroke-width="3" />
-  <text x="68" y="732" class="panel-title" font-size="26">2. Layout and component connections</text>
-  <text x="68" y="760" class="subtitle" font-size="17">What AppLayout renders, which state it owns, and which props move downward</text>
-  <rect x="40" y="1230" width="2320" height="650" rx="26" fill="#ffffff" stroke="#ced4da" stroke-width="3" />
-  <text x="68" y="1272" class="panel-title" font-size="26">3. Shared state, consumers, and browser storage</text>
-  <text x="68" y="1300" class="subtitle" font-size="17">Which components read each shared value and where persistence happens</text>
-  <polyline points="300,190.0 365,134.0" fill="none" stroke="#343a40" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" />
-  <rect x="296.5" y="148.0" width="72" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="332.5" y="167.0" text-anchor="middle" class="edge-label" fill="#343a40">wraps</text>
-  <polyline points="480.0,173 480.0,210" fill="none" stroke="#343a40" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" />
-  <rect x="436.8" y="177.5" width="86.4" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="480.0" y="196.5" text-anchor="middle" class="edge-label" fill="#343a40">contains</text>
-  <polyline points="595,249.0 635,249 635,140 675,140.0" fill="none" stroke="#343a40" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" />
-  <rect x="595.95" y="180.5" width="78.10000000000001" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="635.0" y="199.5" text-anchor="middle" class="edge-label" fill="#343a40">renders</text>
-  <polyline points="595,249.0 675,249.0" fill="none" stroke="#2b8a3e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-redux)" />
-  <rect x="599.0" y="235.0" width="72" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="635.0" y="254.0" text-anchor="middle" class="edge-label" fill="#2b8a3e">uses</text>
-  <polyline points="885,249.0 955,249.0" fill="none" stroke="#2b8a3e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-redux)" />
-  <rect x="839.45" y="235.0" width="161.10000000000002" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="920.0" y="254.0" text-anchor="middle" class="edge-label" fill="#2b8a3e">registers reducer</text>
-  <polyline points="885,140.0 955,119.0" fill="none" stroke="#343a40" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" />
-  <rect x="884.0" y="115.5" width="72" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="920.0" y="134.5" text-anchor="middle" class="edge-label" fill="#343a40">wraps</text>
-  <polyline points="1175,119.0 1235,119.0" fill="none" stroke="#343a40" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" />
-  <rect x="1169.0" y="105.0" width="72" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1205.0" y="124.0" text-anchor="middle" class="edge-label" fill="#343a40">wraps</text>
-  <polyline points="1455,119.0 1515,119.0" fill="none" stroke="#343a40" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" />
-  <rect x="1449.0" y="105.0" width="72" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1485.0" y="124.0" text-anchor="middle" class="edge-label" fill="#343a40">wraps</text>
-  <polyline points="1605.0,158 1605,180 1595,180 1595.0,205" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" />
-  <rect x="1559.0" y="178.5" width="72" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1595.0" y="197.5" text-anchor="middle" class="edge-label" fill="#e67700">route</text>
-  <polyline points="1695,119.0 1830,119 1878,170 1877.5,205" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" />
-  <rect x="1726.5" y="105.0" width="72" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1762.5" y="124.0" text-anchor="middle" class="edge-label" fill="#e67700">route</text>
-  <polyline points="1605.0,158 1605,310 1595,310 1595.0,335" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" />
-  <rect x="1569.0" y="220.0" width="72" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1605.0" y="239.0" text-anchor="middle" class="edge-label" fill="#e67700">route</text>
-  <polyline points="1710,382.5 1760,382.5" fill="none" stroke="#343a40" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" />
-  <rect x="1691.8" y="368.5" width="86.4" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1735.0" y="387.5" text-anchor="middle" class="edge-label" fill="#343a40">children</text>
-  <polyline points="1877.5,430 1877,465 1190.0,465 1190.0,500" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" />
-  <rect x="1428.05" y="451.0" width="210.9" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1533.5" y="470.0" text-anchor="middle" class="edge-label" fill="#e67700">nested route via Outlet</text>
-  <polyline points="1877.5,430 1877,465 1450.0,465 1450.0,500" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" />
-  <rect x="1558.05" y="451.0" width="210.9" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1663.5" y="470.0" text-anchor="middle" class="edge-label" fill="#e67700">nested route via Outlet</text>
-  <polyline points="1877.5,430 1877,465 1710.0,465 1710.0,500" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" />
-  <rect x="1688.05" y="451.0" width="210.9" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1793.5" y="470.0" text-anchor="middle" class="edge-label" fill="#e67700">nested route via Outlet</text>
-  <polyline points="1877.5,430 1877,465 1970.0,465 1970.0,500" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" />
-  <rect x="1818.05" y="451.0" width="210.9" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1923.5" y="470.0" text-anchor="middle" class="edge-label" fill="#e67700">nested route via Outlet</text>
-  <polyline points="1877.5,430 1877,465 2230.0,465 2230.0,500" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" />
-  <rect x="1948.05" y="451.0" width="210.9" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="2053.5" y="470.0" text-anchor="middle" class="edge-label" fill="#e67700">nested route via Outlet</text>
-  <polyline points="222.5,980 222.5,910" fill="none" stroke="#0b7285" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-state)" />
-  <rect x="129.5" y="931.0" width="186.0" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="222.5" y="950.0" text-anchor="middle" class="edge-label" fill="#0b7285">state value + setter</text>
-  <polyline points="345,855.0 470,810.0" fill="none" stroke="#1971c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-props)" />
-  <rect x="371.5" y="818.5" width="72" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="407.5" y="837.5" text-anchor="middle" class="edge-label" fill="#1971c2">props</text>
-  <polyline points="345,855.0 405,855 405,975 470,975.0" fill="none" stroke="#343a40" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" />
-  <rect x="365.95" y="901.0" width="78.10000000000001" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="405.0" y="920.0" text-anchor="middle" class="edge-label" fill="#343a40">renders</text>
-  <polyline points="345,855.0 390,855 390,1102 470,1102.5" fill="none" stroke="#343a40" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" />
-  <rect x="350.95" y="964.5" width="78.10000000000001" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="390.0" y="983.5" text-anchor="middle" class="edge-label" fill="#343a40">renders</text>
-  <polyline points="715,810.0 880,790.0" fill="none" stroke="#1971c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-props)" />
-  <rect x="761.5" y="786.0" width="72" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="797.5" y="805.0" text-anchor="middle" class="edge-label" fill="#1971c2">props</text>
-  <polyline points="715,810.0 795,810 795,947 880,947.5" fill="none" stroke="#1971c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-props)" />
-  <rect x="706.15" y="864.5" width="177.70000000000002" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="795.0" y="883.5" text-anchor="middle" class="edge-label" fill="#1971c2">prop: isSidebarOpen</text>
-  <polyline points="1125,790.0 1320,820.0" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" />
-  <rect x="1183.45" y="791.0" width="78.10000000000001" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1222.5" y="810.0" text-anchor="middle" class="edge-label" fill="#e67700">NavLink</text>
-  <polyline points="592.5,755 750,705 1250,705 1250,820 1320,820.0" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" />
-  <rect x="915.3" y="691.0" width="169.4" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1000.0" y="710.0" text-anchor="middle" class="edge-label" fill="#e67700">navigate('/login')</text>
-  <polyline points="715,975.0 1220,975 1470,940 1470.0,895" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" />
-  <rect x="911.85" y="961.0" width="111.30000000000001" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="967.5" y="980.0" text-anchor="middle" class="edge-label" fill="#e67700">useLocation</text>
-  <polyline points="715,1102.5 1320,1062.5" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" />
-  <rect x="924.5" y="1068.5" width="186.0" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1017.5" y="1087.5" text-anchor="middle" class="edge-label" fill="#e67700">renders matched page</text>
-  <polyline points="715,810.0 1500,810 1500,835 1780,835.0" fill="none" stroke="#1971c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-props)" />
-  <rect x="1064.3" y="796.0" width="86.4" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1107.5" y="815.0" text-anchor="middle" class="edge-label" fill="#1971c2">receives</text>
-  <polyline points="1125,790.0 1520,790 1520,1050 1780,1050.0" fill="none" stroke="#1971c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-props)" />
-  <rect x="1279.3" y="776.0" width="86.4" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1322.5" y="795.0" text-anchor="middle" class="edge-label" fill="#1971c2">receives</text>
-  <polyline points="1125,947.5 1480,947 1480,1050 1780,1050.0" fill="none" stroke="#1971c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-props)" />
-  <rect x="1259.3" y="933.25" width="86.4" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1302.5" y="952.25" text-anchor="middle" class="edge-label" fill="#1971c2">receives</text>
-  <polyline points="425,1445.0 525,1450.0" fill="none" stroke="#d9480f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-context)" />
-  <rect x="427.65" y="1433.5" width="94.7" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="475.0" y="1452.5" text-anchor="middle" class="edge-label" fill="#d9480f">useAuth()</text>
-  <polyline points="425,1700.0 525,1705.0" fill="none" stroke="#d9480f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-context)" />
-  <rect x="423.5" y="1688.5" width="103.0" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="475.0" y="1707.5" text-anchor="middle" class="edge-label" fill="#d9480f">useTheme()</text>
-  <polyline points="1595,1440.0 1700,1425.0" fill="none" stroke="#2b8a3e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-redux)" />
-  <rect x="1596.0" y="1418.5" width="103.0" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1647.5" y="1437.5" text-anchor="middle" class="edge-label" fill="#2b8a3e">Redux flow</text>
-  <polyline points="260.0,1550 260,1580 1160,1580 1160,1700 1240,1722.5" fill="none" stroke="#868e96" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-storage)" stroke-dasharray="10 8" />
-  <rect x="592.1" y="1566.0" width="235.8" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="710.0" y="1585.0" text-anchor="middle" class="edge-label" fill="#868e96">read / write / remove auth</text>
-  <polyline points="425,1700.0 860,1700 1160,1700 1240,1722.5" fill="none" stroke="#868e96" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-storage)" stroke-dasharray="10 8" />
-  <rect x="557.8" y="1686.0" width="169.4" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="642.5" y="1705.0" text-anchor="middle" class="edge-label" fill="#868e96">read / write theme</text>
-  <polyline points="1417.5,1540 1417.5,1630" fill="none" stroke="#868e96" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-storage)" stroke-dasharray="10 8" />
-  <rect x="1299.6" y="1571.0" width="235.8" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1417.5" y="1590.0" text-anchor="middle" class="edge-label" fill="#868e96">slice reads saved currency</text>
-  <polyline points="1880.0,1510 1880,1580 1640,1580 1640,1722 1595,1722.5" fill="none" stroke="#868e96" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-storage)" stroke-dasharray="10 8" />
-  <rect x="1658.7" y="1566.0" width="202.60000000000002" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="1760.0" y="1585.0" text-anchor="middle" class="edge-label" fill="#868e96">Header writes currency</text>
-  <polyline points="425,1700.0 1120,1700 1120,1850 1650,1850 1650,1720 1700,1720.0" fill="none" stroke="#d9480f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-context)" />
-  <rect x="667.05" y="1686.0" width="210.9" height="28" rx="8" fill="#ffffff" fill-opacity="0.94" />
-  <text x="772.5" y="1705.0" text-anchor="middle" class="edge-label" fill="#d9480f">add / remove dark class</text>
-  <rect x="90" y="145" width="210" height="90" rx="18" fill="#f3d9fa" stroke="#5f3dc4" stroke-width="3" />
-  <text x="195.0" y="179" text-anchor="middle" class="node-title" font-size="24">main.jsx</text>
-  <text x="195.0" y="210" text-anchor="middle" class="node-line" font-size="20">entry point</text>
-  <rect x="365" y="95" width="230" height="78" rx="18" fill="#fff3bf" stroke="#e67700" stroke-width="3" />
-  <text x="480.0" y="129" text-anchor="middle" class="node-title" font-size="24">BrowserRouter</text>
-  <text x="480.0" y="160" text-anchor="middle" class="node-line" font-size="20">React Router</text>
-  <rect x="365" y="210" width="230" height="78" rx="18" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3" />
-  <text x="480.0" y="244" text-anchor="middle" class="node-title" font-size="24">Redux Provider</text>
-  <text x="480.0" y="275" text-anchor="middle" class="node-line" font-size="20">store={store}</text>
-  <rect x="675" y="210" width="210" height="78" rx="18" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3" />
-  <text x="780.0" y="244" text-anchor="middle" class="node-title" font-size="24">store.js</text>
-  <text x="780.0" y="275" text-anchor="middle" class="node-line" font-size="20">3 Redux reducers</text>
-  <rect x="955" y="210" width="245" height="78" rx="18" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3" />
-  <text x="1077.5" y="244" text-anchor="middle" class="node-title" font-size="24">currencySlice.js</text>
-  <text x="1077.5" y="275" text-anchor="middle" class="node-line" font-size="20">selectedCurrency</text>
-  <rect x="675" y="95" width="210" height="90" rx="18" fill="#f3d9fa" stroke="#5f3dc4" stroke-width="3" />
-  <text x="780.0" y="129" text-anchor="middle" class="node-title" font-size="24">App.jsx</text>
-  <text x="780.0" y="160" text-anchor="middle" class="node-line" font-size="20">providers + routes</text>
-  <rect x="955" y="80" width="220" height="78" rx="18" fill="#ffe8cc" stroke="#d9480f" stroke-width="3" />
-  <text x="1065.0" y="127.0" text-anchor="middle" class="node-title" font-size="24">AuthProvider</text>
-  <rect x="1235" y="80" width="220" height="78" rx="18" fill="#ffe8cc" stroke="#d9480f" stroke-width="3" />
-  <text x="1345.0" y="127.0" text-anchor="middle" class="node-title" font-size="24">ThemeProvider</text>
-  <rect x="1515" y="80" width="180" height="78" rx="18" fill="#fff3bf" stroke="#e67700" stroke-width="3" />
-  <text x="1605.0" y="127.0" text-anchor="middle" class="node-title" font-size="24">Routes</text>
-  <rect x="1480" y="205" width="230" height="85" rx="18" fill="#fff3bf" stroke="#e67700" stroke-width="3" />
-  <text x="1595.0" y="239" text-anchor="middle" class="node-title" font-size="20">/</text>
-  <text x="1595.0" y="270" text-anchor="middle" class="node-line" font-size="17">Navigate → /login</text>
-  <rect x="1760" y="205" width="235" height="85" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="1877.5" y="239" text-anchor="middle" class="node-title" font-size="20">/login</text>
-  <text x="1877.5" y="270" text-anchor="middle" class="node-line" font-size="17">LoginPage</text>
-  <rect x="1480" y="335" width="230" height="95" rx="18" fill="#fff3bf" stroke="#e67700" stroke-width="3" />
-  <text x="1595.0" y="369" text-anchor="middle" class="node-title" font-size="19">Pathless parent route</text>
-  <text x="1595.0" y="400" text-anchor="middle" class="node-line" font-size="16">ProtectedRoute</text>
-  <rect x="1760" y="335" width="235" height="95" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="1877.5" y="369" text-anchor="middle" class="node-title" font-size="21">AppLayout</text>
-  <text x="1877.5" y="400" text-anchor="middle" class="node-line" font-size="18">protected shell</text>
-  <rect x="1080" y="500" width="220" height="88" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="1190.0" y="534" text-anchor="middle" class="node-title" font-size="18">/dashboard</text>
-  <text x="1190.0" y="565" text-anchor="middle" class="node-line" font-size="15">DashboardPage</text>
-  <rect x="1340" y="500" width="220" height="88" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="1450.0" y="534" text-anchor="middle" class="node-title" font-size="18">/coins</text>
-  <text x="1450.0" y="565" text-anchor="middle" class="node-line" font-size="15">CoinsPage</text>
-  <rect x="1600" y="500" width="220" height="88" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="1710.0" y="534" text-anchor="middle" class="node-title" font-size="18">/watchlist</text>
-  <text x="1710.0" y="565" text-anchor="middle" class="node-line" font-size="15">WatchlistPage</text>
-  <rect x="1860" y="500" width="220" height="88" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="1970.0" y="534" text-anchor="middle" class="node-title" font-size="18">/news</text>
-  <text x="1970.0" y="565" text-anchor="middle" class="node-line" font-size="15">NewsPage</text>
-  <rect x="2120" y="500" width="220" height="88" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="2230.0" y="534" text-anchor="middle" class="node-title" font-size="18">/coins/:id</text>
-  <text x="2230.0" y="565" text-anchor="middle" class="node-line" font-size="15">CoinDetailsPage</text>
-  <rect x="100" y="800" width="245" height="110" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="222.5" y="834" text-anchor="middle" class="node-title" font-size="24">AppLayout</text>
-  <text x="222.5" y="865" text-anchor="middle" class="node-line" font-size="20">owns sidebar state</text>
-  <rect x="100" y="980" width="245" height="95" rx="18" fill="#c5f6fa" stroke="#0b7285" stroke-width="3" />
-  <text x="222.5" y="1014" text-anchor="middle" class="node-title" font-size="21">isSidebarOpen</text>
-  <text x="222.5" y="1045" text-anchor="middle" class="node-line" font-size="18">local useState(false)</text>
-  <rect x="470" y="755" width="245" height="110" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="592.5" y="789" text-anchor="middle" class="node-title" font-size="24">Sidebar</text>
-  <text x="592.5" y="820" text-anchor="middle" class="node-line" font-size="20">navigation + logout</text>
-  <rect x="470" y="925" width="245" height="100" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="592.5" y="959" text-anchor="middle" class="node-title" font-size="21">Header</text>
-  <text x="592.5" y="990" text-anchor="middle" class="node-line" font-size="18">title + currency + name</text>
-  <rect x="470" y="1060" width="245" height="85" rx="18" fill="#fff3bf" stroke="#e67700" stroke-width="3" />
-  <text x="592.5" y="1094" text-anchor="middle" class="node-title" font-size="20">Outlet</text>
-  <text x="592.5" y="1125" text-anchor="middle" class="node-line" font-size="17">matched page appears here</text>
-  <rect x="880" y="735" width="245" height="110" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="1002.5" y="769" text-anchor="middle" class="node-title" font-size="24">SidebarItem</text>
-  <text x="1002.5" y="800" text-anchor="middle" class="node-line" font-size="20">used 4×</text>
-  <rect x="880" y="895" width="245" height="105" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="1002.5" y="929" text-anchor="middle" class="node-title" font-size="24">ThemeToggle</text>
-  <text x="1002.5" y="960" text-anchor="middle" class="node-line" font-size="20">inside Sidebar</text>
-  <rect x="1320" y="745" width="300" height="150" rx="18" fill="#fff3bf" stroke="#e67700" stroke-width="3" />
-  <text x="1470.0" y="779" text-anchor="middle" class="node-title" font-size="21">React Router tools</text>
-  <text x="1470.0" y="810" text-anchor="middle" class="node-line" font-size="18">NavLink</text>
-  <text x="1470.0" y="834" text-anchor="middle" class="node-line" font-size="18">useNavigate</text>
-  <text x="1470.0" y="858" text-anchor="middle" class="node-line" font-size="18">useLocation</text>
-  <rect x="1320" y="1010" width="300" height="105" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="1470.0" y="1044" text-anchor="middle" class="node-title" font-size="20">Current protected page</text>
-  <text x="1470.0" y="1075" text-anchor="middle" class="node-line" font-size="17">Dashboard / Coins /</text>
-  <text x="1470.0" y="1099" text-anchor="middle" class="node-line" font-size="17">Watchlist / News / Details</text>
-  <rect x="1780" y="750" width="480" height="170" rx="18" fill="#ebfbee" stroke="#5c940d" stroke-width="3" />
-  <text x="2020.0" y="784" text-anchor="middle" class="node-title" font-size="22">Props passed into Sidebar</text>
-  <text x="2020.0" y="815" text-anchor="middle" class="node-line" font-size="19">isSidebarOpen</text>
-  <text x="2020.0" y="839" text-anchor="middle" class="node-line" font-size="19">toggleSidebarOpen</text>
-  <rect x="1780" y="965" width="480" height="170" rx="18" fill="#ebfbee" stroke="#5c940d" stroke-width="3" />
-  <text x="2020.0" y="999" text-anchor="middle" class="node-title" font-size="20">Props passed inside Sidebar</text>
-  <text x="2020.0" y="1030" text-anchor="middle" class="node-line" font-size="17">SidebarItem: to, icon, label, isSidebarOpen</text>
-  <text x="2020.0" y="1054" text-anchor="middle" class="node-line" font-size="17">ThemeToggle: isSidebarOpen</text>
-  <rect x="95" y="1340" width="330" height="210" rx="18" fill="#ffe8cc" stroke="#d9480f" stroke-width="3" />
-  <text x="260.0" y="1374" text-anchor="middle" class="node-title" font-size="21">AuthContext + AuthProvider</text>
-  <text x="260.0" y="1405" text-anchor="middle" class="node-line" font-size="18">isAuthenticated</text>
-  <text x="260.0" y="1429" text-anchor="middle" class="node-line" font-size="18">displayName</text>
-  <text x="260.0" y="1453" text-anchor="middle" class="node-line" font-size="18">authIsLoading</text>
-  <text x="260.0" y="1477" text-anchor="middle" class="node-line" font-size="18">login()</text>
-  <text x="260.0" y="1501" text-anchor="middle" class="node-line" font-size="18">logout()</text>
-  <rect x="525" y="1315" width="550" height="270" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="800.0" y="1349" text-anchor="middle" class="node-title" font-size="20">Auth consumers</text>
-  <text x="800.0" y="1380" text-anchor="middle" class="node-line" font-size="17">LoginPage → login()</text>
-  <text x="800.0" y="1404" text-anchor="middle" class="node-line" font-size="17">ProtectedRoute → auth status/loading</text>
-  <text x="800.0" y="1428" text-anchor="middle" class="node-line" font-size="17">Sidebar → logout()</text>
-  <text x="800.0" y="1452" text-anchor="middle" class="node-line" font-size="17">Header → displayName</text>
-  <text x="800.0" y="1476" text-anchor="middle" class="node-line" font-size="17">DashboardPage → displayName</text>
-  <rect x="95" y="1620" width="330" height="160" rx="18" fill="#ffe8cc" stroke="#d9480f" stroke-width="3" />
-  <text x="260.0" y="1654" text-anchor="middle" class="node-title" font-size="21">ThemeContext + ThemeProvider</text>
-  <text x="260.0" y="1685" text-anchor="middle" class="node-line" font-size="18">theme</text>
-  <text x="260.0" y="1709" text-anchor="middle" class="node-line" font-size="18">toggleTheme()</text>
-  <text x="260.0" y="1733" text-anchor="middle" class="node-line" font-size="18">resetTheme()</text>
-  <rect x="525" y="1640" width="550" height="130" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="800.0" y="1674" text-anchor="middle" class="node-title" font-size="20">Theme consumers</text>
-  <text x="800.0" y="1705" text-anchor="middle" class="node-line" font-size="17">ThemeToggle → theme + toggleTheme()</text>
-  <text x="800.0" y="1729" text-anchor="middle" class="node-line" font-size="17">Sidebar → resetTheme() on logout</text>
-  <rect x="1240" y="1340" width="355" height="200" rx="18" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3" />
-  <text x="1417.5" y="1374" text-anchor="middle" class="node-title" font-size="20">Redux currency state</text>
-  <text x="1417.5" y="1405" text-anchor="middle" class="node-line" font-size="17">store.js → currency reducer</text>
-  <text x="1417.5" y="1429" text-anchor="middle" class="node-line" font-size="17">currencySlice → selectedCurrency</text>
-  <text x="1417.5" y="1453" text-anchor="middle" class="node-line" font-size="17">changeCurrency(action.payload)</text>
-  <rect x="1700" y="1340" width="360" height="170" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="1880.0" y="1374" text-anchor="middle" class="node-title" font-size="20">Header</text>
-  <text x="1880.0" y="1405" text-anchor="middle" class="node-line" font-size="17">useSelector reads currency</text>
-  <text x="1880.0" y="1429" text-anchor="middle" class="node-line" font-size="17">useDispatch sends changeCurrency</text>
-  <rect x="1240" y="1630" width="355" height="185" rx="18" fill="#e9ecef" stroke="#495057" stroke-width="3" />
-  <text x="1417.5" y="1664" text-anchor="middle" class="node-title" font-size="21">localStorage</text>
-  <text x="1417.5" y="1695" text-anchor="middle" class="node-line" font-size="18">coinlume_auth</text>
-  <text x="1417.5" y="1719" text-anchor="middle" class="node-line" font-size="18">theme</text>
-  <text x="1417.5" y="1743" text-anchor="middle" class="node-line" font-size="18">coinlume_currency</text>
-  <rect x="1700" y="1645" width="360" height="150" rx="18" fill="#e9ecef" stroke="#495057" stroke-width="3" />
-  <text x="1880.0" y="1679" text-anchor="middle" class="node-title" font-size="20">document.documentElement</text>
-  <text x="1880.0" y="1710" text-anchor="middle" class="node-line" font-size="17">ThemeContext adds/removes</text>
-  <text x="1880.0" y="1734" text-anchor="middle" class="node-line" font-size="17">the dark class on &lt;html&gt;</text>
-  <rect x="2110" y="1340" width="205" height="455" rx="18" fill="#ebfbee" stroke="#5c940d" stroke-width="3" />
-  <text x="2212.5" y="1374" text-anchor="middle" class="node-title" font-size="18">Current-state note</text>
-  <text x="2212.5" y="1405" text-anchor="middle" class="node-line" font-size="15">Coin API connected</text>
-  <text x="2212.5" y="1427" text-anchor="middle" class="node-line" font-size="15">Global API connected</text>
-  <text x="2212.5" y="1449" text-anchor="middle" class="node-line" font-size="15">Dashboard market features done</text>
-  <text x="2212.5" y="1471" text-anchor="middle" class="node-line" font-size="15">Coins + details done</text>
-  <text x="2212.5" y="1493" text-anchor="middle" class="node-line" font-size="15">Persistent watchlist done</text>
-  <text x="2212.5" y="1515" text-anchor="middle" class="node-line" font-size="15">News + dashboard preview pending</text>
-  <text x="2212.5" y="1537" text-anchor="middle" class="node-line" font-size="15">Currency conversion pending</text>
-  <rect x="40" y="1920" width="2320" height="700" rx="26" fill="#ffffff" stroke="#ced4da" stroke-width="3" />
-  <text x="68" y="1962" class="panel-title" font-size="26" text-anchor="start">4. Dashboard market data and reusable cards</text>
-  <text x="68" y="1990" class="subtitle" font-size="17" text-anchor="start">How CoinLore data enters Redux, how DashboardPage prepares it, and which props move into each dashboard component</text>
-  <rect x="70" y="2030" width="320" height="140" rx="18" fill="#ffe3e3" stroke="#c92a2a" stroke-width="3" />
-  <text x="230" y="2064" class="node-title" font-size="21" text-anchor="middle">CoinLore tickers API</text>
-  <text x="230" y="2100" class="node-line" font-size="17" text-anchor="middle">start=0 &amp; limit=10</text>
-  <text x="230" y="2124" class="node-line" font-size="17" text-anchor="middle">returns individual coins</text>
-  <rect x="70" y="2250" width="320" height="140" rx="18" fill="#ffe3e3" stroke="#c92a2a" stroke-width="3" />
-  <text x="230" y="2284" class="node-title" font-size="21" text-anchor="middle">CoinLore global API</text>
-  <text x="230" y="2320" class="node-line" font-size="17" text-anchor="middle">/api/global/</text>
-  <text x="230" y="2344" class="node-line" font-size="17" text-anchor="middle">returns one global object</text>
-  <rect x="470" y="2025" width="330" height="165" rx="18" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3" />
-  <text x="635" y="2059" class="node-title" font-size="22" text-anchor="middle">coinsSlice.js</text>
-  <text x="635" y="2100" class="node-line" font-size="17" text-anchor="middle">fetchCoins()</text>
-  <text x="635" y="2126" class="node-line" font-size="17" text-anchor="middle">coins[] • status • error</text>
-  <rect x="470" y="2240" width="330" height="165" rx="18" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3" />
-  <text x="635" y="2274" class="node-title" font-size="22" text-anchor="middle">marketSlice.js</text>
-  <text x="635" y="2315" class="node-line" font-size="17" text-anchor="middle">fetchMarketData()</text>
-  <text x="635" y="2341" class="node-line" font-size="17" text-anchor="middle">marketData • status • error</text>
-  <rect x="900" y="2070" width="400" height="315" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="1100" y="2106" class="node-title" font-size="23" text-anchor="middle">DashboardPage.jsx</text>
-  <text x="1100" y="2145" class="node-line" font-size="16" text-anchor="middle">dispatches each thunk only when status is idle</text>
-  <text x="1100" y="2183" class="node-line" font-size="16" text-anchor="middle">reads both Redux slices with useSelector</text>
-  <text x="1100" y="2221" class="node-line" font-size="16" text-anchor="middle">topCoins = apiCoins.slice(0, 5)</text>
-  <text x="1100" y="2259" class="node-line" font-size="16" text-anchor="middle">formats currency, percentages, and counts</text>
-  <text x="1100" y="2297" class="node-line" font-size="16" text-anchor="middle">handles one global loading / error / Retry state</text>
-  <rect x="1410" y="2015" width="330" height="160" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="1575" y="2049" class="node-title" font-size="20" text-anchor="middle">TopMarketCapShare</text>
-  <text x="1575" y="2090" class="node-line" font-size="16" text-anchor="middle">props: topCoins, apiStatus</text>
-  <text x="1575" y="2116" class="node-line" font-size="16" text-anchor="middle">calculates top-five share</text>
-  <rect x="1410" y="2225" width="330" height="175" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="1575" y="2259" class="node-title" font-size="20" text-anchor="middle">TopCryptocurrencies</text>
-  <text x="1575" y="2300" class="node-line" font-size="16" text-anchor="middle">props: topCoins, apiStatus, onRetry</text>
-  <text x="1575" y="2326" class="node-line" font-size="16" text-anchor="middle">shows top-five table</text>
-  <rect x="1830" y="2045" width="350" height="190" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="2005" y="2079" class="node-title" font-size="21" text-anchor="middle">MarketStatCard</text>
-  <text x="2005" y="2120" class="node-line" font-size="16" text-anchor="middle">rendered 4×</text>
-  <text x="2005" y="2147" class="node-line" font-size="16" text-anchor="middle">props: title, value, smallText, isPositive</text>
-  <text x="2005" y="2174" class="node-line" font-size="16" text-anchor="middle">presentation only</text>
-  <rect x="1810" y="2280" width="500" height="275" rx="18" fill="#f1f3f5" stroke="#495057" stroke-width="3" />
-  <text x="2060" y="2314" class="node-title" font-size="20" text-anchor="middle">Four cards produced from global data</text>
-  <text x="1840" y="2355" class="node-line" font-size="16" text-anchor="start">Total Market Cap → total_mcap + mcap_change</text>
-  <text x="1840" y="2382" class="node-line" font-size="16" text-anchor="start">24h Trading Volume → total_volume + volume_change</text>
-  <text x="1840" y="2409" class="node-line" font-size="16" text-anchor="start">Bitcoin Dominance → btc_d + eth_d</text>
-  <text x="1840" y="2436" class="node-line" font-size="16" text-anchor="start">Tracked Cryptocurrencies → coins_count + active_markets</text>
-  <text x="1840" y="2463" class="node-line" font-size="16" text-anchor="start" />
-  <text x="1840" y="2490" class="node-line" font-size="16" text-anchor="start">Only market-cap and volume changes use green/red trend text.</text>
-  <polyline points="390,2100 470,2100" fill="none" stroke="#c92a2a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-api)" />
-  <rect x="375" y="2055" width="110" height="28" rx="8" fill="#ffffff" stroke="#ffffff" stroke-width="0" />
-  <text x="430" y="2075" class="edge-label" font-size="14" text-anchor="middle" fill="#c92a2a">data[]</text>
-  <polyline points="390,2320 470,2320" fill="none" stroke="#c92a2a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-api)" />
-  <rect x="375" y="2275" width="110" height="28" rx="8" fill="#ffffff" stroke="#ffffff" stroke-width="0" />
-  <text x="430" y="2295" class="edge-label" font-size="14" text-anchor="middle" fill="#c92a2a">result[0]</text>
-  <polyline points="800,2105 900,2160" fill="none" stroke="#2b8a3e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-redux)" />
-  <rect x="795" y="2100" width="110" height="28" rx="8" fill="#ffffff" stroke="#ffffff" stroke-width="0" />
-  <text x="850" y="2120" class="edge-label" font-size="14" text-anchor="middle" fill="#2b8a3e">Redux state</text>
-  <polyline points="800,2325 900,2285" fill="none" stroke="#2b8a3e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-redux)" />
-  <rect x="795" y="2290" width="110" height="28" rx="8" fill="#ffffff" stroke="#ffffff" stroke-width="0" />
-  <text x="850" y="2310" class="edge-label" font-size="14" text-anchor="middle" fill="#2b8a3e">Redux state</text>
-  <polyline points="1300,2140 1410,2095" fill="none" stroke="#1971c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-props)" />
-  <rect x="1300" y="2065" width="110" height="28" rx="8" fill="#ffffff" stroke="#ffffff" stroke-width="0" />
-  <text x="1355" y="2085" class="edge-label" font-size="14" text-anchor="middle" fill="#1971c2">topCoins + status</text>
-  <polyline points="1300,2285 1410,2310" fill="none" stroke="#1971c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-props)" />
-  <rect x="1300" y="2320" width="110" height="28" rx="8" fill="#ffffff" stroke="#ffffff" stroke-width="0" />
-  <text x="1355" y="2340" class="edge-label" font-size="14" text-anchor="middle" fill="#1971c2">topCoins + retry</text>
-  <polyline points="1300,2215 1830,2140" fill="none" stroke="#1971c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-props)" />
-  <rect x="1505" y="2120" width="110" height="28" rx="8" fill="#ffffff" stroke="#ffffff" stroke-width="0" />
-  <text x="1560" y="2140" class="edge-label" font-size="14" text-anchor="middle" fill="#1971c2">display-ready card props</text>
-  <polyline points="2005,2235 2050,2280" fill="none" stroke="#6741d9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" />
-  <rect x="1995" y="2235" width="110" height="28" rx="8" fill="#ffffff" stroke="#ffffff" stroke-width="0" />
-  <text x="2050" y="2255" class="edge-label" font-size="14" text-anchor="middle" fill="#6741d9">renders 4×</text>
-  <g id="coin-details-section"><rect x="40" y="2660" width="2320" height="1190" rx="26" fill="#ffffff" stroke="#ced4da" stroke-width="3" /><text x="68" y="2702" class="panel-title" font-size="26" text-anchor="start">5. Coin details page, local API state, price chart, and markets</text><text x="68" y="2732" class="subtitle" font-size="16" text-anchor="start">How the dynamic coin route combines Redux data, page-only API requests, reusable detail components, Recharts, and exchange-market data.</text><rect x="70" y="2765" width="300" height="105" rx="18" fill="#fff3bf" stroke="#e67700" stroke-width="3" /><text x="220.0" y="2799" class="node-title" font-size="20" text-anchor="middle">/coins/:id</text><text x="220.0" y="2829" class="node-line" font-size="15" text-anchor="middle">dynamic protected route</text><text x="220.0" y="2852" class="node-line" font-size="15" text-anchor="middle">useParams() provides id</text><rect x="430" y="2755" width="420" height="220" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" /><text x="640.0" y="2789" class="node-title" font-size="20" text-anchor="middle">CoinDetailsPage.jsx</text><text x="640.0" y="2819" class="node-line" font-size="15" text-anchor="middle">dispatches fetchCoins() when Redux status is idle</text><text x="640.0" y="2842" class="node-line" font-size="15" text-anchor="middle">selectedCoin = coins.find(coin.id === id)</text><text x="640.0" y="2865" class="node-line" font-size="15" text-anchor="middle">fetches profile + OHLCV history + markets</text><text x="640.0" y="2888" class="node-line" font-size="15" text-anchor="middle">coordinates loading, error, retry, and rendering</text><rect x="70" y="2995" width="300" height="165" rx="18" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3" /><text x="220.0" y="3029" class="node-title" font-size="20" text-anchor="middle">coinsSlice.js</text><text x="220.0" y="3059" class="node-line" font-size="15" text-anchor="middle">shared coins[] + status + error</text><text x="220.0" y="3082" class="node-line" font-size="15" text-anchor="middle">used for current market values</text><text x="220.0" y="3105" class="node-line" font-size="15" text-anchor="middle">supports direct page refresh</text><rect x="70" y="3200" width="300" height="145" rx="18" fill="#ffe3e3" stroke="#c92a2a" stroke-width="3" /><text x="220.0" y="3234" class="node-title" font-size="20" text-anchor="middle">CoinLore profile API</text><text x="220.0" y="3264" class="node-line" font-size="15" text-anchor="middle">/api/coin/info/?id=${id}</text><text x="220.0" y="3287" class="node-line" font-size="15" text-anchor="middle">returns profile object at data[0]</text><rect x="70" y="3385" width="300" height="160" rx="18" fill="#ffe3e3" stroke="#c92a2a" stroke-width="3" /><text x="220.0" y="3419" class="node-title" font-size="20" text-anchor="middle">CoinLore OHLCV API</text><text x="220.0" y="3449" class="node-line" font-size="14" text-anchor="middle">/api/coin/ohlcv/?coin=${id}</text><text x="220.0" y="3471" class="node-line" font-size="14" text-anchor="middle">[timestamp, open, high, low, close, volume]</text><text x="220.0" y="3493" class="node-line" font-size="14" text-anchor="middle">up to 365 daily records</text><rect x="430" y="3060" width="420" height="300" rx="18" fill="#c5f6fa" stroke="#0b7285" stroke-width="3" /><text x="640.0" y="3094" class="node-title" font-size="20" text-anchor="middle">Local state in CoinDetailsPage</text><text x="640.0" y="3124" class="node-line" font-size="15" text-anchor="middle">coinProfile / isLoading / error</text><text x="640.0" y="3147" class="node-line" font-size="15" text-anchor="middle">priceHistory / historyLoading / historyError</text><text x="640.0" y="3170" class="node-line" font-size="15" text-anchor="middle">selectedRange defaults to "7D"</text><text x="640.0" y="3193" class="node-line" font-size="15" text-anchor="middle">fetchCoinProfile() + fetchPriceHistory()</text><text x="640.0" y="3216" class="node-line" font-size="15" text-anchor="middle">handleRetry() reruns failed requests</text><rect x="980" y="2765" width="360" height="150" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" /><text x="1160.0" y="2799" class="node-title" font-size="20" text-anchor="middle">CoinOverview.jsx</text><text x="1160.0" y="2829" class="node-line" font-size="14" text-anchor="middle">logo, name, symbol, rank, current price</text><text x="1160.0" y="2851" class="node-line" font-size="14" text-anchor="middle">1h / 24h / 7d changes</text><text x="1160.0" y="2873" class="node-line" font-size="14" text-anchor="middle">watchlist button UI</text><rect x="980" y="2970" width="360" height="220" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" /><text x="1160.0" y="3004" class="node-title" font-size="20" text-anchor="middle">CoinInformation.jsx</text><text x="1160.0" y="3034" class="node-line" font-size="14" text-anchor="middle">Market Statistics card</text><text x="1160.0" y="3056" class="node-line" font-size="14" text-anchor="middle">Coin Profile card</text><text x="1160.0" y="3078" class="node-line" font-size="14" text-anchor="middle">reuses InformationRow + ExternalLinkRow</text><text x="1160.0" y="3100" class="node-line" font-size="14" text-anchor="middle">formats currency, numbers, and dates</text><rect x="980" y="3260" width="360" height="285" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" /><text x="1160.0" y="3294" class="node-title" font-size="20" text-anchor="middle">CoinPriceChart.jsx</text><text x="1160.0" y="3324" class="node-line" font-size="14" text-anchor="middle">Recharts responsive line chart</text><text x="1160.0" y="3346" class="node-line" font-size="14" text-anchor="middle">plots daily close value</text><text x="1160.0" y="3368" class="node-line" font-size="14" text-anchor="middle">loading / error / empty states</text><text x="1160.0" y="3390" class="node-line" font-size="14" text-anchor="middle">7D · 30D · 3M · 6M · 1Y controls</text><text x="1160.0" y="3412" class="node-line" font-size="14" text-anchor="middle">slices latest N records from history array</text><rect x="1450" y="2765" width="470" height="150" rx="18" fill="#e9ecef" stroke="#495057" stroke-width="3" /><text x="1685.0" y="2799" class="node-title" font-size="20" text-anchor="middle">Overview props</text><text x="1685.0" y="2829" class="node-line" font-size="14" text-anchor="middle">profile: logo, name</text><text x="1685.0" y="2851" class="node-line" font-size="14" text-anchor="middle">Redux coin: symbol, rank, price_usd,</text><text x="1685.0" y="2873" class="node-line" font-size="14" text-anchor="middle">percent_change_1h / 24h / 7d</text><rect x="1450" y="2970" width="470" height="220" rx="18" fill="#e9ecef" stroke="#495057" stroke-width="3" /><text x="1685.0" y="3004" class="node-title" font-size="20" text-anchor="middle">Information props</text><text x="1685.0" y="3034" class="node-line" font-size="14" text-anchor="middle">Redux: market cap, volume, BTC price, supplies</text><text x="1685.0" y="3056" class="node-line" font-size="14" text-anchor="middle">Profile: ATH, dates, platform, website,</text><text x="1685.0" y="3078" class="node-line" font-size="14" text-anchor="middle">Twitter / X, and block explorer</text><rect x="1450" y="3260" width="470" height="285" rx="18" fill="#e9ecef" stroke="#495057" stroke-width="3" /><text x="1685.0" y="3294" class="node-title" font-size="20" text-anchor="middle">Chart props and behavior</text><text x="1685.0" y="3324" class="node-line" font-size="14" text-anchor="middle">coinName + formatted priceHistory[]</text><text x="1685.0" y="3346" class="node-line" font-size="14" text-anchor="middle">historyLoading + historyError</text><text x="1685.0" y="3368" class="node-line" font-size="14" text-anchor="middle">selectedRange + setSelectedRange</text><text x="1685.0" y="3390" class="node-line" font-size="14" text-anchor="middle">onRetry calls fetchPriceHistory</text><text x="1685.0" y="3412" class="node-line" font-size="14" text-anchor="middle">Recharts reads { date, price, timestamp }</text><rect x="1990" y="2765" width="320" height="780" rx="18" fill="#ebfbee" stroke="#5c940d" stroke-width="3" /><text x="2150.0" y="2799" class="node-title" font-size="20" text-anchor="middle">Current implementation notes</text><text x="2150.0" y="2829" class="node-line" font-size="14" text-anchor="middle">DONE</text><text x="2150.0" y="2851" class="node-line" font-size="14" text-anchor="middle">• Coin overview section</text><text x="2150.0" y="2873" class="node-line" font-size="14" text-anchor="middle">• Market + profile information</text><text x="2150.0" y="2895" class="node-line" font-size="14" text-anchor="middle">• Historical line chart and ranges</text><text x="2150.0" y="2917" class="node-line" font-size="14" text-anchor="middle">• Chart educational disclaimer</text><text x="2150.0" y="2939" class="node-line" font-size="14" text-anchor="middle">• Coin markets table (top five)</text><text x="2150.0" y="2961" class="node-line" font-size="14" text-anchor="middle">LIMITATIONS</text><text x="2150.0" y="2983" class="node-line" font-size="14" text-anchor="middle">• CoinLore OHLCV values may not match</text><text x="2150.0" y="3005" class="node-line" font-size="14" text-anchor="middle">  verified current market prices</text><text x="2150.0" y="3027" class="node-line" font-size="14" text-anchor="middle">• 1Y is the maximum available range</text><text x="2150.0" y="3049" class="node-line" font-size="14" text-anchor="middle" /><text x="2150.0" y="3071" class="node-line" font-size="14" text-anchor="middle">NEXT</text><text x="2150.0" y="3093" class="node-line" font-size="14" text-anchor="middle">• Dashboard watchlist preview</text><text x="2150.0" y="3115" class="node-line" font-size="14" text-anchor="middle">• Footer attribution / disclaimer</text><text x="2150.0" y="3137" class="node-line" font-size="14" text-anchor="middle">• Reusable DataSourceFooter</text><polyline points="370,2817 430,2817" fill="none" stroke="#e67700" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-router)" /><text x="400" y="2797" class="edge-label" font-size="14" text-anchor="middle" fill="#e67700">route id</text><polyline points="370,3075 430,2890" fill="none" stroke="#2b8a3e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-redux)" /><text x="395" y="3000" class="edge-label" font-size="14" text-anchor="middle" fill="#2b8a3e">Redux state</text><polyline points="370,3272 430,3160" fill="none" stroke="#c92a2a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-api)" /><text x="395" y="3205" class="edge-label" font-size="14" text-anchor="middle" fill="#c92a2a">profile data</text><polyline points="370,3465 430,3270" fill="none" stroke="#c92a2a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-api)" /><text x="395" y="3395" class="edge-label" font-size="14" text-anchor="middle" fill="#c92a2a">history data</text><polyline points="640,2975 640,3060" fill="none" stroke="#0b7285" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-state)" /><text x="700" y="3025" class="edge-label" font-size="14" text-anchor="middle" fill="#0b7285">owns state</text><polyline points="850,2830 980,2838" fill="none" stroke="#6741d9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" /><text x="910" y="2810" class="edge-label" font-size="14" text-anchor="middle" fill="#6741d9">overview props</text><polyline points="850,2890 980,3080" fill="none" stroke="#6741d9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" /><text x="910" y="2980" class="edge-label" font-size="14" text-anchor="middle" fill="#6741d9">market + profile</text><polyline points="850,2945 980,3400" fill="none" stroke="#6741d9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" /><text x="910" y="3210" class="edge-label" font-size="14" text-anchor="middle" fill="#6741d9">chart props</text><polyline points="1340,2840 1450,2840" fill="none" stroke="#495057" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-storage)" /><polyline points="1340,3080 1450,3080" fill="none" stroke="#495057" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-storage)" /><polyline points="1340,3400 1450,3400" fill="none" stroke="#495057" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-storage)" /><text x="1395" y="2820" class="edge-label" font-size="14" text-anchor="middle" fill="#495057">receives</text><text x="1395" y="3060" class="edge-label" font-size="14" text-anchor="middle" fill="#495057">receives</text><text x="1395" y="3380" class="edge-label" font-size="14" text-anchor="middle" fill="#495057">receives</text><polyline points="1920,3400 1990,3400" fill="none" stroke="#5c940d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" /><text x="1955" y="3380" class="edge-label" font-size="14" text-anchor="middle" fill="#5c940d">disclaimer</text></g>
-<g id="coin-markets-extension">
-  <rect x="70" y="3580" width="300" height="165" rx="18" fill="#ffe3e3" stroke="#c92a2a" stroke-width="3" />
-  <text x="220" y="3614" class="node-title" font-size="20" text-anchor="middle">CoinLore markets API</text>
-  <text x="220" y="3644" class="node-line" font-size="14" text-anchor="middle">/api/coin/markets/?id=${id}</text>
-  <text x="220" y="3667" class="node-line" font-size="14" text-anchor="middle">returns an array of exchange markets</text>
-  <text x="220" y="3690" class="node-line" font-size="14" text-anchor="middle">name · base · quote · price_usd</text>
-  <text x="220" y="3713" class="node-line" font-size="14" text-anchor="middle">volume_usd · time</text>
-
-  <rect x="430" y="3580" width="420" height="165" rx="18" fill="#c5f6fa" stroke="#0b7285" stroke-width="3" />
-  <text x="640" y="3614" class="node-title" font-size="20" text-anchor="middle">Markets state in CoinDetailsPage</text>
-  <text x="640" y="3644" class="node-line" font-size="14" text-anchor="middle">coinMarkets / marketsLoading / marketsError</text>
-  <text x="640" y="3667" class="node-line" font-size="14" text-anchor="middle">fetchMarkets() runs when id changes</text>
-  <text x="640" y="3690" class="node-line" font-size="14" text-anchor="middle">validates array and saves first five rows</text>
-  <text x="640" y="3713" class="node-line" font-size="14" text-anchor="middle">passes markets={coinMarkets}</text>
-
-  <rect x="980" y="3580" width="360" height="185" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="1160" y="3614" class="node-title" font-size="20" text-anchor="middle">CoinMarkets.jsx</text>
-  <text x="1160" y="3644" class="node-line" font-size="14" text-anchor="middle">one reusable markets section</text>
-  <text x="1160" y="3667" class="node-line" font-size="14" text-anchor="middle">maps markets[] into table rows</text>
-  <text x="1160" y="3690" class="node-line" font-size="14" text-anchor="middle">formats USD prices, volume, and time</text>
-  <text x="1160" y="3713" class="node-line" font-size="14" text-anchor="middle">handles an empty-data message</text>
-  <text x="1160" y="3736" class="node-line" font-size="14" text-anchor="middle">shows exactly the first five markets</text>
-
-  <rect x="1450" y="3580" width="470" height="185" rx="18" fill="#e9ecef" stroke="#495057" stroke-width="3" />
-  <text x="1685" y="3614" class="node-title" font-size="20" text-anchor="middle">Markets table output</text>
-  <text x="1685" y="3644" class="node-line" font-size="14" text-anchor="middle">Rank · Exchange · Pair</text>
-  <text x="1685" y="3667" class="node-line" font-size="14" text-anchor="middle">Price · 24h Volume · Updated</text>
-  <text x="1685" y="3690" class="node-line" font-size="14" text-anchor="middle">Pair is built from base/quote</text>
-  <text x="1685" y="3713" class="node-line" font-size="14" text-anchor="middle">timestamp seconds × 1000 → JavaScript date</text>
-  <text x="1685" y="3736" class="node-line" font-size="14" text-anchor="middle">single table, not five separate components</text>
-
-  <rect x="1990" y="3580" width="320" height="185" rx="18" fill="#ebfbee" stroke="#5c940d" stroke-width="3" />
-  <text x="2150" y="3614" class="node-title" font-size="20" text-anchor="middle">Markets status</text>
-  <text x="2150" y="3644" class="node-line" font-size="14" text-anchor="middle">DONE</text>
-  <text x="2150" y="3667" class="node-line" font-size="14" text-anchor="middle">• API request and local state</text>
-  <text x="2150" y="3690" class="node-line" font-size="14" text-anchor="middle">• First-five market table</text>
-  <text x="2150" y="3713" class="node-line" font-size="14" text-anchor="middle">• Price / volume / updated formatting</text>
-  <text x="2150" y="3736" class="node-line" font-size="14" text-anchor="middle">NEXT: reusable attribution footer</text>
-
-  <polyline points="370,3660 430,3660" fill="none" stroke="#c92a2a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-api)" />
-  <text x="400" y="3640" class="edge-label" font-size="14" text-anchor="middle" fill="#c92a2a">market data</text>
-  <polyline points="850,3660 980,3660" fill="none" stroke="#6741d9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" />
-  <text x="915" y="3640" class="edge-label" font-size="14" text-anchor="middle" fill="#6741d9">markets prop</text>
-  <polyline points="1340,3660 1450,3660" fill="none" stroke="#495057" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-storage)" />
-  <text x="1395" y="3640" class="edge-label" font-size="14" text-anchor="middle" fill="#495057">renders</text>
-  <polyline points="1920,3660 1990,3660" fill="none" stroke="#5c940d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-structure)" />
-  <text x="1955" y="3640" class="edge-label" font-size="14" text-anchor="middle" fill="#5c940d">done</text>
-</g>
-
-<g id="watchlist-section">
-  <rect x="40" y="3890" width="2320" height="850" rx="26" fill="#ffffff" stroke="#ced4da" stroke-width="3" />
-  <text x="68" y="3932" class="panel-title" font-size="26">6. Persistent watchlist state, page filtering, and shared controls</text>
-  <text x="68" y="3962" class="subtitle" font-size="16">How IDs move through Redux and localStorage, how pages toggle them, and how WatchlistPage rebuilds full coin rows.</text>
-
-  <rect x="70" y="3995" width="390" height="205" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="265" y="4029" class="node-title" font-size="20" text-anchor="middle">CoinsPage.jsx</text>
-  <text x="265" y="4059" class="node-line" font-size="14" text-anchor="middle">reads coins[] and saved coinIds</text>
-  <text x="265" y="4082" class="node-line" font-size="14" text-anchor="middle">each mapped row calculates isSaved</text>
-  <text x="265" y="4105" class="node-line" font-size="14" text-anchor="middle">toggle receives that row’s coin.id</text>
-  <text x="265" y="4128" class="node-line" font-size="14" text-anchor="middle">stopPropagation keeps navigation separate</text>
-
-  <rect x="500" y="3995" width="390" height="205" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="695" y="4029" class="node-title" font-size="20" text-anchor="middle">CoinDetailsPage.jsx</text>
-  <text x="695" y="4059" class="node-line" font-size="14" text-anchor="middle">currentCoinId = String(route id)</text>
-  <text x="695" y="4082" class="node-line" font-size="14" text-anchor="middle">isSaved = coinIds.includes(currentCoinId)</text>
-  <text x="695" y="4105" class="node-line" font-size="14" text-anchor="middle">dispatches saveCoin() or removeCoin()</text>
-  <text x="695" y="4128" class="node-line" font-size="14" text-anchor="middle">passes isSaved + handler to CoinOverview</text>
-
-  <rect x="930" y="3995" width="430" height="245" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="1145" y="4029" class="node-title" font-size="20" text-anchor="middle">WatchlistPage.jsx</text>
-  <text x="1145" y="4059" class="node-line" font-size="14" text-anchor="middle">reads coinIds, coins[], and coins status</text>
-  <text x="1145" y="4082" class="node-line" font-size="14" text-anchor="middle">dispatches fetchCoins() when status is idle</text>
-  <text x="1145" y="4105" class="node-line" font-size="14" text-anchor="middle">filters coins using saved IDs</text>
-  <text x="1145" y="4128" class="node-line" font-size="14" text-anchor="middle">loading · failed · empty · table states</text>
-  <text x="1145" y="4151" class="node-line" font-size="14" text-anchor="middle">remove button stops row navigation</text>
-
-  <rect x="1400" y="3995" width="390" height="245" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="1595" y="4029" class="node-title" font-size="20" text-anchor="middle">Watchlist table output</text>
-  <text x="1595" y="4059" class="node-line" font-size="14" text-anchor="middle">same visual format as CoinsPage</text>
-  <text x="1595" y="4082" class="node-line" font-size="14" text-anchor="middle">Rank · Coin · Price · 1h · 24h · 7d</text>
-  <text x="1595" y="4105" class="node-line" font-size="14" text-anchor="middle">Market Cap · Volume 24h · Remove</text>
-  <text x="1595" y="4128" class="node-line" font-size="14" text-anchor="middle">row opens /coins/:id</text>
-  <text x="1595" y="4151" class="node-line" font-size="14" text-anchor="middle">checked bookmark removes the saved ID</text>
-
-  <rect x="1830" y="3995" width="480" height="245" rx="18" fill="#ebfbee" stroke="#5c940d" stroke-width="3" />
-  <text x="2070" y="4029" class="node-title" font-size="20" text-anchor="middle">Watchlist status</text>
-  <text x="2070" y="4059" class="node-line" font-size="14" text-anchor="middle">DONE: shared add/remove behavior</text>
-  <text x="2070" y="4082" class="node-line" font-size="14" text-anchor="middle">DONE: duplicate prevention</text>
-  <text x="2070" y="4105" class="node-line" font-size="14" text-anchor="middle">DONE: refresh persistence</text>
-  <text x="2070" y="4128" class="node-line" font-size="14" text-anchor="middle">DONE: full WatchlistPage table</text>
-  <text x="2070" y="4151" class="node-line" font-size="14" text-anchor="middle">DONE: dashboard watchlist preview</text>
-
-  <rect x="70" y="4305" width="430" height="235" rx="18" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3" />
-  <text x="285" y="4339" class="node-title" font-size="20" text-anchor="middle">watchlistSlice.js</text>
-  <text x="285" y="4369" class="node-line" font-size="14" text-anchor="middle">state: { coinIds: [] }</text>
-  <text x="285" y="4392" class="node-line" font-size="14" text-anchor="middle">loadSavedCoinsIds() hydrates initial state</text>
-  <text x="285" y="4415" class="node-line" font-size="14" text-anchor="middle">saveCoin uses includes() then push()</text>
-  <text x="285" y="4438" class="node-line" font-size="14" text-anchor="middle">removeCoin rebuilds with filter()</text>
-  <text x="285" y="4461" class="node-line" font-size="14" text-anchor="middle">stores IDs only — not full coin objects</text>
-
-  <rect x="540" y="4305" width="410" height="235" rx="18" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3" />
-  <text x="745" y="4339" class="node-title" font-size="20" text-anchor="middle">store.js persistence</text>
-  <text x="745" y="4369" class="node-line" font-size="14" text-anchor="middle">registers reducer as savedCoins</text>
-  <text x="745" y="4392" class="node-line" font-size="14" text-anchor="middle">store.subscribe() runs after updates</text>
-  <text x="745" y="4415" class="node-line" font-size="14" text-anchor="middle">store.getState() reads current Redux data</text>
-  <text x="745" y="4438" class="node-line" font-size="14" text-anchor="middle">selects savedCoins.coinIds</text>
-  <text x="745" y="4461" class="node-line" font-size="14" text-anchor="middle">JSON.stringify() writes the latest array</text>
-
-  <rect x="990" y="4305" width="350" height="235" rx="18" fill="#e9ecef" stroke="#495057" stroke-width="3" />
-  <text x="1165" y="4339" class="node-title" font-size="20" text-anchor="middle">localStorage</text>
-  <text x="1165" y="4369" class="node-line" font-size="14" text-anchor="middle">key: storedIds</text>
-  <text x="1165" y="4392" class="node-line" font-size="14" text-anchor="middle">saved value is a JSON array string</text>
-  <text x="1165" y="4415" class="node-line" font-size="14" text-anchor="middle">JSON.parse() restores IDs on startup</text>
-  <text x="1165" y="4438" class="node-line" font-size="14" text-anchor="middle">try/catch falls back to []</text>
-
-  <rect x="1380" y="4305" width="390" height="205" rx="18" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3" />
-  <text x="1575" y="4339" class="node-title" font-size="20" text-anchor="middle">coinsSlice.js</text>
-  <text x="1575" y="4369" class="node-line" font-size="14" text-anchor="middle">shared coins[] + status + error</text>
-  <text x="1575" y="4392" class="node-line" font-size="14" text-anchor="middle">WatchlistPage fetches when idle</text>
-  <text x="1575" y="4415" class="node-line" font-size="14" text-anchor="middle">full objects are matched from saved IDs</text>
-  <text x="1575" y="4438" class="node-line" font-size="14" text-anchor="middle">supports direct refresh on /watchlist</text>
-
-  <rect x="1810" y="4305" width="500" height="205" rx="18" fill="#ebfbee" stroke="#5c940d" stroke-width="3" />
-  <text x="2060" y="4339" class="node-title" font-size="20" text-anchor="middle">Resulting data flow</text>
-  <text x="2060" y="4369" class="node-line" font-size="14" text-anchor="middle">UI dispatches an ID → slice updates coinIds</text>
-  <text x="2060" y="4392" class="node-line" font-size="14" text-anchor="middle">store subscription persists the new array</text>
-  <text x="2060" y="4415" class="node-line" font-size="14" text-anchor="middle">refresh hydrates IDs before the API finishes</text>
-  <text x="2060" y="4438" class="node-line" font-size="14" text-anchor="middle">API objects + saved IDs → filtered rows</text>
-
-  <polyline points="265,4200 285,4305" fill="none" stroke="#2b8a3e" stroke-width="3" marker-end="url(#arrow-redux)" />
-  <text x="215" y="4250" class="edge-label" font-size="14" fill="#2b8a3e">dispatch / read</text>
-  <polyline points="695,4200 430,4305" fill="none" stroke="#2b8a3e" stroke-width="3" marker-end="url(#arrow-redux)" />
-  <text x="520" y="4250" class="edge-label" font-size="14" fill="#2b8a3e">dispatch / read</text>
-  <polyline points="500,4420 540,4420" fill="none" stroke="#2b8a3e" stroke-width="3" marker-end="url(#arrow-redux)" />
-  <text x="505" y="4395" class="edge-label" font-size="14" fill="#2b8a3e">registered</text>
-  <polyline points="950,4420 990,4420" fill="none" stroke="#495057" stroke-width="3" marker-end="url(#arrow-storage)" />
-  <text x="952" y="4395" class="edge-label" font-size="14" fill="#495057">persist</text>
-  <polyline points="1165,4305 500,4355" fill="none" stroke="#495057" stroke-width="3" marker-end="url(#arrow-storage)" />
-  <text x="750" y="4292" class="edge-label" font-size="14" fill="#495057">hydrate on startup</text>
-  <polyline points="1380,4395 1145,4240" fill="none" stroke="#2b8a3e" stroke-width="3" marker-end="url(#arrow-redux)" />
-  <text x="1215" y="4310" class="edge-label" font-size="14" fill="#2b8a3e">coins + status</text>
-  <polyline points="500,4355 930,4125" fill="none" stroke="#2b8a3e" stroke-width="3" marker-end="url(#arrow-redux)" />
-  <text x="705" y="4225" class="edge-label" font-size="14" fill="#2b8a3e">coinIds</text>
-  <polyline points="1360,4120 1400,4120" fill="none" stroke="#6741d9" stroke-width="3" marker-end="url(#arrow-structure)" />
-  <text x="1365" y="4095" class="edge-label" font-size="14" fill="#6741d9">renders</text>
-  <polyline points="1360,4190 500,4485" fill="none" stroke="#2b8a3e" stroke-width="3" marker-end="url(#arrow-redux)" />
-  <text x="855" y="4410" class="edge-label" font-size="14" fill="#2b8a3e">removeCoin(id)</text>
-  <polyline points="1790,4120 1830,4120" fill="none" stroke="#5c940d" stroke-width="3" marker-end="url(#arrow-structure)" />
-  <text x="1795" y="4095" class="edge-label" font-size="14" fill="#5c940d">done</text>
-</g>
-<g id="dashboard-news-section">
-  <rect x="40" y="4780" width="2320" height="980" rx="26" fill="#ffffff" stroke="#ced4da" stroke-width="3" />
-  <text x="68" y="4822" class="panel-title" font-size="26">7. Dashboard previews, static news data, and desktop composition</text>
-  <text x="68" y="4852" class="subtitle" font-size="16">How the dashboard combines market widgets, the latest saved coins, and three static educational articles.</text>
-
-  <rect x="70" y="4890" width="420" height="225" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="280" y="4924" class="node-title" font-size="20" text-anchor="middle">DashboardPage.jsx</text>
-  <text x="280" y="4954" class="node-line" font-size="14" text-anchor="middle">renders the completed dashboard sections</text>
-  <text x="280" y="4977" class="node-line" font-size="14" text-anchor="middle">Market stats + WatchlistPreview</text>
-  <text x="280" y="5000" class="node-line" font-size="14" text-anchor="middle">Top 5 Market Cap Share</text>
-  <text x="280" y="5023" class="node-line" font-size="14" text-anchor="middle">Top Cryptocurrencies</text>
-  <text x="280" y="5046" class="node-line" font-size="14" text-anchor="middle">NewsPreview at the bottom</text>
-
-  <rect x="530" y="4890" width="470" height="225" rx="18" fill="#ebfbee" stroke="#5c940d" stroke-width="3" />
-  <text x="765" y="4924" class="node-title" font-size="20" text-anchor="middle">Desktop dashboard layout</text>
-  <text x="765" y="4954" class="node-line" font-size="14" text-anchor="middle">left: four market cards in a 2 × 2 grid</text>
-  <text x="765" y="4977" class="node-line" font-size="14" text-anchor="middle">right: WatchlistPreview</text>
-  <text x="765" y="5000" class="node-line" font-size="14" text-anchor="middle">market-share and coin table remain full width</text>
-  <text x="765" y="5023" class="node-line" font-size="14" text-anchor="middle">news preview uses three equal cards</text>
-  <text x="765" y="5046" class="node-line" font-size="14" text-anchor="middle">smaller screens stack responsive sections</text>
-
-  <rect x="1040" y="4890" width="510" height="225" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="1295" y="4924" class="node-title" font-size="20" text-anchor="middle">WatchlistPreview.jsx</text>
-  <text x="1295" y="4954" class="node-line" font-size="14" text-anchor="middle">reads savedCoins.coinIds and coins.coins</text>
-  <text x="1295" y="4977" class="node-line" font-size="14" text-anchor="middle">coinIds.slice(-5) keeps recent saved IDs</text>
-  <text x="1295" y="5000" class="node-line" font-size="14" text-anchor="middle">map + find rebuild full coin objects</text>
-  <text x="1295" y="5023" class="node-line" font-size="14" text-anchor="middle">filter(Boolean) removes missing matches</text>
-  <text x="1295" y="5046" class="node-line" font-size="14" text-anchor="middle">View All → /watchlist · row → /coins/:id</text>
-
-  <rect x="1590" y="4890" width="720" height="225" rx="18" fill="#e5dbff" stroke="#6741d9" stroke-width="3" />
-  <text x="1950" y="4924" class="node-title" font-size="20" text-anchor="middle">NewsPreview.jsx</text>
-  <text x="1950" y="4954" class="node-line" font-size="14" text-anchor="middle">imports the shared static news array</text>
-  <text x="1950" y="4977" class="node-line" font-size="14" text-anchor="middle">newsData.slice(0, 3) creates dashboard preview</text>
-  <text x="1950" y="5000" class="node-line" font-size="14" text-anchor="middle">maps image · category · date · title · summary</text>
-  <text x="1950" y="5023" class="node-line" font-size="14" text-anchor="middle">responsive grid: 1 → 2 → 3 cards</text>
-  <text x="1950" y="5046" class="node-line" font-size="14" text-anchor="middle">View All navigates to /news</text>
-
-  <rect x="70" y="5210" width="420" height="265" rx="18" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3" />
-  <text x="280" y="5244" class="node-title" font-size="20" text-anchor="middle">Redux inputs</text>
-  <text x="280" y="5274" class="node-line" font-size="14" text-anchor="middle">state.savedCoins.coinIds</text>
-  <text x="280" y="5297" class="node-line" font-size="14" text-anchor="middle">state.coins.coins</text>
-  <text x="280" y="5320" class="node-line" font-size="14" text-anchor="middle">IDs preserve save order</text>
-  <text x="280" y="5343" class="node-line" font-size="14" text-anchor="middle">coin objects provide rank, name, price, 24h</text>
-  <text x="280" y="5366" class="node-line" font-size="14" text-anchor="middle">same shared state used across routes</text>
-
-  <rect x="530" y="5210" width="470" height="265" rx="18" fill="#c5f6fa" stroke="#0b7285" stroke-width="3" />
-  <text x="765" y="5244" class="node-title" font-size="20" text-anchor="middle">Watchlist preview transform</text>
-  <text x="765" y="5274" class="node-line" font-size="14" text-anchor="middle">1. take the last five saved IDs</text>
-  <text x="765" y="5297" class="node-line" font-size="14" text-anchor="middle">2. map each savedId</text>
-  <text x="765" y="5320" class="node-line" font-size="14" text-anchor="middle">3. find matching coin object</text>
-  <text x="765" y="5343" class="node-line" font-size="14" text-anchor="middle">4. filter undefined results</text>
-  <text x="765" y="5366" class="node-line" font-size="14" text-anchor="middle">output: up to five complete coin objects</text>
-
-  <rect x="1040" y="5210" width="510" height="265" rx="18" fill="#e9ecef" stroke="#495057" stroke-width="3" />
-  <text x="1295" y="5244" class="node-title" font-size="20" text-anchor="middle">src/data/newsData.js</text>
-  <text x="1295" y="5274" class="node-line" font-size="14" text-anchor="middle">10 static educational article objects</text>
-  <text x="1295" y="5297" class="node-line" font-size="14" text-anchor="middle">id · title · summary · source · publishedAt</text>
-  <text x="1295" y="5320" class="node-line" font-size="14" text-anchor="middle">category · image · imageAlt</text>
-  <text x="1295" y="5343" class="node-line" font-size="14" text-anchor="middle">shared by NewsPreview and NewsPage</text>
-  <text x="1295" y="5366" class="node-line" font-size="14" text-anchor="middle">not a live API or current-news feed</text>
-
-  <rect x="1590" y="5210" width="720" height="265" rx="18" fill="#d0ebff" stroke="#1971c2" stroke-width="3" />
-  <text x="1950" y="5244" class="node-title" font-size="20" text-anchor="middle">NewsPage.jsx</text>
-  <text x="1950" y="5274" class="node-line" font-size="14" text-anchor="middle">imports and maps all ten articles</text>
-  <text x="1950" y="5297" class="node-line" font-size="14" text-anchor="middle">responsive article-card grid</text>
-  <text x="1950" y="5320" class="node-line" font-size="14" text-anchor="middle">Intl.DateTimeFormat formats article dates</text>
-  <text x="1950" y="5343" class="node-line" font-size="14" text-anchor="middle">disclaimer identifies static sample content</text>
-  <text x="1950" y="5366" class="node-line" font-size="14" text-anchor="middle">articles are educational, not live market news</text>
-
-  <polyline points="490,5000 530,5000" fill="none" stroke="#5c940d" stroke-width="3" marker-end="url(#arrow-structure)" />
-  <text x="510" y="4978" class="edge-label" font-size="14" text-anchor="middle" fill="#5c940d">arranges</text>
-  <polyline points="1040,5000 490,5000" fill="none" stroke="#6741d9" stroke-width="3" marker-end="url(#arrow-structure)" />
-  <text x="785" y="4980" class="edge-label" font-size="14" text-anchor="middle" fill="#6741d9">renders</text>
-  <polyline points="1590,5075 490,5075" fill="none" stroke="#6741d9" stroke-width="3" marker-end="url(#arrow-structure)" />
-  <text x="1030" y="5055" class="edge-label" font-size="14" text-anchor="middle" fill="#6741d9">renders</text>
-  <polyline points="280,5210 1160,5115" fill="none" stroke="#2b8a3e" stroke-width="3" marker-end="url(#arrow-redux)" />
-  <text x="670" y="5130" class="edge-label" font-size="14" fill="#2b8a3e">useSelector</text>
-  <polyline points="490,5340 530,5340" fill="none" stroke="#0b7285" stroke-width="3" marker-end="url(#arrow-state)" />
-  <text x="510" y="5318" class="edge-label" font-size="14" text-anchor="middle" fill="#0b7285">IDs + coins</text>
-  <polyline points="1000,5340 1295,5115" fill="none" stroke="#0b7285" stroke-width="3" marker-end="url(#arrow-state)" />
-  <text x="1110" y="5205" class="edge-label" font-size="14" fill="#0b7285">preview objects</text>
-  <polyline points="1295,5210 1800,5115" fill="none" stroke="#495057" stroke-width="3" marker-end="url(#arrow-storage)" />
-  <text x="1510" y="5155" class="edge-label" font-size="14" fill="#495057">import + slice(0,3)</text>
-  <polyline points="1550,5340 1590,5340" fill="none" stroke="#495057" stroke-width="3" marker-end="url(#arrow-storage)" />
-  <text x="1570" y="5318" class="edge-label" font-size="14" text-anchor="middle" fill="#495057">import all</text>
-  <polyline points="1950,5115 1950,5210" fill="none" stroke="#e67700" stroke-width="3" marker-end="url(#arrow-router)" />
-  <text x="1970" y="5170" class="edge-label" font-size="14" fill="#e67700">navigate('/news')</text>
-</g>
-
-
-<g id="search-sorting-section">
-  <rect x="40" y="5890" width="2320" height="860" rx="18" fill="#ffffff" stroke="#ced4da" stroke-width="2" />
-  <text x="68" y="5940" class="panel-title" font-size="26">8. Shared search and sorting on Coins and Watchlist</text>
-  <text x="68" y="5975" class="subtitle" font-size="17">Reusable controls stay presentational; each page owns search/sort state and prepares the displayed array.</text>
-
-  <rect x="80" y="6020" width="470" height="210" rx="16" fill="#e5dbff" stroke="#6741d9" stroke-width="2" />
-  <text x="110" y="6060" class="node-title" font-size="22">SearchSortControls.jsx</text>
-  <text x="110" y="6097" class="node-line" font-size="16">
-    <tspan x="110" dy="0">Shared UI component</tspan>
-    <tspan x="110" dy="25">• search input</tspan>
-    <tspan x="110" dy="25">• sort dropdown</tspan>
-    <tspan x="110" dy="25">• Asc / Desc button</tspan>
-    <tspan x="110" dy="25">Receives values + callback props</tspan>
-  </text>
-
-  <rect x="650" y="6000" width="470" height="230" rx="16" fill="#d0ebff" stroke="#1971c2" stroke-width="2" />
-  <text x="680" y="6040" class="node-title" font-size="22">CoinsPage</text>
-  <text x="680" y="6080" class="node-line" font-size="16">
-    <tspan x="680" dy="0">Local state: searchTerm, sortKey, sortDirection</tspan>
-    <tspan x="680" dy="27">apiCoins → filter by name → copy → sort → table</tspan>
-    <tspan x="680" dy="27">Default: Rank + ascending</tspan>
-  </text>
-
-  <rect x="650" y="6340" width="470" height="245" rx="16" fill="#d0ebff" stroke="#1971c2" stroke-width="2" />
-  <text x="680" y="6380" class="node-title" font-size="22">WatchlistPage</text>
-  <text x="680" y="6420" class="node-line" font-size="16">
-    <tspan x="680" dy="0">coins + saved coinIds → watchlist coins</tspan>
-    <tspan x="680" dy="27">→ filter by search name → copy → sort → table</tspan>
-    <tspan x="680" dy="27">Uses the same shared controls</tspan>
-  </text>
-
-  <rect x="1240" y="6010" width="540" height="315" rx="16" fill="#c5f6fa" stroke="#0b7285" stroke-width="2" />
-  <text x="1270" y="6050" class="node-title" font-size="22">Sorting comparator</text>
-  <text x="1270" y="6090" class="node-line" font-size="16">
-    <tspan x="1270" dy="0">Numeric fields use Number(...) subtraction:</tspan>
-    <tspan x="1270" dy="24">• rank</tspan>
-    <tspan x="1270" dy="24">• price_usd</tspan>
-    <tspan x="1270" dy="24">• percent_change_24h</tspan>
-    <tspan x="1270" dy="24">• market_cap_usd</tspan>
-    <tspan x="1270" dy="24">• volume24</tspan>
-    <tspan x="1270" dy="32">Name: a.name.localeCompare(b.name)</tspan>
-  </text>
-
-  <rect x="1870" y="6020" width="410" height="235" rx="16" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="2" />
-  <text x="1900" y="6060" class="node-title" font-size="22">Redux data</text>
-  <text x="1900" y="6100" class="node-line" font-size="16">
-    <tspan x="1900" dy="0">coinsSlice → full CoinLore coin list</tspan>
-    <tspan x="1900" dy="27">savedCoins → persistent coinIds</tspan>
-    <tspan x="1900" dy="36">Search/sort state is NOT stored in Redux.</tspan>
-  </text>
-
-  <rect x="1240" y="6380" width="1040" height="190" rx="16" fill="#ebfbee" stroke="#5c940d" stroke-width="2" />
-  <text x="1270" y="6420" class="node-title" font-size="21">Why copy before sorting?</text>
-  <text x="1270" y="6460" class="node-line" font-size="16">
-    <tspan x="1270" dy="0">[...filteredCoins].sort(...) creates a new array before .sort() runs.</tspan>
-    <tspan x="1270" dy="27">This avoids mutating filtered / Redux-backed data.</tspan>
-    <tspan x="1270" dy="27">Search and sorting only change what each page displays.</tspan>
-  </text>
-
-  <polyline points="550,6080 650,6080" fill="none" stroke="#6741d9" stroke-width="3" marker-end="url(#arrow-structure)" />
-  <text x="570" y="6060" class="edge-label" font-size="14" fill="#6741d9">props + callbacks</text>
-  <polyline points="550,6170 650,6430" fill="none" stroke="#6741d9" stroke-width="3" marker-end="url(#arrow-structure)" />
-  <text x="560" y="6280" class="edge-label" font-size="14" fill="#6741d9">same component</text>
-
-  <polyline points="1120,6105 1240,6105" fill="none" stroke="#0b7285" stroke-width="3" marker-end="url(#arrow-state)" />
-  <text x="1135" y="6085" class="edge-label" font-size="14" fill="#0b7285">sort state + array</text>
-  <polyline points="1120,6460 1240,6220" fill="none" stroke="#0b7285" stroke-width="3" marker-end="url(#arrow-state)" />
-  <text x="1135" y="6320" class="edge-label" font-size="14" fill="#0b7285">same logic</text>
-
-  <polyline points="1870,6080 1780,6080" fill="none" stroke="#2b8a3e" stroke-width="3" marker-end="url(#arrow-redux)" />
-  <text x="1795" y="6060" class="edge-label" font-size="14" fill="#2b8a3e">useSelector</text>
-  <polyline points="1870,6160 1120,6430" fill="none" stroke="#2b8a3e" stroke-width="3" marker-end="url(#arrow-redux)" />
-  <text x="1510" y="6250" class="edge-label" font-size="14" fill="#2b8a3e">coins + saved IDs</text>
-</g>
-
-<g id="currency-conversion-update"><rect x="40" y="7000" width="2320" height="1050" rx="18" fill="#ffffff" stroke="#ced4da" stroke-width="2" /><text x="70" y="7055" class="panel-title" font-size="28" text-anchor="start">Live Currency Conversion — Redux + Frankfurter API</text><text x="70" y="7092" class="subtitle" font-size="18" text-anchor="start">USD market data remains the source of truth; exchange rates only change display values.</text><rect x="90" y="7145" width="390" height="190" rx="12" fill="#e5dbff" stroke="#6741d9" stroke-width="2" /><text x="120" y="7185" class="node-title" font-size="21" text-anchor="start">Header currency selector</text><text x="120" y="7225" class="node-line" font-size="17" text-anchor="start">USD / EUR / GBP / INR</text><text x="120" y="7248" class="node-line" font-size="17" text-anchor="start">changeCurrency(newCurrency)</text><text x="120" y="7271" class="node-line" font-size="17" text-anchor="start">localStorage: coinlume_currency</text><rect x="760" y="7120" width="520" height="245" rx="12" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="2" /><text x="790" y="7160" class="node-title" font-size="22" text-anchor="start">currencySlice</text><text x="790" y="7202" class="node-line" font-size="17" text-anchor="start">selectedCurrency</text><text x="790" y="7225" class="node-line" font-size="17" text-anchor="start">rates: { USD, EUR, GBP, INR }</text><text x="790" y="7248" class="node-line" font-size="17" text-anchor="start">status: idle / loading / succeeded / failed</text><text x="790" y="7271" class="node-line" font-size="17" text-anchor="start">error</text><rect x="1600" y="7145" width="420" height="190" rx="12" fill="#ffe3e3" stroke="#c92a2a" stroke-width="2" /><text x="1630" y="7185" class="node-title" font-size="21" text-anchor="start">Frankfurter API</text><text x="1630" y="7225" class="node-line" font-size="17" text-anchor="start">Base: USD</text><text x="1630" y="7248" class="node-line" font-size="17" text-anchor="start">Quotes: EUR, GBP, INR</text><text x="1630" y="7271" class="node-line" font-size="17" text-anchor="start">No API key required</text><rect x="1600" y="7410" width="420" height="170" rx="12" fill="#e5dbff" stroke="#6741d9" stroke-width="2" /><text x="1630" y="7450" class="node-title" font-size="21" text-anchor="start">AppLayout</text><text x="1630" y="7492" class="node-line" font-size="17" text-anchor="start">When status === &quot;idle&quot;</text><text x="1630" y="7515" class="node-line" font-size="17" text-anchor="start">dispatch(fetchCurrencyRates())</text><rect x="760" y="7430" width="520" height="175" rx="12" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="2" /><text x="790" y="7470" class="node-title" font-size="21" text-anchor="start">fetchCurrencyRates async thunk</text><text x="790" y="7512" class="node-line" font-size="17" text-anchor="start">fetch rates → response.json()</text><text x="790" y="7535" class="node-line" font-size="17" text-anchor="start">fulfilled updates state.rates</text><text x="790" y="7558" class="node-line" font-size="17" text-anchor="start">rejected keeps fallback rates</text><rect x="90" y="7690" width="460" height="220" rx="12" fill="#d0ebff" stroke="#1971c2" stroke-width="2" /><text x="120" y="7730" class="node-title" font-size="21" text-anchor="start">USD values from CoinLore</text><text x="120" y="7772" class="node-line" font-size="17" text-anchor="start">price_usd</text><text x="120" y="7795" class="node-line" font-size="17" text-anchor="start">market_cap_usd</text><text x="120" y="7818" class="node-line" font-size="17" text-anchor="start">volume24 / total_volume</text><text x="120" y="7841" class="node-line" font-size="17" text-anchor="start">Market data stays unchanged for sorting/calculation</text><rect x="760" y="7690" width="520" height="220" rx="12" fill="#ebfbee" stroke="#5c940d" stroke-width="2" /><text x="790" y="7730" class="node-title" font-size="20" text-anchor="start">formatCurrency(value, currency, rates, compact)</text><text x="790" y="7772" class="node-line" font-size="17" text-anchor="start">Number(value) × rates[selectedCurrency]</text><text x="790" y="7795" class="node-line" font-size="17" text-anchor="start">Intl.NumberFormat chooses $, €, £, ₹</text><text x="790" y="7818" class="node-line" font-size="17" text-anchor="start">compact=true → T / B / M formatting</text><rect x="1500" y="7690" width="620" height="220" rx="12" fill="#e5dbff" stroke="#6741d9" stroke-width="2" /><text x="1530" y="7730" class="node-title" font-size="21" text-anchor="start">Current consumers</text><text x="1530" y="7772" class="node-line" font-size="17" text-anchor="start">CoinsPage + WatchlistPage</text><text x="1530" y="7795" class="node-line" font-size="17" text-anchor="start">Dashboard market stats</text><text x="1530" y="7818" class="node-line" font-size="17" text-anchor="start">TopMarketCapShare combined market cap</text><text x="1530" y="7841" class="node-line" font-size="17" text-anchor="start">Next: remaining Dashboard monetary displays</text><rect x="90" y="7385" width="390" height="150" rx="12" fill="#e9ecef" stroke="#495057" stroke-width="2" /><text x="120" y="7425" class="node-title" font-size="20" text-anchor="start">Browser storage</text><text x="120" y="7466" class="node-line" font-size="17" text-anchor="start">Selected currency survives refresh.</text><text x="120" y="7489" class="node-line" font-size="17" text-anchor="start">Invalid saved values fall back safely.</text><line x1="480" y1="7240" x2="760" y2="7240" stroke="#343a40" stroke-width="2.5" marker-end="url(#arrow-structure)" /><text x="535" y="7215" class="edge-label" font-size="15" text-anchor="start">dispatch(changeCurrency)</text><line x1="1600" y1="7490" x2="1280" y2="7490" stroke="#343a40" stroke-width="2.5" marker-end="url(#arrow-structure)" /><text x="1370" y="7465" class="edge-label" font-size="15" text-anchor="start">dispatch thunk</text><line x1="1280" y1="7505" x2="1600" y2="7240" stroke="#c92a2a" stroke-width="2.5" marker-end="url(#arrow-structure)" /><text x="1350" y="7335" class="edge-label" font-size="15" text-anchor="start">fetch USD rates</text><line x1="1600" y1="7270" x2="1280" y2="7270" stroke="#2b8a3e" stroke-width="2.5" marker-end="url(#arrow-structure)" /><text x="1350" y="7245" class="edge-label" font-size="15" text-anchor="start">fulfilled → rates</text><line x1="1020" y1="7365" x2="1020" y2="7690" stroke="#2b8a3e" stroke-width="2.5" marker-end="url(#arrow-structure)" /><text x="1040" y="7545" class="edge-label" font-size="15" text-anchor="start">selectedCurrency + rates</text><line x1="550" y1="7800" x2="760" y2="7800" stroke="#343a40" stroke-width="2.5" marker-end="url(#arrow-structure)" /><text x="585" y="7775" class="edge-label" font-size="15" text-anchor="start">USD number</text><line x1="1280" y1="7800" x2="1500" y2="7800" stroke="#343a40" stroke-width="2.5" marker-end="url(#arrow-structure)" /><text x="1310" y="7775" class="edge-label" font-size="15" text-anchor="start">formatted value</text><line x1="285" y1="7335" x2="285" y2="7385" stroke="#495057" stroke-width="2.5" marker-end="url(#arrow-structure)" /><text x="305" y="7365" class="edge-label" font-size="15" text-anchor="start">save selection</text></g>
-<g id="coins-pagination-update">
-  <rect x="40" y="8140" width="2320" height="900" rx="18" fill="#ffffff" stroke="#ced4da" stroke-width="2" />
-  <text x="70" y="8195" class="panel-title" font-size="28">9. Coins pagination — 10 rows per page</text>
-  <text x="70" y="8232" class="subtitle" font-size="18">Pagination runs after search and sorting, so the user paginates the final prepared result set.</text>
-
-  <rect x="90" y="8290" width="430" height="230" rx="14" fill="#d0ebff" stroke="#1971c2" stroke-width="2" />
-  <text x="120" y="8330" class="node-title" font-size="21">CoinsPage local state</text>
-  <text x="120" y="8372" class="node-line" font-size="17">
-    <tspan x="120" dy="0">currentPage = 1</tspan>
-    <tspan x="120" dy="27">itemsPerPage = 10</tspan>
-    <tspan x="120" dy="27">Search + sorting remain page-owned</tspan>
-  </text>
-
-  <rect x="700" y="8270" width="680" height="310" rx="14" fill="#c5f6fa" stroke="#0b7285" stroke-width="2" />
-  <text x="730" y="8310" class="node-title" font-size="21">Prepared data flow</text>
-  <text x="730" y="8352" class="node-line" font-size="17">
-    <tspan x="730" dy="0">apiCoins</tspan>
-    <tspan x="730" dy="27">→ filteredCoins (search)</tspan>
-    <tspan x="730" dy="27">→ sortedCoins (sortKey + direction)</tspan>
-    <tspan x="730" dy="27">→ startIndex / endIndex</tspan>
-    <tspan x="730" dy="27">→ currentPageCoins = sortedCoins.slice(...)</tspan>
-    <tspan x="730" dy="27">→ table maps currentPageCoins only</tspan>
-  </text>
-
-  <rect x="1580" y="8290" width="650" height="230" rx="14" fill="#e5dbff" stroke="#6741d9" stroke-width="2" />
-  <text x="1610" y="8330" class="node-title" font-size="21">PaginationControls.jsx</text>
-  <text x="1610" y="8372" class="node-line" font-size="17">
-    <tspan x="1610" dy="0">Previous button</tspan>
-    <tspan x="1610" dy="27">Page X of Y</tspan>
-    <tspan x="1610" dy="27">Next button</tspan>
-    <tspan x="1610" dy="27">Receives currentPage, totalPages, onPageChange</tspan>
-  </text>
-
-  <rect x="280" y="8660" width="760" height="220" rx="14" fill="#ebfbee" stroke="#5c940d" stroke-width="2" />
-  <text x="310" y="8700" class="node-title" font-size="21">Pagination maths</text>
-  <text x="310" y="8742" class="node-line" font-size="17">
-    <tspan x="310" dy="0">totalPages = Math.ceil(sortedCoins.length / 10)</tspan>
-    <tspan x="310" dy="27">startIndex = (currentPage - 1) × 10</tspan>
-    <tspan x="310" dy="27">endIndex = startIndex + 10</tspan>
-    <tspan x="310" dy="27">slice(startIndex, endIndex) → current 10 rows</tspan>
-  </text>
-
-  <rect x="1260" y="8660" width="720" height="220" rx="14" fill="#fff3bf" stroke="#e67700" stroke-width="2" />
-  <text x="1290" y="8700" class="node-title" font-size="21">Current scope</text>
-  <text x="1290" y="8742" class="node-line" font-size="17">
-    <tspan x="1290" dy="0">CoinsPage pagination: completed</tspan>
-    <tspan x="1290" dy="27">10 rows per page</tspan>
-    <tspan x="1290" dy="27">Pagination stays under the table inside the same card</tspan>
-    <tspan x="1290" dy="27">Watchlist pagination: next implementation step</tspan>
-  </text>
-
-  <line x1="520" y1="8405" x2="700" y2="8405" stroke="#0b7285" stroke-width="2.5" marker-end="url(#arrow-state)" />
-  <text x="555" y="8380" class="edge-label" font-size="15" fill="#0b7285">state drives indices</text>
-  <line x1="1380" y1="8405" x2="1580" y2="8405" stroke="#6741d9" stroke-width="2.5" marker-end="url(#arrow-structure)" />
-  <text x="1415" y="8380" class="edge-label" font-size="15" fill="#6741d9">props + callback</text>
-  <line x1="1040" y1="8580" x2="820" y2="8660" stroke="#5c940d" stroke-width="2.5" marker-end="url(#arrow-structure)" />
-  <line x1="1730" y1="8520" x2="1670" y2="8660" stroke="#e67700" stroke-width="2.5" marker-end="url(#arrow-router)" />
-</g>
-
-<g id="legend-pagination">
-  <text x="70" y="9160" class="legend" font-size="18">Legend:</text>
-  <rect x="155" y="9143" width="24" height="18" rx="4" fill="#d0ebff" stroke="#1971c2" stroke-width="2" /><text x="187" y="9160" class="legend" font-size="16">Pages</text>
-  <rect x="305" y="9143" width="24" height="18" rx="4" fill="#e5dbff" stroke="#6741d9" stroke-width="2" /><text x="337" y="9160" class="legend" font-size="16">Components</text>
-  <rect x="455" y="9143" width="24" height="18" rx="4" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="2" /><text x="487" y="9160" class="legend" font-size="16">Redux</text>
-  <rect x="605" y="9143" width="24" height="18" rx="4" fill="#c5f6fa" stroke="#0b7285" stroke-width="2" /><text x="637" y="9160" class="legend" font-size="16">Local state / data flow</text>
-  <rect x="865" y="9143" width="24" height="18" rx="4" fill="#ebfbee" stroke="#5c940d" stroke-width="2" /><text x="897" y="9160" class="legend" font-size="16">Notes / calculations</text>
-</g>
+<marker id="arrow-structure" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#343a40"/></marker>
+<marker id="arrow-props" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#1971c2"/></marker>
+<marker id="arrow-context" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#d9480f"/></marker>
+<marker id="arrow-redux" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#2b8a3e"/></marker>
+<marker id="arrow-storage" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#868e96"/></marker>
+<marker id="arrow-router" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#e67700"/></marker>
+<marker id="arrow-api" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#c92a2a"/></marker>
+<marker id="arrow-state" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#0b7285"/></marker>
+</defs>
+<rect width="100%" height="100%" fill="#f8f9fa"/>
+<text x="55" y="38" class="title" font-size="30">CoinLume — Updated Architecture Map</text>
+<text x="55" y="61" class="subtitle" font-size="15">Generated from the uploaded source snapshot · August 2026</text>
+<rect x="35" y="55" width="1730" height="430" rx="24" fill="#fff" stroke="#ced4da" stroke-width="3"/>
+<text x="60" y="95" class="panel-title" font-size="24">1. App start, providers, and routing</text>
+<text x="60" y="121" class="subtitle" font-size="16">How the application starts and how URLs choose pages</text>
+<rect x="35" y="515" width="1730" height="390" rx="24" fill="#fff" stroke="#ced4da" stroke-width="3"/>
+<text x="60" y="555" class="panel-title" font-size="24">2. Protected application shell</text>
+<text x="60" y="581" class="subtitle" font-size="16">AppLayout, sticky navigation, page outlet, and currency-rate bootstrap</text>
+<rect x="35" y="935" width="1730" height="520" rx="24" fill="#fff" stroke="#ced4da" stroke-width="3"/>
+<text x="60" y="975" class="panel-title" font-size="24">3. Redux state, APIs, and persistence</text>
+<text x="60" y="1001" class="subtitle" font-size="16">Four reducers registered in the store plus browser storage and external data sources</text>
+<rect x="35" y="1485" width="1730" height="520" rx="24" fill="#fff" stroke="#ced4da" stroke-width="3"/>
+<text x="60" y="1525" class="panel-title" font-size="24">4. Page and component composition</text>
+<text x="60" y="1551" class="subtitle" font-size="16">Current page-level component tree from the uploaded source</text>
+<rect x="35" y="2035" width="1730" height="535" rx="24" fill="#fff" stroke="#ced4da" stroke-width="3"/>
+<text x="60" y="2075" class="panel-title" font-size="24">5. Coin details data flow</text>
+<text x="60" y="2101" class="subtitle" font-size="16">Shared Redux data + three page-specific CoinLore requests + child props</text>
+<rect x="35" y="2600" width="1730" height="285" rx="24" fill="#fff" stroke="#ced4da" stroke-width="3"/>
+<text x="60" y="2640" class="panel-title" font-size="24">6. Shared contexts and utilities</text>
+<text x="60" y="2666" class="subtitle" font-size="16">Authentication, theme, currency formatting, static news data, and storage responsibilities</text>
+<line x1="250.0" y1="184.3" x2="290.0" y2="177.8" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="241.0" y="168.0" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="270.0" y="186.0" text-anchor="middle" class="edge-label" fill="#343a40">wraps</text>
+<line x1="392.5" y1="197.0" x2="392.5" y2="230.0" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="354.3" y="200.5" width="76.4" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="392.5" y="218.5" text-anchor="middle" class="edge-label" fill="#343a40">contains</text>
+<line x1="495.0" y1="238.0" x2="545.0" y2="224.3" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="485.4" y="218.1" width="69.1" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="520.0" y="236.1" text-anchor="middle" class="edge-label" fill="#343a40">renders</text>
+<line x1="730.0" y1="180.3" x2="780.0" y2="170.2" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="726.0" y="162.3" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="755.0" y="180.3" text-anchor="middle" class="edge-label" fill="#343a40">wraps</text>
+<line x1="970.0" y1="151.0" x2="1010.0" y2="151.0" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="961.0" y="138.0" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="990.0" y="156.0" text-anchor="middle" class="edge-label" fill="#343a40">wraps</text>
+<line x1="1200.0" y1="151.0" x2="1240.0" y2="151.0" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="1191.0" y="138.0" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1220.0" y="156.0" text-anchor="middle" class="edge-label" fill="#343a40">wraps</text>
+<line x1="1390.0" y1="146.0" x2="1450.0" y2="142.0" stroke="#e67700" stroke-width="2.7" marker-end="url(#arrow-router)"/>
+<rect x="1391.0" y="131.0" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1420.0" y="149.0" text-anchor="middle" class="edge-label" fill="#e67700">route</text>
+<line x1="1323.5" y1="187.0" x2="1334.8" y2="235.0" stroke="#e67700" stroke-width="2.7" marker-end="url(#arrow-router)"/>
+<rect x="1261.8" y="198.0" width="134.8" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1329.2" y="216.0" text-anchor="middle" class="edge-label" fill="#e67700">protected routes</text>
+<line x1="1450.0" y1="278.0" x2="1490.0" y2="278.0" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="1435.5" y="265.0" width="69.1" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1470.0" y="283.0" text-anchor="middle" class="edge-label" fill="#343a40">renders</text>
+<line x1="1490.0" y1="312.6" x2="1367.7" y2="355.0" stroke="#e67700" stroke-width="2.7" marker-end="url(#arrow-router)"/>
+<rect x="1397.9" y="320.8" width="61.8" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1428.8" y="338.8" text-anchor="middle" class="edge-label" fill="#e67700">Outlet</text>
+<line x1="180.0" y1="725.0" x2="180.0" y2="765.0" stroke="#0b7285" stroke-width="2.7" marker-end="url(#arrow-state)"/>
+<rect x="151.0" y="732.0" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="180.0" y="750.0" text-anchor="middle" class="edge-label" fill="#0b7285">owns</text>
+<line x1="290.0" y1="661.3" x2="390.0" y2="651.2" stroke="#1971c2" stroke-width="2.7" marker-end="url(#arrow-props)"/>
+<rect x="311.0" y="643.3" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="340.0" y="661.3" text-anchor="middle" class="edge-label" fill="#1971c2">props</text>
+<line x1="290.0" y1="709.7" x2="390.0" y2="743.5" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="305.4" y="713.6" width="69.1" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="340.0" y="731.6" text-anchor="middle" class="edge-label" fill="#343a40">renders</text>
+<line x1="290.0" y1="678.4" x2="720.0" y2="701.2" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="470.4" y="676.8" width="69.1" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="505.0" y="694.8" text-anchor="middle" class="edge-label" fill="#343a40">renders</text>
+<line x1="290.0" y1="669.8" x2="1050.0" y2="651.0" stroke="#2b8a3e" stroke-width="2.7" marker-end="url(#arrow-redux)"/>
+<rect x="628.1" y="647.4" width="83.7" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="670.0" y="665.4" text-anchor="middle" class="edge-label" fill="#2b8a3e">useEffect</text>
+<line x1="1330.0" y1="647.5" x2="1410.0" y2="647.5" stroke="#2b8a3e" stroke-width="2.7" marker-end="url(#arrow-redux)"/>
+<rect x="1331.8" y="634.5" width="76.4" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1370.0" y="652.5" text-anchor="middle" class="edge-label" fill="#2b8a3e">dispatch</text>
+<line x1="630.0" y1="667.0" x2="1050.0" y2="764.9" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="805.5" y="702.9" width="69.1" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="840.0" y="720.9" text-anchor="middle" class="edge-label" fill="#343a40">renders</text>
+<line x1="630.0" y1="785.6" x2="1410.0" y2="795.7" stroke="#d9480f" stroke-width="2.7" marker-end="url(#arrow-context)"/>
+<rect x="991.0" y="777.6" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1020.0" y="795.6" text-anchor="middle" class="edge-label" fill="#d9480f">reads</text>
+<line x1="305.0" y1="1079.8" x2="390.0" y2="1068.7" stroke="#2b8a3e" stroke-width="2.7" marker-end="url(#arrow-redux)"/>
+<rect x="305.6" y="1061.2" width="83.7" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="347.5" y="1079.2" text-anchor="middle" class="edge-label" fill="#2b8a3e">registers</text>
+<line x1="305.0" y1="1131.8" x2="390.0" y2="1158.4" stroke="#2b8a3e" stroke-width="2.7" marker-end="url(#arrow-redux)"/>
+<rect x="305.6" y="1132.1" width="83.7" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="347.5" y="1150.1" text-anchor="middle" class="edge-label" fill="#2b8a3e">registers</text>
+<line x1="305.0" y1="1087.3" x2="710.0" y2="1061.0" stroke="#2b8a3e" stroke-width="2.7" marker-end="url(#arrow-redux)"/>
+<rect x="465.6" y="1061.2" width="83.7" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="507.5" y="1079.2" text-anchor="middle" class="edge-label" fill="#2b8a3e">registers</text>
+<line x1="305.0" y1="1113.5" x2="710.0" y2="1177.1" stroke="#2b8a3e" stroke-width="2.7" marker-end="url(#arrow-redux)"/>
+<rect x="465.6" y="1132.3" width="83.7" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="507.5" y="1150.3" text-anchor="middle" class="edge-label" fill="#2b8a3e">registers</text>
+<line x1="1050.0" y1="1022.4" x2="640.0" y2="1045.5" stroke="#c92a2a" stroke-width="2.7" marker-end="url(#arrow-api)"/>
+<rect x="799.5" y="1021.0" width="91.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="845.0" y="1039.0" text-anchor="middle" class="edge-label" fill="#c92a2a">fetchCoins</text>
+<line x1="1050.0" y1="1144.0" x2="640.0" y2="1185.0" stroke="#c92a2a" stroke-width="2.7" marker-end="url(#arrow-api)"/>
+<rect x="781.2" y="1151.5" width="127.5" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="845.0" y="1169.5" text-anchor="middle" class="edge-label" fill="#c92a2a">fetchMarketData</text>
+<line x1="1117.3" y1="1200.0" x2="948.1" y2="1110.0" stroke="#c92a2a" stroke-width="2.7" marker-end="url(#arrow-api)"/>
+<rect x="958.0" y="1142.0" width="149.4" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1032.7" y="1160.0" text-anchor="middle" class="edge-label" fill="#c92a2a">fetchCurrencyRates</text>
+<line x1="970.0" y1="1175.7" x2="1430.0" y2="1098.5" stroke="#868e96" stroke-width="2.7" marker-end="url(#arrow-storage)" stroke-dasharray="10 7"/>
+<rect x="1147.2" y="1124.1" width="105.6" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1200.0" y="1142.1" text-anchor="middle" class="edge-label" fill="#868e96">initial read</text>
+<line x1="970.0" y1="1056.5" x2="1430.0" y2="1070.7" stroke="#868e96" stroke-width="2.7" marker-end="url(#arrow-storage)" stroke-dasharray="10 7"/>
+<rect x="1147.2" y="1050.6" width="105.6" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1200.0" y="1068.6" text-anchor="middle" class="edge-label" fill="#868e96">initial read</text>
+<line x1="305.0" y1="1107.1" x2="1430.0" y2="1223.1" stroke="#868e96" stroke-width="2.7" marker-end="url(#arrow-storage)" stroke-dasharray="10 7"/>
+<rect x="811.0" y="1152.1" width="112.9" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="867.5" y="1170.1" text-anchor="middle" class="edge-label" fill="#868e96">state changes</text>
+<line x1="1570.0" y1="1185.0" x2="1570.0" y2="1140.0" stroke="#868e96" stroke-width="2.7" marker-end="url(#arrow-storage)" stroke-dasharray="10 7"/>
+<rect x="1502.6" y="1149.5" width="134.8" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1570.0" y="1167.5" text-anchor="middle" class="edge-label" fill="#868e96">writes storedIds</text>
+<line x1="310.0" y1="1626.6" x2="360.0" y2="1626.3" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="300.4" y="1613.5" width="69.1" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="335.0" y="1631.5" text-anchor="middle" class="edge-label" fill="#343a40">renders</text>
+<line x1="1040.0" y1="1620.0" x2="1100.0" y2="1620.0" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="1035.5" y="1607.0" width="69.1" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1070.0" y="1625.0" text-anchor="middle" class="edge-label" fill="#343a40">renders</text>
+<line x1="1410.0" y1="1620.0" x2="1350.0" y2="1620.0" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="1345.5" y="1607.0" width="69.1" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1380.0" y="1625.0" text-anchor="middle" class="edge-label" fill="#343a40">renders</text>
+<line x1="1002.8" y1="1695.0" x2="1096.5" y2="1775.0" stroke="#1971c2" stroke-width="2.7" marker-end="url(#arrow-props)"/>
+<rect x="1020.6" y="1722.0" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1049.6" y="1740.0" text-anchor="middle" class="edge-label" fill="#1971c2">uses</text>
+<line x1="1410.0" y1="1693.5" x2="1252.0" y2="1775.0" stroke="#1971c2" stroke-width="2.7" marker-end="url(#arrow-props)"/>
+<rect x="1302.0" y="1721.2" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1331.0" y="1739.2" text-anchor="middle" class="edge-label" fill="#1971c2">uses</text>
+<line x1="310.0" y1="1652.1" x2="1000.0" y2="1793.3" stroke="#1971c2" stroke-width="2.7" marker-end="url(#arrow-props)"/>
+<rect x="626.0" y="1709.7" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="655.0" y="1727.7" text-anchor="middle" class="edge-label" fill="#1971c2">uses</text>
+<line x1="310.0" y1="1825.0" x2="1390.0" y2="1825.0" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="821.0" y="1812.0" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="850.0" y="1830.0" text-anchor="middle" class="edge-label" fill="#343a40">reads</text>
+<line x1="715.0" y1="1660.3" x2="1390.0" y2="1794.7" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="981.5" y="1714.5" width="142.1" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1052.5" y="1732.5" text-anchor="middle" class="edge-label" fill="#343a40">NewsPreview reads</text>
+<line x1="395.0" y1="2156.2" x2="335.0" y2="2169.9" stroke="#2b8a3e" stroke-width="2.7" marker-end="url(#arrow-redux)"/>
+<rect x="330.4" y="2150.1" width="69.1" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="365.0" y="2168.1" text-anchor="middle" class="edge-label" fill="#2b8a3e">selects</text>
+<line x1="395.0" y1="2226.2" x2="335.0" y2="2218.1" stroke="#c92a2a" stroke-width="2.7" marker-end="url(#arrow-api)"/>
+<rect x="315.9" y="2209.2" width="98.3" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="365.0" y="2227.2" text-anchor="middle" class="edge-label" fill="#c92a2a">local state</text>
+<line x1="439.7" y1="2315.0" x2="326.2" y2="2260.0" stroke="#c92a2a" stroke-width="2.7" marker-end="url(#arrow-api)"/>
+<rect x="333.8" y="2274.5" width="98.3" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="383.0" y="2292.5" text-anchor="middle" class="edge-label" fill="#c92a2a">local state</text>
+<line x1="478.5" y1="2430.0" x2="274.5" y2="2260.0" stroke="#c92a2a" stroke-width="2.7" marker-end="url(#arrow-api)"/>
+<rect x="327.4" y="2332.0" width="98.3" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="376.5" y="2350.0" text-anchor="middle" class="edge-label" fill="#c92a2a">local state</text>
+<line x1="335.0" y1="2186.0" x2="770.0" y2="2140.1" stroke="#1971c2" stroke-width="2.7" marker-end="url(#arrow-props)"/>
+<rect x="523.5" y="2150.0" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="552.5" y="2168.0" text-anchor="middle" class="edge-label" fill="#1971c2">props</text>
+<line x1="335.0" y1="2209.3" x2="770.0" y2="2240.0" stroke="#1971c2" stroke-width="2.7" marker-end="url(#arrow-props)"/>
+<rect x="523.5" y="2211.6" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="552.5" y="2229.6" text-anchor="middle" class="edge-label" fill="#1971c2">props</text>
+<line x1="335.0" y1="2232.7" x2="770.0" y2="2339.9" stroke="#1971c2" stroke-width="2.7" marker-end="url(#arrow-props)"/>
+<rect x="523.5" y="2273.3" width="58.0" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="552.5" y="2291.3" text-anchor="middle" class="edge-label" fill="#1971c2">props</text>
+<line x1="335.0" y1="2256.0" x2="794.2" y2="2450.0" stroke="#1971c2" stroke-width="2.7" marker-end="url(#arrow-props)"/>
+<rect x="500.8" y="2340.0" width="127.5" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="564.6" y="2358.0" text-anchor="middle" class="edge-label" fill="#1971c2">props + onRetry</text>
+<line x1="1160.0" y1="2202.6" x2="1055.0" y2="2169.7" stroke="#2b8a3e" stroke-width="2.7" marker-end="url(#arrow-redux)"/>
+<rect x="1058.3" y="2173.2" width="98.3" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1107.5" y="2191.2" text-anchor="middle" class="edge-label" fill="#2b8a3e">useSelector</text>
+<line x1="1160.0" y1="2246.8" x2="1055.0" y2="2248.1" stroke="#2b8a3e" stroke-width="2.7" marker-end="url(#arrow-redux)"/>
+<rect x="1058.3" y="2234.5" width="98.3" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1107.5" y="2252.5" text-anchor="middle" class="edge-label" fill="#2b8a3e">useSelector</text>
+<line x1="1205.0" y1="2305.0" x2="987.5" y2="2450.0" stroke="#2b8a3e" stroke-width="2.7" marker-end="url(#arrow-redux)"/>
+<rect x="1047.1" y="2364.5" width="98.3" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1096.2" y="2382.5" text-anchor="middle" class="edge-label" fill="#2b8a3e">useSelector</text>
+<line x1="1055.0" y1="2381.5" x2="1160.0" y2="2386.3" stroke="#343a40" stroke-width="2.7" marker-end="url(#arrow-structure)"/>
+<rect x="1073.0" y="2370.9" width="69.1" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="1107.5" y="2388.9" text-anchor="middle" class="edge-label" fill="#343a40">renders</text>
+<line x1="1510.0" y1="2269.2" x2="335.0" y2="2207.0" stroke="#0b7285" stroke-width="2.7" marker-end="url(#arrow-state)"/>
+<rect x="862.4" y="2225.1" width="120.2" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="922.5" y="2243.1" text-anchor="middle" class="edge-label" fill="#0b7285">retry handlers</text>
+<line x1="350.0" y1="2742.5" x2="790.0" y2="2742.5" stroke="#d9480f" stroke-width="2.7" marker-end="url(#arrow-context)"/>
+<rect x="535.5" y="2729.5" width="69.1" height="26" rx="7" fill="#fff" fill-opacity=".94"/>
+<text x="570.0" y="2747.5" text-anchor="middle" class="edge-label" fill="#d9480f">useAuth</text>
+<rect x="70" y="155" width="180" height="88" rx="17" fill="#f3d9fa" stroke="#5f3dc4" stroke-width="3"/>
+<text x="160.0" y="188" text-anchor="middle" class="node-title" font-size="20">main.jsx</text>
+<text x="160.0" y="216" text-anchor="middle" class="node-line" font-size="17">entry point</text>
+<rect x="290" y="125" width="205" height="72" rx="17" fill="#fff3bf" stroke="#e67700" stroke-width="3"/>
+<text x="392.5" y="158" text-anchor="middle" class="node-title" font-size="20">BrowserRouter</text>
+<text x="392.5" y="186" text-anchor="middle" class="node-line" font-size="17">React Router</text>
+<rect x="290" y="230" width="205" height="72" rx="17" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3"/>
+<text x="392.5" y="263" text-anchor="middle" class="node-title" font-size="20">Redux Provider</text>
+<text x="392.5" y="291" text-anchor="middle" class="node-line" font-size="17">store={store}</text>
+<rect x="545" y="155" width="185" height="88" rx="17" fill="#f3d9fa" stroke="#5f3dc4" stroke-width="3"/>
+<text x="637.5" y="188" text-anchor="middle" class="node-title" font-size="20">App.jsx</text>
+<text x="637.5" y="216" text-anchor="middle" class="node-line" font-size="17">providers + routes</text>
+<rect x="780" y="115" width="190" height="72" rx="17" fill="#ffe8cc" stroke="#d9480f" stroke-width="3"/>
+<text x="875.0" y="148" text-anchor="middle" class="node-title" font-size="20">AuthProvider</text>
+<rect x="1010" y="115" width="190" height="72" rx="17" fill="#ffe8cc" stroke="#d9480f" stroke-width="3"/>
+<text x="1105.0" y="148" text-anchor="middle" class="node-title" font-size="20">ThemeProvider</text>
+<rect x="1240" y="115" width="150" height="72" rx="17" fill="#fff3bf" stroke="#e67700" stroke-width="3"/>
+<text x="1315.0" y="148" text-anchor="middle" class="node-title" font-size="20">Routes</text>
+<rect x="1450" y="95" width="240" height="78" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="1570.0" y="128" text-anchor="middle" class="node-title" font-size="20">/login</text>
+<text x="1570.0" y="156" text-anchor="middle" class="node-line" font-size="17">LoginPage</text>
+<rect x="1240" y="235" width="210" height="86" rx="17" fill="#fff3bf" stroke="#e67700" stroke-width="3"/>
+<text x="1345.0" y="268" text-anchor="middle" class="node-title" font-size="18">Pathless parent</text>
+<text x="1345.0" y="296" text-anchor="middle" class="node-line" font-size="15">ProtectedRoute</text>
+<rect x="1490" y="235" width="200" height="86" rx="17" fill="#e5dbff" stroke="#6741d9" stroke-width="3"/>
+<text x="1590.0" y="268" text-anchor="middle" class="node-title" font-size="20">AppLayout</text>
+<text x="1590.0" y="296" text-anchor="middle" class="node-line" font-size="17">protected shell</text>
+<rect x="800" y="355" width="890" height="85" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="1245.0" y="388" text-anchor="middle" class="node-title" font-size="18">Nested routes</text>
+<text x="1245.0" y="416" text-anchor="middle" class="node-line" font-size="15">/dashboard   /coins   /watchlist   /news   /coins/:id</text>
+<rect x="70" y="620" width="220" height="105" rx="17" fill="#e5dbff" stroke="#6741d9" stroke-width="3"/>
+<text x="180.0" y="653" text-anchor="middle" class="node-title" font-size="20">AppLayout</text>
+<text x="180.0" y="681" text-anchor="middle" class="node-line" font-size="17">owns isSidebarOpen</text>
+<text x="180.0" y="705" text-anchor="middle" class="node-line" font-size="17">bg-slate-50 / dark</text>
+<rect x="70" y="765" width="220" height="80" rx="17" fill="#c5f6fa" stroke="#0b7285" stroke-width="3"/>
+<text x="180.0" y="798" text-anchor="middle" class="node-title" font-size="20">isSidebarOpen</text>
+<text x="180.0" y="826" text-anchor="middle" class="node-line" font-size="17">useState(false)</text>
+<rect x="390" y="585" width="240" height="108" rx="17" fill="#e5dbff" stroke="#6741d9" stroke-width="3"/>
+<text x="510.0" y="618" text-anchor="middle" class="node-title" font-size="20">Sidebar</text>
+<text x="510.0" y="646" text-anchor="middle" class="node-line" font-size="17">sticky top-0 h-screen</text>
+<text x="510.0" y="670" text-anchor="middle" class="node-line" font-size="17">navigation + logout</text>
+<rect x="390" y="730" width="240" height="108" rx="17" fill="#e5dbff" stroke="#6741d9" stroke-width="3"/>
+<text x="510.0" y="763" text-anchor="middle" class="node-title" font-size="20">Header</text>
+<text x="510.0" y="791" text-anchor="middle" class="node-line" font-size="17">sticky top-0 z-40</text>
+<text x="510.0" y="815" text-anchor="middle" class="node-line" font-size="17">currency selector</text>
+<rect x="720" y="655" width="235" height="105" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="837.5" y="688" text-anchor="middle" class="node-title" font-size="20">&lt;main&gt; + Outlet</text>
+<text x="837.5" y="716" text-anchor="middle" class="node-line" font-size="17">renders active page</text>
+<text x="837.5" y="740" text-anchor="middle" class="node-line" font-size="17">p-6 flex-1</text>
+<rect x="1050" y="595" width="280" height="105" rx="17" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3"/>
+<text x="1190.0" y="628" text-anchor="middle" class="node-title" font-size="18">fetchCurrencyRates()</text>
+<text x="1190.0" y="656" text-anchor="middle" class="node-line" font-size="15">dispatch when status = idle</text>
+<rect x="1410" y="595" width="280" height="105" rx="17" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3"/>
+<text x="1550.0" y="628" text-anchor="middle" class="node-title" font-size="18">currency slice</text>
+<text x="1550.0" y="656" text-anchor="middle" class="node-line" font-size="15">selectedCurrency</text>
+<text x="1550.0" y="680" text-anchor="middle" class="node-line" font-size="15">rates/status/error</text>
+<rect x="1050" y="755" width="280" height="85" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="1190.0" y="788" text-anchor="middle" class="node-title" font-size="18">Sidebar helpers</text>
+<text x="1190.0" y="816" text-anchor="middle" class="node-line" font-size="15">SidebarItem + ThemeToggle</text>
+<rect x="1410" y="755" width="280" height="85" rx="17" fill="#ffe8cc" stroke="#d9480f" stroke-width="3"/>
+<text x="1550.0" y="788" text-anchor="middle" class="node-title" font-size="18">Header dependencies</text>
+<text x="1550.0" y="816" text-anchor="middle" class="node-line" font-size="15">useAuth + currency Redux</text>
+<rect x="70" y="1040" width="235" height="110" rx="17" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3"/>
+<text x="187.5" y="1073" text-anchor="middle" class="node-title" font-size="20">store.js</text>
+<text x="187.5" y="1101" text-anchor="middle" class="node-line" font-size="17">configureStore</text>
+<text x="187.5" y="1125" text-anchor="middle" class="node-line" font-size="17">4 reducers</text>
+<rect x="390" y="995" width="250" height="115" rx="17" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3"/>
+<text x="515.0" y="1028" text-anchor="middle" class="node-title" font-size="18">coinsSlice</text>
+<text x="515.0" y="1056" text-anchor="middle" class="node-line" font-size="15">coins[] / status / error</text>
+<text x="515.0" y="1080" text-anchor="middle" class="node-line" font-size="15">fetchCoins thunk</text>
+<rect x="390" y="1140" width="250" height="115" rx="17" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3"/>
+<text x="515.0" y="1173" text-anchor="middle" class="node-title" font-size="18">marketSlice</text>
+<text x="515.0" y="1201" text-anchor="middle" class="node-line" font-size="15">marketData / status / error</text>
+<text x="515.0" y="1225" text-anchor="middle" class="node-line" font-size="15">fetchMarketData thunk</text>
+<rect x="710" y="995" width="260" height="115" rx="17" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3"/>
+<text x="840.0" y="1028" text-anchor="middle" class="node-title" font-size="18">currencySlice</text>
+<text x="840.0" y="1056" text-anchor="middle" class="node-line" font-size="15">selectedCurrency + rates</text>
+<text x="840.0" y="1080" text-anchor="middle" class="node-line" font-size="15">fetchCurrencyRates thunk</text>
+<rect x="710" y="1140" width="260" height="115" rx="17" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3"/>
+<text x="840.0" y="1173" text-anchor="middle" class="node-title" font-size="18">watchlistSlice</text>
+<text x="840.0" y="1201" text-anchor="middle" class="node-line" font-size="15">coinIds[]</text>
+<text x="840.0" y="1225" text-anchor="middle" class="node-line" font-size="15">saveCoin / removeCoin</text>
+<rect x="1050" y="970" width="300" height="88" rx="17" fill="#ffe3e3" stroke="#c92a2a" stroke-width="3"/>
+<text x="1200.0" y="1003" text-anchor="middle" class="node-title" font-size="17">CoinLore tickers API</text>
+<text x="1200.0" y="1031" text-anchor="middle" class="node-line" font-size="14">/api/tickers/?start=0&amp;limit=50</text>
+<rect x="1050" y="1085" width="300" height="88" rx="17" fill="#ffe3e3" stroke="#c92a2a" stroke-width="3"/>
+<text x="1200.0" y="1118" text-anchor="middle" class="node-title" font-size="17">CoinLore global API</text>
+<text x="1200.0" y="1146" text-anchor="middle" class="node-line" font-size="14">/api/global/</text>
+<rect x="1050" y="1200" width="300" height="88" rx="17" fill="#ffe3e3" stroke="#c92a2a" stroke-width="3"/>
+<text x="1200.0" y="1233" text-anchor="middle" class="node-title" font-size="17">Frankfurter API</text>
+<text x="1200.0" y="1261" text-anchor="middle" class="node-line" font-size="14">USD → EUR / GBP / INR</text>
+<rect x="1430" y="1010" width="280" height="130" rx="17" fill="#e9ecef" stroke="#868e96" stroke-width="3"/>
+<text x="1570.0" y="1043" text-anchor="middle" class="node-title" font-size="18">localStorage</text>
+<text x="1570.0" y="1071" text-anchor="middle" class="node-line" font-size="15">storedIds</text>
+<text x="1570.0" y="1095" text-anchor="middle" class="node-line" font-size="15">coinlume_currency</text>
+<text x="1570.0" y="1119" text-anchor="middle" class="node-line" font-size="15">coinlume_auth / theme</text>
+<rect x="1430" y="1185" width="280" height="105" rx="17" fill="#e9ecef" stroke="#868e96" stroke-width="3"/>
+<text x="1570.0" y="1218" text-anchor="middle" class="node-title" font-size="17">store.subscribe()</text>
+<text x="1570.0" y="1246" text-anchor="middle" class="node-line" font-size="14">writes savedCoins.coinIds</text>
+<text x="1570.0" y="1270" text-anchor="middle" class="node-line" font-size="14">to storedIds</text>
+<rect x="70" y="1575" width="240" height="105" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="190.0" y="1608" text-anchor="middle" class="node-title" font-size="18">DashboardPage</text>
+<text x="190.0" y="1636" text-anchor="middle" class="node-line" font-size="15">market stats</text>
+<text x="190.0" y="1660" text-anchor="middle" class="node-line" font-size="15">dispatches coins + global</text>
+<rect x="360" y="1540" width="355" height="170" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="537.5" y="1573" text-anchor="middle" class="node-title" font-size="17">Dashboard components</text>
+<text x="537.5" y="1601" text-anchor="middle" class="node-line" font-size="14">MarketStatCard</text>
+<text x="537.5" y="1625" text-anchor="middle" class="node-line" font-size="14">WatchlistPreview</text>
+<text x="537.5" y="1649" text-anchor="middle" class="node-line" font-size="14">TopMarketCapShare</text>
+<text x="537.5" y="1673" text-anchor="middle" class="node-line" font-size="14">TopCryptocurrencies</text>
+<text x="537.5" y="1697" text-anchor="middle" class="node-line" font-size="14">NewsPreview</text>
+<rect x="790" y="1545" width="250" height="150" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="915.0" y="1578" text-anchor="middle" class="node-title" font-size="17">CoinsPage</text>
+<text x="915.0" y="1606" text-anchor="middle" class="node-line" font-size="14">search + sort + pagination</text>
+<text x="915.0" y="1630" text-anchor="middle" class="node-line" font-size="14">watchlist toggle</text>
+<text x="915.0" y="1654" text-anchor="middle" class="node-line" font-size="14">currency formatting</text>
+<rect x="1100" y="1545" width="250" height="150" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="1225.0" y="1578" text-anchor="middle" class="node-title" font-size="17">Shared controls</text>
+<text x="1225.0" y="1606" text-anchor="middle" class="node-line" font-size="14">SearchSortControls</text>
+<text x="1225.0" y="1630" text-anchor="middle" class="node-line" font-size="14">PaginationControls</text>
+<rect x="1410" y="1545" width="285" height="150" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="1552.5" y="1578" text-anchor="middle" class="node-title" font-size="17">WatchlistPage</text>
+<text x="1552.5" y="1606" text-anchor="middle" class="node-line" font-size="14">saved coin filtering</text>
+<text x="1552.5" y="1630" text-anchor="middle" class="node-line" font-size="14">search + sort + pagination</text>
+<text x="1552.5" y="1654" text-anchor="middle" class="node-line" font-size="14">remove from watchlist</text>
+<rect x="70" y="1775" width="240" height="100" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="190.0" y="1808" text-anchor="middle" class="node-title" font-size="18">NewsPage</text>
+<text x="190.0" y="1836" text-anchor="middle" class="node-line" font-size="15">renders newsData</text>
+<rect x="360" y="1775" width="250" height="100" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="485.0" y="1808" text-anchor="middle" class="node-title" font-size="18">CoinDetailsPage</text>
+<text x="485.0" y="1836" text-anchor="middle" class="node-line" font-size="15">profile/chart/markets</text>
+<rect x="680" y="1775" width="240" height="100" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="800.0" y="1808" text-anchor="middle" class="node-title" font-size="18">LoginPage</text>
+<text x="800.0" y="1836" text-anchor="middle" class="node-line" font-size="15">useAuth + navigate</text>
+<rect x="1000" y="1775" width="310" height="100" rx="17" fill="#fff0f6" stroke="#a61e4d" stroke-width="3"/>
+<text x="1155.0" y="1808" text-anchor="middle" class="node-title" font-size="18">formatCurrency()</text>
+<text x="1155.0" y="1836" text-anchor="middle" class="node-line" font-size="15">used across market views</text>
+<rect x="1390" y="1775" width="305" height="100" rx="17" fill="#fff0f6" stroke="#a61e4d" stroke-width="3"/>
+<text x="1542.5" y="1808" text-anchor="middle" class="node-title" font-size="18">newsData.js</text>
+<text x="1542.5" y="1836" text-anchor="middle" class="node-line" font-size="15">static news dataset</text>
+<rect x="70" y="2140" width="265" height="120" rx="17" fill="#e5dbff" stroke="#6741d9" stroke-width="3"/>
+<text x="202.5" y="2173" text-anchor="middle" class="node-title" font-size="18">CoinDetailsPage</text>
+<text x="202.5" y="2201" text-anchor="middle" class="node-line" font-size="15">useParams(id)</text>
+<text x="202.5" y="2225" text-anchor="middle" class="node-line" font-size="15">Redux + local state</text>
+<rect x="395" y="2075" width="275" height="100" rx="17" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3"/>
+<text x="532.5" y="2108" text-anchor="middle" class="node-title" font-size="17">Redux coins + watchlist</text>
+<text x="532.5" y="2136" text-anchor="middle" class="node-line" font-size="14">selectedCoin</text>
+<text x="532.5" y="2160" text-anchor="middle" class="node-line" font-size="14">isSaved / toggle</text>
+<rect x="395" y="2200" width="275" height="90" rx="17" fill="#ffe3e3" stroke="#c92a2a" stroke-width="3"/>
+<text x="532.5" y="2233" text-anchor="middle" class="node-title" font-size="16">CoinLore profile</text>
+<text x="532.5" y="2261" text-anchor="middle" class="node-line" font-size="14">/api/coin/info/?id=...</text>
+<rect x="395" y="2315" width="275" height="90" rx="17" fill="#ffe3e3" stroke="#c92a2a" stroke-width="3"/>
+<text x="532.5" y="2348" text-anchor="middle" class="node-title" font-size="16">CoinLore OHLCV</text>
+<text x="532.5" y="2376" text-anchor="middle" class="node-line" font-size="14">/api/coin/ohlcv/?coin=...</text>
+<rect x="395" y="2430" width="275" height="90" rx="17" fill="#ffe3e3" stroke="#c92a2a" stroke-width="3"/>
+<text x="532.5" y="2463" text-anchor="middle" class="node-title" font-size="16">CoinLore markets</text>
+<text x="532.5" y="2491" text-anchor="middle" class="node-line" font-size="14">/api/coin/markets/?id=...</text>
+<rect x="770" y="2075" width="285" height="100" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="912.5" y="2108" text-anchor="middle" class="node-title" font-size="17">CoinOverview</text>
+<text x="912.5" y="2136" text-anchor="middle" class="node-line" font-size="14">identity + current price</text>
+<text x="912.5" y="2160" text-anchor="middle" class="node-line" font-size="14">watchlist button</text>
+<rect x="770" y="2200" width="285" height="100" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="912.5" y="2233" text-anchor="middle" class="node-title" font-size="17">CoinInformation</text>
+<text x="912.5" y="2261" text-anchor="middle" class="node-line" font-size="14">market/profile facts</text>
+<text x="912.5" y="2285" text-anchor="middle" class="node-line" font-size="14">currency conversion</text>
+<rect x="770" y="2325" width="285" height="100" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="912.5" y="2358" text-anchor="middle" class="node-title" font-size="17">CoinPriceChart</text>
+<text x="912.5" y="2386" text-anchor="middle" class="node-line" font-size="14">Recharts line chart</text>
+<text x="912.5" y="2410" text-anchor="middle" class="node-line" font-size="14">range + loading/error</text>
+<rect x="770" y="2450" width="285" height="100" rx="17" fill="#d0ebff" stroke="#1971c2" stroke-width="3"/>
+<text x="912.5" y="2483" text-anchor="middle" class="node-title" font-size="17">CoinMarkets</text>
+<text x="912.5" y="2511" text-anchor="middle" class="node-line" font-size="14">top 5 markets</text>
+<text x="912.5" y="2535" text-anchor="middle" class="node-line" font-size="14">loading/error/retry</text>
+<rect x="1160" y="2185" width="270" height="120" rx="17" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="3"/>
+<text x="1295.0" y="2218" text-anchor="middle" class="node-title" font-size="17">Currency Redux</text>
+<text x="1295.0" y="2246" text-anchor="middle" class="node-line" font-size="14">selectedCurrency + rates</text>
+<text x="1295.0" y="2270" text-anchor="middle" class="node-line" font-size="14">read in overview/info/markets</text>
+<rect x="1160" y="2340" width="270" height="105" rx="17" fill="#fff0f6" stroke="#a61e4d" stroke-width="3"/>
+<text x="1295.0" y="2373" text-anchor="middle" class="node-title" font-size="17">Recharts</text>
+<text x="1295.0" y="2401" text-anchor="middle" class="node-line" font-size="14">LineChart / Tooltip</text>
+<text x="1295.0" y="2425" text-anchor="middle" class="node-line" font-size="14">XAxis / YAxis</text>
+<rect x="1510" y="2215" width="220" height="120" rx="17" fill="#c5f6fa" stroke="#0b7285" stroke-width="3"/>
+<text x="1620.0" y="2248" text-anchor="middle" class="node-title" font-size="17">Retry paths</text>
+<text x="1620.0" y="2276" text-anchor="middle" class="node-line" font-size="14">profile + shared coins</text>
+<text x="1620.0" y="2300" text-anchor="middle" class="node-line" font-size="14">markets retry separately</text>
+<rect x="70" y="2685" width="280" height="115" rx="17" fill="#ffe8cc" stroke="#d9480f" stroke-width="3"/>
+<text x="210.0" y="2718" text-anchor="middle" class="node-title" font-size="17">AuthContext</text>
+<text x="210.0" y="2746" text-anchor="middle" class="node-line" font-size="14">login/logout/isAuthenticated</text>
+<text x="210.0" y="2770" text-anchor="middle" class="node-line" font-size="14">persists coinlume_auth</text>
+<rect x="430" y="2685" width="280" height="115" rx="17" fill="#ffe8cc" stroke="#d9480f" stroke-width="3"/>
+<text x="570.0" y="2718" text-anchor="middle" class="node-title" font-size="17">ThemeContext</text>
+<text x="570.0" y="2746" text-anchor="middle" class="node-line" font-size="14">theme + toggleTheme</text>
+<text x="570.0" y="2770" text-anchor="middle" class="node-line" font-size="14">persists theme</text>
+<rect x="790" y="2685" width="250" height="115" rx="17" fill="#fff3bf" stroke="#e67700" stroke-width="3"/>
+<text x="915.0" y="2718" text-anchor="middle" class="node-title" font-size="17">ProtectedRoute</text>
+<text x="915.0" y="2746" text-anchor="middle" class="node-line" font-size="14">useAuth()</text>
+<text x="915.0" y="2770" text-anchor="middle" class="node-line" font-size="14">redirect → /login</text>
+<rect x="1110" y="2685" width="270" height="115" rx="17" fill="#fff0f6" stroke="#a61e4d" stroke-width="3"/>
+<text x="1245.0" y="2718" text-anchor="middle" class="node-title" font-size="17">formatCurrency</text>
+<text x="1245.0" y="2746" text-anchor="middle" class="node-line" font-size="14">value × selected rate</text>
+<text x="1245.0" y="2770" text-anchor="middle" class="node-line" font-size="14">compact optional</text>
+<rect x="1450" y="2685" width="270" height="115" rx="17" fill="#fff0f6" stroke="#a61e4d" stroke-width="3"/>
+<text x="1585.0" y="2718" text-anchor="middle" class="node-title" font-size="17">newsData</text>
+<text x="1585.0" y="2746" text-anchor="middle" class="node-line" font-size="14">NewsPage + NewsPreview</text>
+<line x1="70" y1="2890" x2="112" y2="2890" stroke="#343a40" stroke-width="3" marker-end="url(#arrow-structure)"/>
+<text x="123" y="2895" class="legend">Structure</text>
+<line x1="290" y1="2890" x2="332" y2="2890" stroke="#1971c2" stroke-width="3" marker-end="url(#arrow-props)"/>
+<text x="343" y="2895" class="legend">Props</text>
+<line x1="510" y1="2890" x2="552" y2="2890" stroke="#d9480f" stroke-width="3" marker-end="url(#arrow-context)"/>
+<text x="563" y="2895" class="legend">Context</text>
+<line x1="730" y1="2890" x2="772" y2="2890" stroke="#2b8a3e" stroke-width="3" marker-end="url(#arrow-redux)"/>
+<text x="783" y="2895" class="legend">Redux</text>
+<line x1="950" y1="2890" x2="992" y2="2890" stroke="#c92a2a" stroke-width="3" marker-end="url(#arrow-api)"/>
+<text x="1003" y="2895" class="legend">API</text>
+<line x1="1170" y1="2890" x2="1212" y2="2890" stroke="#868e96" stroke-width="3" marker-end="url(#arrow-storage)"/>
+<text x="1223" y="2895" class="legend">Storage</text>
 </svg>

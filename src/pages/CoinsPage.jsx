@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCoins } from '../features/coins/coinsSlice'
 import { useNavigate } from 'react-router-dom'
-import { Bookmark, BookmarkCheck, } from 'lucide-react'
+import { Bookmark, BookmarkCheck} from 'lucide-react'
 import { saveCoin, removeCoin } from '../features/watchlist/watchlistSlice'
 import SearchSortControls from "../component/SearchSortControls"
 import { formatCurrency } from "../utils/formatCurrency"
@@ -27,12 +27,7 @@ function CoinsPage  ()  {
   const currencyRates = useSelector((state) => state.currency.rates)
 
   const [currentPage, setCurrentPage] = useState(1)
-
-  useEffect(() => {
-    setCurrentPage(1)
-    }, [searchTerm]) //for the pagination bug 
-  
-
+ 
   useEffect(()=>{
     if(apiStatus === "idle"){
       dispatch(fetchCoins())
@@ -68,13 +63,10 @@ function CoinsPage  ()  {
       )
     })
 
-    const sortedCoins = [...filteredCoins].sort((a,b)=>{ //.sort compares two coins at once
-      //we make a copy of filteredCoins array first because JavaScript .sort() 
-      // changes the array it works on, and we don’t want to directly modify data coming from Redux.
-      //.sort() itself keeps calling your comparison function again and again with different pairs until the whole array is in order.
+    const sortedCoins = [...filteredCoins].sort((a,b)=>{ 
       if(sortKey === "rank"){
         if(sortDirection === "asc"){
-          return Number(a.rank) - Number(b.rank) //rank is stored as a string we convert to number
+          return Number(a.rank) - Number(b.rank) 
         } else {
           return Number(b.rank) - Number(a.rank)
         }
@@ -114,7 +106,7 @@ function CoinsPage  ()  {
 
       if (sortKey === "name") {
         if (sortDirection === "asc") {
-          return a.name.localeCompare(b.name) //localeCompare() is a built-in JavaScript string method used to compare text alphabetically.
+          return a.name.localeCompare(b.name) 
         } else {
           return b.name.localeCompare(a.name)
         }
@@ -126,10 +118,14 @@ function CoinsPage  ()  {
     
     const itemsPerPage = 10
     const totalPages = Math.ceil(sortedCoins.length / itemsPerPage)
-    //math.ciel rount the number to the next integer
     const startIndex = (currentPage - 1) * itemsPerPage
     const endIndex = startIndex + itemsPerPage
     const currentPageCoins = sortedCoins.slice(startIndex,endIndex)
+
+    function handleSearchChange(event) {
+      setSearchTerm(event.target.value)
+      setCurrentPage(1)
+    }
 
   return (
     <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
@@ -184,13 +180,13 @@ function CoinsPage  ()  {
               <tr>
                 <th className="w-[6%] pl-5 py-4">Rank</th>
                 <th className="w-[20%] pl-20 py-4">Coin</th>
-                <th className="w-[11%] pl-8" py-4>Price</th>
-                <th className="w-[10%] pl-8" py-4>1h</th>
-                <th className="w-[10%] pl-8" py-4>24h</th>
-                <th className="w-[10%] pl-8" py-4>7d</th>
-                <th className="w-[12%] pl-5" py-4>Market Cap</th>
-                <th className="w-[12%] pl-3" py-4>Volume 24h</th>
-                <th className="w-[12%] pl-4" py-4>Watchlist</th>
+                <th className="w-[11%] pl-8 py-4">Price</th>
+                <th className="w-[10%] pl-8 py-4">1h</th>
+                <th className="w-[10%] pl-8 py-4">24h</th>
+                <th className="w-[10%] pl-8 py-4">7d</th>
+                <th className="w-[12%] pl-5 py-4">Market Cap</th>
+                <th className="w-[12%] pl-3 py-4">Volume 24h</th>
+                <th className="w-[12%] pl-4 py-4">Watchlist</th>
               </tr>
             </thead>
 
@@ -323,7 +319,7 @@ function CoinsPage  ()  {
         <PaginationControls
           currentPage={currentPage}
           totalPages={totalPages}
-          onPageChange={setCurrentPage}
+          onChange={handleSearchChange}
         />      
         )}
       </section>

@@ -1,4 +1,3 @@
-import React from "react"
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,} from "recharts"
 
 const RANGE_DAYS = {
@@ -10,12 +9,8 @@ const RANGE_DAYS = {
 }
 
 function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, selectedRange, onRangeChange, onRetry }) {
-  // Select only the number of days required by the active range.
   const numberOfDays = RANGE_DAYS[selectedRange]
 
-  // slice() with a negative number selects items from the end of the array.
-  // For example, slice(-7) returns the latest seven days.
-  //We want the end of the array because the history is sorted from oldest to newest:
   const visibleHistory = priceHistory.slice(-numberOfDays)
 
   function formatPrice(value) {
@@ -48,7 +43,7 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
     }
 
     return number.toFixed(2)
-  } //This function does not change the real chart data. It only changes how the numbers are displayed on y axis.
+  }
 
   function formatAxisDate(value) {
     const date = new Date(value)
@@ -93,8 +88,8 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {Object.keys(RANGE_DAYS).map((range) => ( //Object.keys(RANGE_DAYS) returns: ["7D", "30D", "3M", "6M", "1Y"]
-            <button //Object.keys We are using it because RANGE_DAYS is an object:
+          {Object.keys(RANGE_DAYS).map((range) => ( 
+            <button 
               key={range}
               type="button"
               onClick={() => onRangeChange(range)}
@@ -102,7 +97,7 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
                 selectedRange === range
                   ? "bg-blue-600 text-white"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
-              }`}   //This means: If this button is selected, make it blue. Otherwise, give it the normal gray design.
+              }`} 
             >
               {range}
             </button>
@@ -135,17 +130,9 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
       ) : (
         <div className="mt-6 h-80 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart //LineChart is the main graph container.
+            <LineChart 
               data={visibleHistory} 
-              /*
-                Recharts now has access to every object inside the array.
-                For example:
-                {
-                  date: "2018-09-05",
-                  price: 7350,
-                }
-                Later, XAxis reads date, and Line reads price.             
-              */
+              
               margin={{
                 top: 10,
                 right: 20,
@@ -153,9 +140,9 @@ function CoinPriceChart({ coinName, priceHistory, historyLoading, historyError, 
                 left: 10,
               }}
             >
-              <CartesianGrid //This draws the background grid lines.
+              <CartesianGrid 
                 strokeDasharray="3 3"
-                vertical={false}  //This removes vertical grid lines.
+                vertical={false}  
               />
 
               <XAxis

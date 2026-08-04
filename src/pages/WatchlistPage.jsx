@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchCoins } from '../features/coins/coinsSlice'
 import { useNavigate } from 'react-router-dom'
@@ -25,42 +25,14 @@ function WatchlistPage () {
   const currencyRates = useSelector((state) => state.currency.rates)
 
   const [currentPage, setCurrentPage] = useState(1)
-  useEffect(() => {
-      setCurrentPage(1)
-      }, [searchTerm]) //for the pagination bug 
 
   useEffect(()=>{
       if(coinsStatus === "idle"){
         dispatch(fetchCoins())
       }
     },[coinsStatus, dispatch])
-    /*When the app refreshes, coins start with an empty array,
-    So the page temporarily says the watchlist is empty, even though the saved IDs still exist.
-    The page needs to fetch the full coins data again:
-    */
 
   const filteredWatchlist = coins.filter((coin)=>coinIds.includes(String(coin.id)))
-  /* For each coin
-      convert its ID to a string
-      check whether coinIds contains it
-      keep that coin when true */
-
-  const formatPrice = (value) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      maximumFractionDigits: 2,
-    }).format(value)
-  }
-
-  const formatLargeNumber = (value) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      notation: "compact",
-      maximumFractionDigits: 2,
-    }).format(value)
-  }
 
   const formatPercentage = (value) => {
     const number = Number(value)
@@ -84,13 +56,10 @@ function WatchlistPage () {
       )
   })
 
-  const sortedCoins = [...filteredCoins].sort((a,b)=>{ //.sort compares two coins at once
-      //we make a copy of filteredCoins array first because JavaScript .sort() 
-      // changes the array it works on, and we don’t want to directly modify data coming from Redux.
-      //.sort() itself keeps calling your comparison function again and again with different pairs until the whole array is in order.
+  const sortedCoins = [...filteredCoins].sort((a,b)=>{ 
       if(sortKey === "rank"){
         if(sortDirection === "asc"){
-          return Number(a.rank) - Number(b.rank) //rank is stored as a string we convert to number
+          return Number(a.rank) - Number(b.rank) 
         } else {
           return Number(b.rank) - Number(a.rank)
         }
@@ -130,7 +99,7 @@ function WatchlistPage () {
 
       if (sortKey === "name") {
         if (sortDirection === "asc") {
-          return a.name.localeCompare(b.name) //localeCompare() is a built-in JavaScript string method used to compare text alphabetically.
+          return a.name.localeCompare(b.name) 
         } else {
           return b.name.localeCompare(a.name)
         }
@@ -142,10 +111,14 @@ function WatchlistPage () {
 
     const itemsPerPage = 10
     const totalPages = Math.ceil(sortedCoins.length / itemsPerPage)
-    //math.ciel rount the number to the next integer
     const startIndex = (currentPage - 1) * itemsPerPage
     const endIndex = startIndex + itemsPerPage
     const currentPageCoins = sortedCoins.slice(startIndex,endIndex)
+
+    function handleSearchChange(event) {
+      setSearchTerm(event.target.value)
+      setCurrentPage(1)
+    }
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900" >
@@ -220,9 +193,9 @@ function WatchlistPage () {
                         #{coin.rank}
                       </td>
 
-                      <td className="py-4">
+                      <td className="pl-8 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="flex pl-5 h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold dark:bg-slate-800">
+                          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold dark:bg-slate-800">
                             {coin.symbol.slice(0, 2)}
                           </div>
 
@@ -328,7 +301,7 @@ function WatchlistPage () {
         <PaginationControls
           currentPage={currentPage}
           totalPages={totalPages}
-          onPageChange={setCurrentPage}
+          onChange={handleSearchChange}
         />      
         )}
     </div>

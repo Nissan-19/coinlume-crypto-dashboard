@@ -22,7 +22,7 @@ function DashboardPage() {
 
   const topCoins = apiCoins.slice(0, 5)
 
-  useEffect(() => { //fetching coins data
+  useEffect(() => {
     if (apiStatus === "idle") {
       dispatch(fetchCoins())
     }
@@ -40,10 +40,10 @@ function DashboardPage() {
   },[globalApiStatus, dispatch])
 
 
-  const totalMcap = formatCurrency(globalApiMarketData?.total_mcap,selectedCurrency,currencyRates,true) //?. optional chaining becasue in the beginning the global api returns null
-  const mcapChange = formatPercentageChange(globalApiMarketData?.mcap_change) //because react runs the code before the api data exists
-  const volume = formatCurrency(globalApiMarketData?.total_volume, selectedCurrency, currencyRates,true) // so when it returns nullor undefined return undefined instead of crashing.
-  const volumeChange =  formatPercentageChange(globalApiMarketData?.volume_change) //programme was crashing before
+  const totalMcap = formatCurrency(globalApiMarketData?.total_mcap,selectedCurrency,currencyRates,true) 
+  const mcapChange = formatPercentageChange(globalApiMarketData?.mcap_change) 
+  const volume = formatCurrency(globalApiMarketData?.total_volume, selectedCurrency, currencyRates,true) 
+  const volumeChange =  formatPercentageChange(globalApiMarketData?.volume_change) 
   const btcDominance = formatPercentage(globalApiMarketData?.btc_d)
   const ethDominance = formatPercentage(globalApiMarketData?.eth_d)
   const coinsCount = formatLargeNumber(globalApiMarketData?.coins_count)
@@ -66,7 +66,7 @@ function DashboardPage() {
     return `${number.toFixed(2)}%`
   }
 
-  const isMcapChangePositive = Number(globalApiMarketData?.mcap_change)>0 // for green and red sign on volume change
+  const isMcapChangePositive = Number(globalApiMarketData?.mcap_change)>0 
   const isVolumeChangePositive = Number(globalApiMarketData?.volume_change)>0
   
 
