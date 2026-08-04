@@ -34,7 +34,7 @@ function Header  ()  {
     }
 
   return (
-    <header className="flex items-center justify-between border-b px-6 py-4 dark:border-slate-800">
+    <header className="sticky top-0 z-40 flex items-center justify-between border-b border-gray-300 bg-white px-6 py-4 dark:bg-slate-950 dark:border-slate-800">
         <h1 className="text-2xl font-semibold">{pageTitle}</h1>
 
          

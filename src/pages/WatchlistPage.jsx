@@ -25,6 +25,9 @@ function WatchlistPage () {
   const currencyRates = useSelector((state) => state.currency.rates)
 
   const [currentPage, setCurrentPage] = useState(1)
+  useEffect(() => {
+      setCurrentPage(1)
+      }, [searchTerm]) //for the pagination bug 
 
   useEffect(()=>{
       if(coinsStatus === "idle"){
@@ -145,7 +148,7 @@ function WatchlistPage () {
     const currentPageCoins = sortedCoins.slice(startIndex,endIndex)
 
   return (
-    <div>
+    <div className="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900" >
       {coinsStatus ==="loading" &&(
         <p className="px-6 py-8 text-center text-slate-500">
           Loading coins...
@@ -173,6 +176,7 @@ function WatchlistPage () {
         filteredWatchlist.length === 0?(
         <h1>The Watchlist is empty</h1>
       ):(
+        
         <div className='overflow-x-auto'>
           <SearchSortControls
             searchTerm={searchTerm}
@@ -184,18 +188,18 @@ function WatchlistPage () {
                 currentDirection === "asc" ? "desc" : "asc")
           }/>
 
-          <table className="w-full min-w-225 text-left">
+          <table className="w-full table-fixed min-w-225 text-left">
             <thead className="bg-slate-50 text-xs uppercase text-slate-500 dark:bg-slate-800/50 dark:text-slate-400">
               <tr>
-                <th className="px-6 py-3">Rank</th>
-                <th className="px-6 py-3">Coin</th>
-                <th className="px-6 py-3">Price</th>
-                <th className="px-6 py-3">1h</th>
-                <th className="px-6 py-3">24h</th>
-                <th className="px-6 py-3">7d</th>
-                <th className="px-6 py-3">Market Cap</th>
-                <th className="px-6 py-3">Volume 24h</th>
-                <th className="px-6 py-3">Remove</th>
+                <th className="w-[6%] pl-5 py-4">Rank</th>
+                <th className="w-[20%] pl-20 py-4">Coin</th>
+                <th className="w-[11%] pl-8 py-4">Price</th>
+                <th className="w-[10%] pl-8 py-4">1h</th>
+                <th className="w-[10%] pl-8 py-4">24h</th>
+                <th className="w-[10%] pl-8 py-4">7d</th>
+                <th className="w-[12%] pl-5 py-4">Market Cap</th>
+                <th className="w-[12%] pl-3 py-4">Volume 24h</th>
+                <th className="w-[12%] px-6 py-4">Remove</th>
               </tr>
             </thead>
 
@@ -216,18 +220,18 @@ function WatchlistPage () {
                         #{coin.rank}
                       </td>
 
-                      <td className="px-6 py-4">
+                      <td className="py-4">
                         <div className="flex items-center gap-3">
-                          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold dark:bg-slate-800">
+                          <div className="flex pl-5 h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold dark:bg-slate-800">
                             {coin.symbol.slice(0, 2)}
                           </div>
 
                           <div>
-                            <p className="font-medium text-slate-900 dark:text-white">
+                            <p className="font-medium truncate text-slate-900 dark:text-white">
                               {coin.name}
                             </p>
 
-                            <p className="text-xs uppercase text-slate-500">
+                            <p className="text-xs truncate uppercase text-slate-500">
                               {coin.symbol}
                             </p>
                           </div>
@@ -320,11 +324,13 @@ function WatchlistPage () {
             </table>                   
             </div>
       ))}
-              <PaginationControls
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
+          { sortedCoins.length > 0 && (
+        <PaginationControls
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />      
+        )}
     </div>
   )
 }

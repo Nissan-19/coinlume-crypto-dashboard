@@ -2,8 +2,9 @@ import React from "react"
 
 function PaginationControls({ currentPage, totalPages, onPageChange,}) {
   return (
+    
     <div className="flex items-center justify-between border-t border-slate-200 px-6 py-4 dark:border-slate-800">
-
+      
       <button
         type="button"
         onClick={() => onPageChange(currentPage - 1)}

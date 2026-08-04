@@ -24,7 +24,7 @@ function AppLayout  ()  {
     setIsSidebarOpen(!isSidebarOpen)
   }
   return (
-      <div className="flex min-h-screen bg-white text-slate-900 dark:bg-slate-900 dark:text-white">
+      <div className="flex min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-white">
         <Sidebar
           isSidebarOpen={isSidebarOpen}
           toggleSidebarOpen={toggleSidebarOpen}

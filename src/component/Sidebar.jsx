@@ -25,11 +25,11 @@ function Sidebar  ({isSidebarOpen, toggleSidebarOpen}) {
     <aside
           className={
             isSidebarOpen
-              ? "h-screen w-64 shrink-0 overflow-hidden transition-all duration-300"
-              : "h-screen w-20 shrink-0 overflow-hidden transition-all duration-300"
+              ? "sticky top-0 h-screen w-64 shrink-0 overflow-hidden transition-all duration-300"
+              : "sticky top-0 h-screen w-20 shrink-0 overflow-hidden transition-all duration-300"
           }
         >
-        <nav className="flex h-full flex-col border-r bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950">
+        <nav className="flex h-full flex-col border-r border-gray-300 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950">
           <div className='p-4 flex items-center justify-between'>
             <h1
                 className={`overflow-hidden whitespace-nowrap text-xl font-bold transition-all duration-300 ${
