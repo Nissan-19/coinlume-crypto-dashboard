@@ -25,7 +25,7 @@ function Sidebar  ({isSidebarOpen, toggleSidebarOpen}) {
           className={
             isSidebarOpen
               ? "sticky top-0 h-screen w-64 shrink-0 overflow-hidden transition-all duration-300"
-              : "sticky top-0 h-screen w-20 shrink-0 overflow-hidden transition-all duration-300"
+              : "sticky top-0 h-screen w-19 sm:w-20 shrink-0 overflow-hidden transition-all duration-300"
           }
         >
         <nav className="flex h-full flex-col border-r border-gray-300 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950">

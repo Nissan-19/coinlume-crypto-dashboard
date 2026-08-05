@@ -25,6 +25,11 @@ function WatchlistPage () {
   const currencyRates = useSelector((state) => state.currency.rates)
 
   const [currentPage, setCurrentPage] = useState(1)
+  
+  useEffect(() => {
+    setCurrentPage(1)
+    }, [searchTerm])
+  
 
   useEffect(()=>{
       if(coinsStatus === "idle"){
@@ -114,11 +119,6 @@ function WatchlistPage () {
     const startIndex = (currentPage - 1) * itemsPerPage
     const endIndex = startIndex + itemsPerPage
     const currentPageCoins = sortedCoins.slice(startIndex,endIndex)
-
-    function handleSearchChange(event) {
-      setSearchTerm(event.target.value)
-      setCurrentPage(1)
-    }
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900" >
@@ -301,7 +301,7 @@ function WatchlistPage () {
         <PaginationControls
           currentPage={currentPage}
           totalPages={totalPages}
-          onChange={handleSearchChange}
+          onPageChange={setCurrentPage}
         />      
         )}
     </div>

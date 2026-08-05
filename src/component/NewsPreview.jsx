@@ -1,3 +1,4 @@
+
 import newsData from '../data/newsData'
 import { useNavigate } from 'react-router-dom'
 
@@ -30,7 +31,7 @@ function NewsPreview  ()  {
         </div >
         
 
-        <div className='flex flex-row m-4 gap-6' >
+        <div className='flex flex-col md:flex-row m-4 gap-6' >
             
             {newsPreview.map((article)=>{
                 return(

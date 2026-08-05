@@ -83,7 +83,7 @@ function DashboardPage() {
           </div>
         ):(
             <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-            <div className=" grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <div className=" grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
 
               <MarketStatCard
                 title = "Total Market Cap"
