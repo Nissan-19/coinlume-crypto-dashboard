@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchCoins } from '../features/coins/coinsSlice'
+import { fetchCoins } from '../features/coins/CoinsSlice'
 import { useNavigate } from 'react-router-dom'
 import { BookmarkCheck } from 'lucide-react'
 import {removeCoin} from '../features/watchlist/watchlistSlice'

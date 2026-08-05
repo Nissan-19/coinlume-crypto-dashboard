@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { fetchCoins } from '../features/coins/coinsSlice'
+import { fetchCoins } from '../features/coins/CoinsSlice'
 import CoinOverview from '../component/CoinOverview'
 import CoinInformation from "../component/CoinInformation"
 import CoinPriceChart from "../component/CoinPriceChart"

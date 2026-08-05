@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchCoins } from "../features/coins/coinsSlice"
+import { fetchCoins } from "../features/coins/CoinsSlice"
 import { fetchMarketData } from "../features/market/marketSlice"
 import TopCryptocurrencies from "../component/TopCryptocurrencies"
 import TopMarketCapShare from "../component/TopMarketCapShare"
@@ -16,7 +16,6 @@ function DashboardPage() {
   const selectedCurrency = useSelector((state) => state.currency.selectedCurrency)
   const currencyRates = useSelector((state) => state.currency.rates)
 
-  // coins data
   const apiStatus = useSelector((state) => state.coins.status)
   const apiCoins = useSelector((state) => state.coins.coins)
 
@@ -28,7 +27,6 @@ function DashboardPage() {
     }
   }, [apiStatus, dispatch])
 
-  // global data
   const globalApiStatus = useSelector((state)=> state.marketData.status)
   const globalApiMarketData = useSelector((state)=>state.marketData.marketData)
   const globalApiError = useSelector((state)=>state.marketData.error)

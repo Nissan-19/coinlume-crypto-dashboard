@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit"
 import currencyReducer from "../features/currency/currencySlice"
-import coinsReducer from "../features/coins/coinsSlice"
+import coinsReducer from "../features/coins/CoinsSlice"
 import marketDataReducer from "../features/market/marketSlice"
 import savedCoinReducer from "../features/watchlist/watchlistSlice"
 

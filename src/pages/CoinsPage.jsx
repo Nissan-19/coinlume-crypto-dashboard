@@ -9,7 +9,7 @@ import { formatCurrency } from "../utils/formatCurrency"
 import PaginationControls from "../component/PaginationControls"
 
 
-function CoinsPage  ()  {
+function CoinsPage (){
   const apiCoins = useSelector((state)=>state.coins.coins)
   const apiStatus = useSelector((state)=>state.coins.status)
   const apiError = useSelector((state) => state.coins.error)
