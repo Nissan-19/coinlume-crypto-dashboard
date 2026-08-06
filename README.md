@@ -2,11 +2,11 @@
 
 **Crypto markets, clearly illuminated.**
 
-CoinLume is a responsive cryptocurrency dashboard built with React. It brings market statistics, cryptocurrency prices, watchlists, coin details, historical charts, news, theme controls, and currency conversion into one interface.
+CoinLume is a responsive cryptocurrency dashboard built with React. It combines market statistics, cryptocurrency prices, watchlists, coin details, historical charts, currency conversion, news, and theme controls in one interface.
 
 ## Live Demo
 
-**[Open CoinLume](https://coinlume-crypto-dashboard-l8uu.vercel.app/dashboard)**
+**https://coinlume-crypto-dashboard-l8uu.vercel.app/dashboard**
 
 Demo login:
 
@@ -20,10 +20,6 @@ Password: 1234
 ### Dashboard
 
 ![CoinLume Dashboard](screenshots/dashboard.png)
-
-### Dashboard — Alternate View
-
-![CoinLume Dashboard Alternate](screenshots/dashboard-1.png)
 
 ### Dark Mode
 
@@ -44,96 +40,49 @@ Password: 1234
 ## Features
 
 - Responsive crypto market dashboard
-- Protected login and logout flow
-- Global cryptocurrency market statistics
+- Protected login flow
+- Global market statistics
 - Top 50 cryptocurrency table
-- Search cryptocurrencies by name
-- Sort market data by rank, name, price, 24-hour change, market cap, and volume
-- Pagination for Coins and Watchlist pages
-- Add and remove cryptocurrencies from a personal watchlist
-- Watchlist persistence using `localStorage`
-- Coin detail pages with overview and market information
-- Historical cryptocurrency price chart
-- Exchange/market data for individual coins
-- Multi-currency price display
-- Shared currency formatting across the application
+- Search, sorting, and pagination
+- Persistent watchlist
+- Coin detail pages
+- Historical price chart
+- Exchange market data
+- Multi-currency display
 - Light and dark themes
 - Sticky sidebar and header
-- Crypto news and insights
-- Loading, error, retry, and empty states for API-driven content
-- Responsive layouts for desktop, tablet, and smaller screens
+- Loading, error, retry, and empty states
 
 ## Tech Stack
 
-- **React**
-- **Vite**
-- **Tailwind CSS**
-- **React Router**
-- **Redux Toolkit**
-- **React Context API**
-- **Recharts**
-- **Lucide React**
-- **CoinLore API**
-- **localStorage**
-- **Vercel**
+- React
+- Vite
+- Tailwind CSS
+- React Router
+- Redux Toolkit
+- React Context API
+- Recharts
+- Lucide React
+- CoinLore API
+- localStorage
+- Vercel
 
 ## Main Pages
 
 ### Dashboard
-
-The Dashboard gives the user a quick overview of the cryptocurrency market.
-
-It includes:
-
-- global market statistic cards
-- Top 5 Market Cap Share visualization
-- top cryptocurrencies
-- watchlist preview
-- crypto insights/news preview
+Shows global market statistics, Top 5 Market Cap Share, top cryptocurrencies, a watchlist preview, and crypto insights.
 
 ### Coins
-
-The Coins page displays the top 50 cryptocurrencies received from the CoinLore API.
-
-Users can:
-
-- search coins
-- sort the table
-- move between pages
-- change the displayed currency
-- add or remove coins from the watchlist
-- open a coin's detail page
+Displays the top 50 cryptocurrencies with search, sorting, pagination, currency formatting, watchlist controls, and navigation to coin details.
 
 ### Coin Details
-
-Each cryptocurrency has its own detail route.
-
-The page includes:
-
-- coin overview
-- current market information
-- project/profile information
-- historical price chart
-- exchange market data
-- external links where available
+Shows coin overview data, market statistics, profile information, historical price data, and exchange market data.
 
 ### Watchlist
-
-The Watchlist page displays only cryptocurrencies saved by the user.
-
-It supports:
-
-- persistent saved coin IDs
-- search
-- sorting
-- pagination
-- currency formatting
-- removing saved coins
-- navigation to Coin Details
+Displays saved coins with search, sorting, pagination, currency formatting, and remove controls.
 
 ### News
-
-The News page provides cryptocurrency-related stories and market insights in a dedicated section of the application.
+Provides cryptocurrency-related stories and market insights.
 
 ## Project Structure
 
@@ -142,225 +91,81 @@ src/
 ├── app/
 │   └── store.js
 ├── component/
-│   ├── CoinInformation.jsx
-│   ├── CoinMarkets.jsx
-│   ├── CoinOverview.jsx
-│   ├── CoinPriceChart.jsx
-│   ├── Header.jsx
-│   ├── MarketStatCard.jsx
-│   ├── NewsPreview.jsx
-│   ├── PaginationControls.jsx
-│   ├── ProtectedRoute.jsx
-│   ├── SearchSortControls.jsx
-│   ├── Sidebar.jsx
-│   ├── ThemeToggle.jsx
-│   ├── TopCryptocurrencies.jsx
-│   └── WatchlistPreview.jsx
 ├── context/
-│   ├── AuthContext.jsx
-│   └── ThemeContext.jsx
 ├── features/
 │   ├── coins/
-│   │   └── CoinsSlice.js
 │   ├── currency/
 │   ├── market/
 │   └── watchlist/
 ├── layout/
-│   └── AppLayout.jsx
 ├── pages/
-│   ├── CoinDetailsPage.jsx
-│   ├── CoinsPage.jsx
-│   ├── DashboardPage.jsx
-│   ├── LoginPage.jsx
-│   ├── NewsPage.jsx
-│   └── WatchlistPage.jsx
 ├── utils/
-│   └── formatCurrency.js
 ├── App.jsx
 └── main.jsx
 ```
 
-## Application Architecture
+## Architecture
 
-CoinLume uses different state-management approaches based on the type of state being handled.
+CoinLume uses Redux Toolkit for shared application data such as cryptocurrency data, market statistics, currency state, and watchlist IDs.
 
-### Redux Toolkit
+React Context is used for authentication and theme state.
 
-Redux manages application data that is shared across several pages and components:
-
-- cryptocurrency data
-- global market statistics
-- selected currency and currency rates
-- watchlist coin IDs
-
-### React Context
-
-Context is used for application-wide UI/session state:
-
-- authentication
-- light/dark theme
-
-### localStorage
-
-`localStorage` preserves user-facing state between refreshes, including:
-
-- authentication information
-- selected theme
-- selected currency
-- saved watchlist coins
+`localStorage` is used to preserve user-facing state such as authentication, theme, selected currency, and saved watchlist coins.
 
 ## Data Flow
-
-A simplified example of the coin data flow is:
 
 ```text
 CoinLore API
     ↓
-fetchCoins async thunk
+Redux async thunks
     ↓
-Coins Redux slice
+Redux slices
     ↓
 Redux store
     ↓
 Dashboard / Coins / Watchlist / Coin Details
 ```
 
-The application fetches the data once through shared Redux state and reuses it across multiple pages.
+The same shared coin data is reused across multiple pages instead of being fetched separately everywhere.
 
 ## Currency Conversion
 
-CoinLume stores the selected currency and conversion rates in Redux.
-
-A shared utility:
-
-```text
-formatCurrency(value, selectedCurrency, rates, compact)
-```
-
-is used to:
-
-1. convert the original USD value
-2. apply the selected currency rate
-3. format the result consistently
-4. optionally display large values in compact form
-
-This avoids repeating currency-formatting logic across components.
+A shared `formatCurrency` utility converts USD values using the selected currency rate and formats them consistently across the app.
 
 ## Watchlist Design
 
-The watchlist stores only coin IDs instead of copying complete cryptocurrency objects.
-
-Example:
-
-```text
-["90", "80", "58"]
-```
-
-The application then matches those IDs against the latest cryptocurrency data.
-
-This keeps the saved state small and avoids storing outdated market information.
+The watchlist stores only coin IDs in persistent state. Those IDs are matched against the latest cryptocurrency data, which keeps saved state small and avoids storing outdated market values.
 
 ## Search, Sorting and Pagination
 
-The Coins and Watchlist pages process the data in this order:
+The Coins and Watchlist pages process data in this order:
 
 ```text
-API/Redux data
-    ↓
-Search filter
-    ↓
-Sorting
-    ↓
-Pagination
-    ↓
-Rendered table
+Redux data
+→ search filter
+→ sorting
+→ pagination
+→ rendered table
 ```
 
-Pagination is applied after filtering and sorting so the user always sees the correct results for the selected search and sort settings.
+This keeps the displayed results consistent when search and sort options change.
 
-The tables also use fixed layouts and controlled widths to prevent long cryptocurrency names from changing the column sizes while searching.
+## Key Decisions
 
-## Error Handling
-
-API-driven sections include states for:
-
-- loading
-- success
-- failure
-- retry
-- empty results
-
-For example, the Coin Markets section can distinguish between:
-
-```text
-Loading data
-Failed request
-No market data available
-Successful market data
-```
-
-rather than treating every empty array as the same situation.
-
-## Responsive Design
-
-CoinLume uses responsive Tailwind utilities to adapt the layout for different screens.
-
-Examples include:
-
-```text
-Mobile      → sections stack vertically
-Tablet      → selected sections use multiple columns
-Desktop     → full dashboard layout
-```
-
-Large cryptocurrency tables use horizontal scrolling on smaller screens instead of compressing every column until the data becomes unreadable.
-
-## Important Project Decisions
-
-### Top 5 Market Cap Share
-
-A more complex whole-market visualization was considered, but the available free API data made it unnecessarily complicated.
-
-The final dashboard therefore uses a simpler Top 5 Market Cap Share visualization based on the cryptocurrency data already available in the project.
-
-### Historical Chart Currency
-
-Currency conversion is applied to normal monetary values throughout the application.
-
-The historical chart keeps its original API values because converting every historical point, axis value, and tooltip would add significant complexity without being essential to the main project goals.
-
-### Shared Components
-
-Repeated controls were moved into reusable components such as:
-
-- `SearchSortControls`
-- `PaginationControls`
-- `MarketStatCard`
-
-This keeps the pages easier to read and avoids duplicating the same interface logic.
+- Used a Top 5 Market Cap Share visualization instead of a more complex whole-market chart because the free API did not provide the required historical whole-market data.
+- Kept historical chart values in the source API currency rather than converting every chart point, axis value, and tooltip.
+- Reused shared controls such as `SearchSortControls` and `PaginationControls`.
+- Stored watchlist IDs rather than full coin objects.
+- Used fixed table layouts to stop long coin names from shifting column widths.
 
 ## Local Development
-
-### Clone the repository
 
 ```bash
 git clone <your-repository-url>
 cd coinlume-crypto-dashboard
-```
-
-### Install dependencies
-
-```bash
 npm install
-```
-
-### Start the development server
-
-```bash
 npm run dev
 ```
-
-Vite will display the local development URL in the terminal.
 
 ## Available Scripts
 
@@ -371,65 +176,28 @@ npm run lint
 npm run preview
 ```
 
-### Production Build
-
-```bash
-npm run build
-```
-
-The project has been successfully built and deployed to Vercel.
-
 ## Deployment
 
-CoinLume is deployed using Vercel.
+CoinLume is deployed with Vercel.
 
-Live application:
+**Live app:** https://coinlume-crypto-dashboard-l8uu.vercel.app/dashboard
 
-**https://coinlume-crypto-dashboard-l8uu.vercel.app/dashboard**
-
-Because the project uses React Router, SPA routing must be configured so routes such as `/coins/:id`, `/watchlist`, and `/news` continue to work when opened or refreshed directly.
-
-## What I Learned
-
-Building CoinLume involved more than displaying API data. The project required connecting several parts of a React application together, including:
-
-- deciding which state belongs in Redux and which belongs in Context
-- sharing API data between multiple pages
-- building reusable UI controls
-- persisting user choices
-- handling loading and failure states
-- filtering and sorting data before pagination
-- formatting currency values consistently
-- building protected routes
-- improving responsive layouts
-- debugging case-sensitive import problems during deployment
-- preparing a Vite application for production deployment
-
-One important deployment lesson was that Windows file paths are usually case-insensitive while Vercel builds on Linux. Import paths and filenames therefore need to match exactly.
+One deployment issue involved case-sensitive file paths. Windows accepted imports with different capitalization, while Vercel's Linux environment required filenames and import paths to match exactly.
 
 ## Future Improvements
 
-Possible future improvements include:
-
-- route-based code splitting
-- stronger production authentication
-- additional historical chart ranges
-- richer news integration
-- additional market analytics
-- improved mobile navigation
-- automated testing
-
-These were intentionally kept outside the current project scope.
+- Route-based code splitting
+- Stronger authentication
+- Additional historical chart ranges
+- Richer news integration
+- More advanced market analytics
+- Automated testing
 
 ## Disclaimer
 
 Market data is provided for informational purposes only and may be delayed, incomplete, or inaccurate.
 
 **CoinLume does not provide financial advice.**
-
-## Author
-
-Built as a React portfolio/capstone project.
 
 ## License
 
