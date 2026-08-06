@@ -21,21 +21,25 @@ Password: 1234
 
 ![CoinLume Dashboard](screenshots/dashboard.png)
 
-### Cryptocurrency Market
+### Dashboard — Alternate View
+
+![CoinLume Dashboard Alternate](screenshots/dashboard-1.png)
+
+### Dark Mode
+
+![CoinLume Dark Mode](screenshots/dark-mode.png)
+
+### Coins
 
 ![CoinLume Coins Page](screenshots/coins.png)
 
 ### Coin Details
 
-![CoinLume Coin Details](screenshots/coin-details.png)
+![CoinLume Coin Details](screenshots/coin-detail.png)
 
-### Responsive View
+### Mobile View
 
 ![CoinLume Mobile View](screenshots/mobile.png)
-
-### Dark Mode
-
-![CoinLume Dark Mode](screenshots/dark-mode.png)
 
 ## Features
 
